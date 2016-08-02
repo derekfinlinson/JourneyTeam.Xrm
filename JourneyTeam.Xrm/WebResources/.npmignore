@@ -1,0 +1,11 @@
+bin/
+node_modules/
+obj/
+Properties/
+src/
+typings/
+gulpfile.js
+*.json
+*.xproj
+*.user
+.npmignore

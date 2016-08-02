@@ -1,0 +1,84 @@
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.pdb
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\AntiXSSLibrary.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.ServiceBus.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Client.CodeGeneration.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Client.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.Files.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Moq.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\CrmSvcUtil.exe
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.ServiceBus.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Deployment.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\Moq.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\bin\Debug\CrmSvcUtil.xml
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.csprojResolveAssemblyReference.cache
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.dll
+C:\Users\derek\Source\Workspaces\JourneyTEAM\JourneyTeam XRM\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.pdb
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.pdb
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\AntiXSSLibrary.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.ServiceBus.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Client.CodeGeneration.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Client.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.Files.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Moq.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\CrmSvcUtil.exe
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.ServiceBus.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Deployment.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Moq.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\CrmSvcUtil.xml
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.csprojResolveAssemblyReference.cache
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.dll
+C:\Users\derek\Source\Workspaces\Dynamics CRM\JourneyTeam\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.pdb
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.pdb
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\AntiXSSLibrary.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.IdentityModel.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.ServiceBus.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Client.CodeGeneration.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Client.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.Files.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Deployment.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Moq.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\CrmSvcUtil.exe
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.ServiceBus.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Portal.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Deployment.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Moq.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\CrmSvcUtil.xml
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.csprojResolveAssemblyReference.cache
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.dll
+C:\Users\derek\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.pdb

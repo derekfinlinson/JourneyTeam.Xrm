@@ -1,0 +1,8 @@
+{
+  "globalDependencies": {
+    "xrm": "registry:dt/xrm#7.1.0+20160621130620"
+  },
+  "dependencies": {
+    "es6-promise": "registry:npm/es6-promise#3.0.0+20160723033700"
+  }
+}
