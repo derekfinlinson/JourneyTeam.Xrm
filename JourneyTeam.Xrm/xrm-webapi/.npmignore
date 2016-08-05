@@ -1,10 +1,11 @@
-bin/
 node_modules/
 obj/
-Properties/
 src/
 gulpfile.js
 project*.json
 *.xproj
 *.user
 .npmignore
+*.njsproj
+tsconfig.json
+typings.json

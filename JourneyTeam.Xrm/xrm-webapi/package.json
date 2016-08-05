@@ -1,0 +1,15 @@
+{
+  "name": "xrm-webapi",
+  "version": "0.0.4",
+  "description": "xrm-webapi",
+  "main": "./dist/xrm-webapi.js",
+  "author": {
+    "name": "dcfinlinson"
+  },
+  "devDependencies": {
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.13.6",
+    "typings": "^1.3.2"
+  }
+}
