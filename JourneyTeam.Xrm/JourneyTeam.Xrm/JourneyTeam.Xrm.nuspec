@@ -5,11 +5,11 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>$author$</authors>
-    <owners>$author$</owners>    
+    <owners>$author$</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Update dependencies</releaseNotes>
+    <releaseNotes>Lower dependency to CRM 2013</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>Dynsamics CRM XRM</tags>
+    <tags>Dynamics CRM XRM</tags>
   </metadata>
 </package>

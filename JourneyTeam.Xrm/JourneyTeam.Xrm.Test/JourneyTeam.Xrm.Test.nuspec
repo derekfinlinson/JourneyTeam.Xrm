@@ -8,7 +8,7 @@
     <owners>$author$</owners>    
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release</releaseNotes>
+    <releaseNotes>Revert dependencies to CRM 2013</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Dynamics CRM XRM Unit Test Integration</tags>
   </metadata>

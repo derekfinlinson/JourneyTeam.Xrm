@@ -4,102 +4,6 @@
 		<name>Microsoft.Xrm.Sdk.Workflow</name>
 	</assembly>
 	<members>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute">
-			<summary>Specifies a description for the argument.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute.#ctor">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute"></see> class.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute.#ctor(System.String)">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute"></see> class setting the Value property.</summary>
-			<param name="value">Type: Returns_String. A description of the argument.</param>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute.ArgumentValue">
-			<summary>Gets the description of the argument.</summary>
-			<returns>Type: Returns_ObjectThe description of the argument.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentDescriptionAttribute.Value">
-			<summary>Gets or sets the argument’s description.</summary>
-			<returns>Type: Returns_StringThe argument’s description.</returns>
-		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDirection">
-			<summary>Contains values for the argument data flow direction.</summary>
-		</member>
-		<member name="F:Microsoft.Xrm.Sdk.Workflow.ArgumentDirection.Input">
-			<summary>Indicates the argument is a property of a message request. </summary>
-		</member>
-		<member name="F:Microsoft.Xrm.Sdk.Workflow.ArgumentDirection.Output">
-			<summary>Indicates the argument is a property of a message response. </summary>
-		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDirectionAttribute">
-			<summary>Specifies the direction, either input or output, for an action argument. </summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentDirectionAttribute.#ctor(Microsoft.Xrm.Sdk.Workflow.ArgumentDirection)">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDirectionAttribute"></see> class using an argument direction.</summary>
-			<param name="value">Type: <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDirection"></see>. The argument direction.</param>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentDirectionAttribute.ArgumentValue">
-			<summary>Gets the argument’s value.</summary>
-			<returns>Type: Returns_ObjectThe argument’s value.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentDirectionAttribute.Value">
-			<summary>Gets or sets the data direction of a custom attribute for an action.</summary>
-			<returns>Type: <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDirection"></see>The data direction of a custom attribute. Value=0 (input), or 1 (output).</returns>
-		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute">
-			<summary>Identifies the argument is an entity to be passed to the workflow at run-time.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute.#ctor">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute"></see> class.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute.#ctor(System.String)">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute"></see> class with the provided serialized entity record value.</summary>
-			<param name="value">Type: Returns_String. The serialized entity record.</param>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute.ArgumentValue">
-			<summary>Gets the entity value.</summary>
-			<returns>Type: <see cref="T:System.Object"></see>An entity that is passed to the workflow at run-time.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentEntityAttribute.Value">
-			<summary>Gets or sets the entity.</summary>
-			<returns>Type: <see cref="T:System.String"></see>The serialized entity record.</returns>
-		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute">
-			<summary>Specifies that the argument is required.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute.#ctor">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute"></see> class.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute.#ctor(System.Boolean)">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute"></see> class with the passed value.</summary>
-			<param name="value">Type: Returns_Boolean. Set to true if the argument is required; otherwise, false</param>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute.ArgumentValue">
-			<summary>Gets the argument value.</summary>
-			<returns>Type: Returns_ObjectThe argument value.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentRequiredAttribute.Value">
-			<summary>Gets or sets the argument value.</summary>
-			<returns>Type: Returns_BooleanTrue if the argument is required; otherwise, false.</returns>
-		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute">
-			<summary>Identifies the argument is the primary entity for which the workflow is run.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute.#ctor">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute"></see> class.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute.#ctor(System.Boolean)">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute"></see> class setting the Value property .</summary>
-			<param name="value">Type: Returns_Boolean. When true, the argument indicates the primary entity; otherwise, false</param>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute.ArgumentValue">
-			<summary>Gets the primary entity for which the workflow is run.</summary>
-			<returns>Type: Returns_ObjectThe primary entity for which the workflow is run.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.ArgumentTargetAttribute.Value">
-			<summary>Gets a value indicating the argument is the primary entity for which the workflow is run.</summary>
-			<returns>Type: Returns_BooleanWhen true, the argument is the primary entity for the workflow; otherwise, false.</returns>
-		</member>
 		<member name="T:Microsoft.Xrm.Sdk.Workflow.AttributeDependency">
 			<summary>Obsolete.</summary>
 		</member>
@@ -247,13 +151,6 @@
 			<summary>internal</summary>
 			<returns>Type: <see cref="T:Microsoft.Xrm.Sdk.Workflow.WaitSubscription"></see>.</returns>
 		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.IWorkflowArgument">
-			<summary>Represents an argument to be supplied to a workflow at run-time. </summary>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.IWorkflowArgument.ArgumentValue">
-			<summary>Gets the argument’s value.</summary>
-			<returns>Returns Returns_ObjectThe arguments value.</returns>
-		</member>
 		<member name="T:Microsoft.Xrm.Sdk.Workflow.IWorkflowContext">
 			<summary>Provides access to the data associated with the process instance.</summary>
 		</member>
@@ -268,10 +165,6 @@
 		<member name="P:Microsoft.Xrm.Sdk.Workflow.IWorkflowContext.WorkflowCategory">
 			<summary>Gets the process category information of the process instance: workflow or dialog.</summary>
 			<returns>Type: Returns_Int32 The process category information of the process instance: workflow or dialog.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.IWorkflowContext.WorkflowMode">
-			<summary>Indicates how the workflow is to be executed.</summary>
-			<returns>Type: Returns_Int32Value = 0 (background/asynchronous), 1 (real-time).</returns>
 		</member>
 		<member name="T:Microsoft.Xrm.Sdk.Workflow.LocalParameterDependency">
 			<summary>Obsolete.</summary>
@@ -394,53 +287,8 @@
 			<summary>internal</summary>
 			<returns>Type: Returns_String.</returns>
 		</member>
-		<member name="T:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument">
-			<summary>An argument to be passed to a workflow at run-time.</summary>
-		</member>
-		<member name="M:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.#ctor">
-			<summary>Initializes an instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument"></see> class.</summary>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.ArgumentType">
-			<summary>Gets or sets the data type of the workflow argument.</summary>
-			<returns>Type: Returns_TypeThe data type of the workflow argument.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.ContainerType">
-			<summary>Gets or sets the collection type that can contain the workflow argument. </summary>
-			<returns>Type: Returns_TypeThe collection type that can contain the workflow argument.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.Description">
-			<summary>Gets or sets a description of the workflow argument.</summary>
-			<returns>Type: Returns_StringA description of the workflow argument.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.Direction">
-			<summary>Gets or sets the data direction of the workflow argument.</summary>
-			<returns>Type: <see cref="T:Microsoft.Xrm.Sdk.Workflow.ArgumentDirection"></see>Specifies if the argument is input to or output from the workflow.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.EntityName">
-			<summary>Gets or sets the logical name of the primary entity that the workflow is executing for. </summary>
-			<returns>Type: Returns_StringThe logical name of the primary entity.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.Name">
-			<summary>Gets or sets a name for the workflow argument.</summary>
-			<returns>Type: Returns_StringA name for the workflow argument.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.Required">
-			<summary>Gets or sets if the workflow argument is required.</summary>
-			<returns>Type: Returns_Booleantrue if the argument is required; otherwise false.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.Target">
-			<summary>Gets or sets whether the argument is the primary entity being supplied to the workflow.</summary>
-			<returns>Type: Returns_Booleantrue if the argument is the primary entity; otherwise, false.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.WorkflowArgument.Value">
-			<summary>Gets or sets the value of the workflow argument.</summary>
-			<returns>Type: Returns_ObjectThe value of the workflow argument.</returns>
-		</member>
 		<member name="T:Microsoft.Xrm.Sdk.Workflow.WorkflowDependencyType">
 			<summary>Contains the integer flags to set the WorkflowDependency.Type attribute. </summary>
-		</member>
-		<member name="F:Microsoft.Xrm.Sdk.Workflow.WorkflowDependencyType.ArgumentEntityImage">
-			<summary>A dependency on an argument entity image. Value = 9.</summary>
 		</member>
 		<member name="F:Microsoft.Xrm.Sdk.Workflow.WorkflowDependencyType.AttributeDefinition">
 			<summary>A dependency on an attribute definition. Value = 8.</summary>
@@ -884,7 +732,7 @@
 			<summary>Starts a child workflow.</summary>
 		</member>
 		<member name="M:Microsoft.Xrm.Sdk.Workflow.Activities.StartChildWorkflow.#ctor">
-			<summary>Initializes a new instance of the <see cref="T:Microsoft.Xrm.Sdk.Workflow.Activities.StartChildWorkflow"></see> class.</summary>
+			<summary>Initializes a new instance of the  StartChildWorkflow class.</summary>
 		</member>
 		<member name="P:Microsoft.Xrm.Sdk.Workflow.Activities.StartChildWorkflow.EntityId">
 			<summary>Sets the ID of the primary entity for the child workflow.</summary>
@@ -893,10 +741,6 @@
 		<member name="P:Microsoft.Xrm.Sdk.Workflow.Activities.StartChildWorkflow.EntityName">
 			<summary>Sets the logical name of the entity specified by the EntityId property.</summary>
 			<returns>Type: Returns_InArgument_Generic The logical name of the entity specified by the EntityId property.</returns>
-		</member>
-		<member name="P:Microsoft.Xrm.Sdk.Workflow.Activities.StartChildWorkflow.InputParameters">
-			<summary>Gets or sets the input parameters.</summary>
-			<returns>Type: Returns_InArgument_GenericThe input parameters.</returns>
 		</member>
 		<member name="P:Microsoft.Xrm.Sdk.Workflow.Activities.StartChildWorkflow.WorkflowId">
 			<summary>Sets the ID of the workflow to be started.</summary>
