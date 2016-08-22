@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using JourneyTeam.Xrm.Plugin;
 using Moq;
 
 namespace JourneyTeam.Xrm.Test
@@ -10,28 +9,33 @@ namespace JourneyTeam.Xrm.Test
     [TestClass]
     public class BasePluginUnitTest
     {
-        /// <summary>
-        /// Invokes the plug-in.
-        /// </summary>
-        /// <param name="pluginType"></param>
-        /// <param name="target">The target entity</param>
-        /// <param name="serviceMock">The mock Organization Service</param>
-        public void InvokePlugin(Type pluginType, ref Entity target, Mock<IOrganizationService> serviceMock)
+        private readonly Type _childType;
+
+        public BasePluginUnitTest(Type childType)
         {
-            InvokePlugin(pluginType, ref target, null, null, serviceMock);
+            _childType = childType;
         }
 
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
-        /// <param name="pluginType"></param>
+        /// <param name="target">The target entity</param>
+        /// <param name="serviceMock">The mock Organization Service</param>
+        public void InvokePlugin(ref Entity target, Mock<IOrganizationService> serviceMock)
+        {
+            InvokePlugin(ref target, null, null, serviceMock);
+        }
+
+        /// <summary>
+        /// Invokes the plug-in.
+        /// </summary>
         /// <param name="target">The target entity</param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
         /// <param name="serviceMock">The mock Organization Service</param>
-        public void InvokePlugin(Type pluginType, ref Entity target, Entity preImage, Entity postImage, Mock<IOrganizationService> serviceMock)
+        public void InvokePlugin(ref Entity target, Entity preImage, Entity postImage, Mock<IOrganizationService> serviceMock)
         {
-            var testClass = Activator.CreateInstance(pluginType) as BasePlugin;
+            var testClass = Activator.CreateInstance(_childType) as IPlugin;
 
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();

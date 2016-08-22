@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using JourneyTeam.Xrm.Plugin;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Client;
@@ -28,6 +27,13 @@ namespace JourneyTeam.Xrm.Test
             }
         }
 
+        private readonly Type _childType;
+
+        public BasePluginIntegrationTest(Type childType)
+        {
+            _childType = childType;
+        }
+
         [ClassInitialize()]
         protected virtual void ClassInitialize(TestContext testContext) { }
 
@@ -37,27 +43,25 @@ namespace JourneyTeam.Xrm.Test
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
-        /// <param name="pluginType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="inputs"></param>
         /// <param name="outputs"></param>
-        protected void InvokePlugin(Type pluginType, ref Entity target, ParameterCollection inputs, ParameterCollection outputs)
+        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs)
         {
-            InvokePlugin(pluginType, ref target, inputs, outputs, null, null);
+            InvokePlugin(ref target, inputs, outputs, null, null);
         }
 
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
-        /// <param name="pluginType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="outputs"></param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
         /// <param name="inputs"></param>
-        protected void InvokePlugin(Type pluginType, ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage)
+        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage)
         {
-            var testClass = Activator.CreateInstance(pluginType) as BasePlugin;
+            var testClass = Activator.CreateInstance(_childType) as IPlugin;
 
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();

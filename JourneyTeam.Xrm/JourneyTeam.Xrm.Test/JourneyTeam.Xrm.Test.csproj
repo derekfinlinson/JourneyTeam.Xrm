@@ -145,7 +145,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="bin\Debug\JourneyTeam.Xrm.Test.dll.config" />
-    <None Include="JourneyTeam.Xrm.Test.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -29,6 +29,13 @@ namespace JourneyTeam.Xrm.Test
             }
         }
 
+        private readonly Type _childType;
+
+        public BaseWorkflowIntegrationTest(Type childType)
+        {
+            _childType = childType;
+        }
+
         // Use ClassInitialize to run code before running the first test in the class
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext) { }
@@ -40,13 +47,12 @@ namespace JourneyTeam.Xrm.Test
         /// <summary>
         /// Invokes the workflow.
         /// </summary>
-        /// <param name="workflowType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="inputs">The workflow input parameters</param>
         /// <returns>The workflow output parameters</returns>
-        protected IDictionary<string, object> InvokeWorkflow(Type workflowType, ref Entity target, Dictionary<string, object> inputs)
+        protected IDictionary<string, object> InvokeWorkflow(ref Entity target, Dictionary<string, object> inputs)
         {
-            var testClass = Activator.CreateInstance(workflowType) as CodeActivity;
+            var testClass = Activator.CreateInstance(_childType) as CodeActivity;
 
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();

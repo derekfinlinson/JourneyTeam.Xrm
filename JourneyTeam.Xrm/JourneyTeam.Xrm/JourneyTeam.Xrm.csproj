@@ -89,7 +89,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="JourneyTeam.Xrm.Key.snk" />
-    <None Include="JourneyTeam.Xrm.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
