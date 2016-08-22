@@ -10,33 +10,28 @@ namespace JourneyTeam.Xrm.Test
     [TestClass]
     public class BasePluginUnitTest
     {
-        private readonly Type _childType;
-
-        public BasePluginUnitTest(Type type)
-        {
-            _childType = type;
-        }
-
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
+        /// <param name="pluginType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="serviceMock">The mock Organization Service</param>
-        public void InvokePlugin(ref Entity target, Mock<IOrganizationService> serviceMock)
+        public void InvokePlugin(Type pluginType, ref Entity target, Mock<IOrganizationService> serviceMock)
         {
-            InvokePlugin(ref target, null, null, serviceMock);
+            InvokePlugin(pluginType, ref target, null, null, serviceMock);
         }
 
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
+        /// <param name="pluginType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
         /// <param name="serviceMock">The mock Organization Service</param>
-        public void InvokePlugin(ref Entity target, Entity preImage, Entity postImage, Mock<IOrganizationService> serviceMock)
+        public void InvokePlugin(Type pluginType, ref Entity target, Entity preImage, Entity postImage, Mock<IOrganizationService> serviceMock)
         {
-            var testClass = Activator.CreateInstance(_childType) as BasePlugin;
+            var testClass = Activator.CreateInstance(pluginType) as BasePlugin;
 
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();

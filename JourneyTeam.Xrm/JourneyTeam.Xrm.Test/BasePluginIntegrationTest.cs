@@ -13,11 +13,19 @@ namespace JourneyTeam.Xrm.Test
 {
     public class BasePluginIntegrationTest
     {
-        private readonly Type _childType;
-
-        public BasePluginIntegrationTest(Type type)
+        public IOrganizationService OrganizationService
         {
-            _childType = type;  
+            get
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString;
+                if (connectionString.IndexOf("[orgname]", StringComparison.OrdinalIgnoreCase) >= 0)
+                    throw new Exception("CRM connection string not set in app.config.");
+
+                var connection =
+                    CrmConnection.Parse(ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString);
+
+                return new OrganizationService(connection);
+            }
         }
 
         [ClassInitialize()]
@@ -29,37 +37,39 @@ namespace JourneyTeam.Xrm.Test
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
+        /// <param name="pluginType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="inputs"></param>
         /// <param name="outputs"></param>
-        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs)
+        protected void InvokePlugin(Type pluginType, ref Entity target, ParameterCollection inputs, ParameterCollection outputs)
         {
-            InvokePlugin(ref target, inputs, outputs, null, null);
+            InvokePlugin(pluginType, ref target, inputs, outputs, null, null);
         }
 
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
+        /// <param name="pluginType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="outputs"></param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
         /// <param name="inputs"></param>
-        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage)
+        protected void InvokePlugin(Type pluginType, ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage)
         {
-            var testClass = Activator.CreateInstance(_childType) as BasePlugin;
+            var testClass = Activator.CreateInstance(pluginType) as BasePlugin;
 
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();
             var pluginContextMock = new Mock<IPluginExecutionContext>();
             var serviceProviderMock = new Mock<IServiceProvider>();
 
-            IOrganizationService service = CreateOrganizationService();
-
             //Organization Service Factory Mock
-            factoryMock.Setup(t => t.CreateOrganizationService(It.IsAny<Guid>())).Returns(service);
-            var factory = factoryMock.Object;
+            var orgService = OrganizationService;
 
+            factoryMock.Setup(t => t.CreateOrganizationService(It.IsAny<Guid>())).Returns(orgService);
+            var factory = factoryMock.Object;
+            
             //Tracing Service - Content written appears in output
             tracingServiceMock.Setup(t => t.Trace(It.IsAny<string>(), It.IsAny<object[]>()))
                 .Callback<string, object[]>(MoqExtensions.WriteTrace);
@@ -68,7 +78,7 @@ namespace JourneyTeam.Xrm.Test
             //Plug-in Context Mock
             pluginContextMock.Setup(t => t.InputParameters).Returns(inputs);
             pluginContextMock.Setup(t => t.OutputParameters).Returns(outputs);
-            pluginContextMock.Setup(t => t.UserId).Returns(GetUser(service));
+            pluginContextMock.Setup(t => t.UserId).Returns(GetUser(orgService));
             pluginContextMock.Setup(t => t.PrimaryEntityName).Returns(target.LogicalName);
 
             var pluginContext = pluginContextMock.Object;
@@ -90,22 +100,6 @@ namespace JourneyTeam.Xrm.Test
             var serviceProvider = serviceProviderMock.Object;
 
             testClass?.Execute(serviceProvider);
-        }
-
-        /// <summary>
-        /// Creates the organization service from credentials in the App.config
-        /// </summary>
-        /// <returns>IOrganizationService</returns>
-        protected static IOrganizationService CreateOrganizationService()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString;
-            if (connectionString.IndexOf("[orgname]", StringComparison.OrdinalIgnoreCase) >= 0)
-                throw new Exception("CRM connection string not set in app.config.");
-
-            CrmConnection connection =
-                CrmConnection.Parse(ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString);
-
-            return new OrganizationService(connection);
         }
 
         protected Guid GetUser(IOrganizationService service)

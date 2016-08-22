@@ -14,13 +14,21 @@ namespace JourneyTeam.Xrm.Test
 {
     public class BaseWorkflowIntegrationTest
     {
-        private readonly Type _childType;
-        
-        public BaseWorkflowIntegrationTest(Type type)
+        public IOrganizationService OrganizationService
         {
-            _childType = type;
+            get
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString;
+                if (connectionString.IndexOf("[orgname]", StringComparison.OrdinalIgnoreCase) >= 0)
+                    throw new Exception("CRM connection string not set in app.config.");
+
+                var connection =
+                    CrmConnection.Parse(ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString);
+
+                return new OrganizationService(connection);
+            }
         }
-        
+
         // Use ClassInitialize to run code before running the first test in the class
         [ClassInitialize]
         public static void ClassInitialize(TestContext testContext) { }
@@ -28,22 +36,23 @@ namespace JourneyTeam.Xrm.Test
         // Use ClassCleanup to run code after all tests in a class have run
         [ClassCleanup]
         public static void ClassCleanup() { }
-        
+
         /// <summary>
         /// Invokes the workflow.
         /// </summary>
+        /// <param name="workflowType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="inputs">The workflow input parameters</param>
         /// <returns>The workflow output parameters</returns>
-        protected IDictionary<string, object> InvokeWorkflow(ref Entity target, Dictionary<string, object> inputs)
+        protected IDictionary<string, object> InvokeWorkflow(Type workflowType, ref Entity target, Dictionary<string, object> inputs)
         {
-            var testClass = Activator.CreateInstance(_childType) as CodeActivity;
+            var testClass = Activator.CreateInstance(workflowType) as CodeActivity;
 
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();
             var workflowContextMock = new Mock<IWorkflowContext>();
 
-            IOrganizationService service = CreateOrganizationService();
+            var orgService = OrganizationService;
 
             //Mock workflow Context
             var workflowUserId = Guid.NewGuid();
@@ -57,7 +66,7 @@ namespace JourneyTeam.Xrm.Test
             var workflowContext = workflowContextMock.Object;
 
             //Organization Service Factory Mock
-            factoryMock.Setup(t => t.CreateOrganizationService(It.IsAny<Guid>())).Returns(service);
+            factoryMock.Setup(t => t.CreateOrganizationService(It.IsAny<Guid>())).Returns(orgService);
             var factory = factoryMock.Object;
 
             //Tracing Service - Content written appears in output
@@ -75,22 +84,6 @@ namespace JourneyTeam.Xrm.Test
             invoker.Extensions.Add(() => factory);
 
             return invoker.Invoke(inputs);
-        }
-
-        /// <summary>
-        /// Creates the organization service from credentials in the App.config
-        /// </summary>
-        /// <returns>IOrganizationService</returns>
-        protected static IOrganizationService CreateOrganizationService()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString;
-            if (connectionString.IndexOf("[orgname]", StringComparison.OrdinalIgnoreCase) >= 0)
-                throw new Exception("CRM connection string not set in app.config.");
-
-            CrmConnection connection =
-                CrmConnection.Parse(ConfigurationManager.ConnectionStrings["CRMConnectionString"].ConnectionString);
-
-            return new OrganizationService(connection);
         }
 
         protected Guid GetUser(IOrganizationService service)

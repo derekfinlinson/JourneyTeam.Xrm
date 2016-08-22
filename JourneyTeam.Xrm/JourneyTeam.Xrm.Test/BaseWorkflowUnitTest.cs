@@ -11,24 +11,18 @@ namespace JourneyTeam.Xrm.Test
     [TestClass]
     public class BaseWorkflowUnitTest
     {
-        private readonly Type _childType;
-
-        public BaseWorkflowUnitTest(Type type)
-        {
-            _childType = type;
-        }
-
         /// <summary>
         /// Invokes the workflow.
         /// </summary>
+        /// <param name="workflowType"></param>
         /// <param name="target">The target entity</param>
         /// <param name="inputs">The workflow input parameters</param>
         /// <param name="configuredServiceMock">The function to configure the Organization Service</param>
         /// <returns>The workflow output parameters</returns>
-        protected IDictionary<string, object> InvokeWorkflow(ref Entity target, Dictionary<string, object> inputs,
+        protected IDictionary<string, object> InvokeWorkflow(Type workflowType, ref Entity target, Dictionary<string, object> inputs,
             Func<Mock<IOrganizationService>, Mock<IOrganizationService>> configuredServiceMock)
         {
-            var testClass = Activator.CreateInstance(_childType) as CodeActivity;
+            var testClass = Activator.CreateInstance(workflowType) as CodeActivity;
 
             var serviceMock = new Mock<IOrganizationService>();
             var factoryMock = new Mock<IOrganizationServiceFactory>();
