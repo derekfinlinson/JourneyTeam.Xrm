@@ -94,7 +94,6 @@ C:\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Micros
 C:\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
 C:\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
 C:\Source\Repos\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.IdentityModel.dll
-C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.pdb
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll

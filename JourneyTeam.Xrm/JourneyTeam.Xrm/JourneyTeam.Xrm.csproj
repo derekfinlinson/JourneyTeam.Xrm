@@ -87,7 +87,6 @@
     <Compile Include="WorkflowActivity\LocalWorkflowContext.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="JourneyTeam.Xrm.Key.snk" />
     <None Include="packages.config" />
   </ItemGroup>

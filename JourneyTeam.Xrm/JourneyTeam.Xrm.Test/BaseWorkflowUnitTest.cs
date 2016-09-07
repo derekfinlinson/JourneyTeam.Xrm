@@ -43,6 +43,9 @@ namespace JourneyTeam.Xrm.Test
             workflowContextMock.Setup(t => t.InitiatingUserId).Returns(workflowInitiatingUserId);
             workflowContextMock.Setup(t => t.CorrelationId).Returns(workflowCorrelationId);
             workflowContextMock.Setup(t => t.UserId).Returns(workflowUserId);
+            workflowContextMock.Setup(t => t.PrimaryEntityName).Returns(target.LogicalName);
+            workflowContextMock.Setup(t => t.PrimaryEntityId).Returns(target.Id);
+
             var workflowContext = workflowContextMock.Object;
 
             //Organization Service Factory Mock
