@@ -22,7 +22,7 @@ namespace JourneyTeam.Xrm.Test
         /// </summary>
         /// <param name="target">The target entity</param>
         /// <param name="inputs">The workflow input parameters</param>
-        /// <param name="serviceMock">Mock IOrganizatnion Service</param>
+        /// <param name="serviceMock">Mock IOrganization Service</param>
         /// <returns>The workflow output parameters</returns>
         protected IDictionary<string, object> InvokeWorkflow(ref Entity target, Dictionary<string, object> inputs, Mock<IOrganizationService> serviceMock)
         {
