@@ -22,21 +22,15 @@ namespace JourneyTeam.Xrm.Test
         /// </summary>
         /// <param name="target">The target entity</param>
         /// <param name="inputs">The workflow input parameters</param>
-        /// <param name="configuredServiceMock">The function to configure the Organization Service</param>
+        /// <param name="serviceMock">Mock IOrganizatnion Service</param>
         /// <returns>The workflow output parameters</returns>
-        protected IDictionary<string, object> InvokeWorkflow(ref Entity target, Dictionary<string, object> inputs,
-            Func<Mock<IOrganizationService>, Mock<IOrganizationService>> configuredServiceMock)
+        protected IDictionary<string, object> InvokeWorkflow(ref Entity target, Dictionary<string, object> inputs, Mock<IOrganizationService> serviceMock)
         {
             var testClass = Activator.CreateInstance(_childType) as CodeActivity;
-
-            var serviceMock = new Mock<IOrganizationService>();
+            
             var factoryMock = new Mock<IOrganizationServiceFactory>();
             var tracingServiceMock = new Mock<ITracingService>();
             var workflowContextMock = new Mock<IWorkflowContext>();
-
-            //Apply configured Organization Service Mock
-            if (configuredServiceMock != null)
-                serviceMock = configuredServiceMock(serviceMock);
 
             IOrganizationService service = serviceMock.Object;
 
