@@ -62,6 +62,7 @@ namespace JourneyTeam.Xrm.Test
             pluginContextMock.Setup(t => t.OutputParameters).Returns(outputParameters);
             pluginContextMock.Setup(t => t.UserId).Returns(Guid.NewGuid());
             pluginContextMock.Setup(t => t.PrimaryEntityName).Returns(target.LogicalName);
+            pluginContextMock.Setup(t => t.PrimaryEntityId).Returns(target.Id);
 
             var pluginContext = pluginContextMock.Object;
 
