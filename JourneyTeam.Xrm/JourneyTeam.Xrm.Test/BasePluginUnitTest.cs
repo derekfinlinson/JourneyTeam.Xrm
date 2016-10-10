@@ -75,10 +75,10 @@ namespace JourneyTeam.Xrm.Test
                 .Returns(pluginContext);
             if (preImage != null)
                 pluginContextMock.Setup(t => t.PreEntityImages)
-                    .Returns(new EntityImageCollection() {new KeyValuePair<string, Entity>("preImage", preImage)});
+                    .Returns(new EntityImageCollection() {new KeyValuePair<string, Entity>("PreImage", preImage)});
             if (postImage != null)
                 pluginContextMock.Setup(t => t.PostEntityImages)
-                    .Returns(new EntityImageCollection() {new KeyValuePair<string, Entity>("postImage", postImage)});
+                    .Returns(new EntityImageCollection() {new KeyValuePair<string, Entity>("PostImage", postImage)});
 
             var serviceProvider = serviceProviderMock.Object;
 
