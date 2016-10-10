@@ -36,8 +36,8 @@
       <HintPath>..\packages\Microsoft.CrmSdk.Extensions.6.0.0\lib\net40\AntiXSSLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JourneyTeam.Xrm, Version=1.2016.8.22, Culture=neutral, PublicKeyToken=8f9a17d5ed016e21, processorArchitecture=MSIL">
-      <HintPath>..\packages\JourneyTeam.Xrm.1.2016.8.22\lib\net40\JourneyTeam.Xrm.dll</HintPath>
+    <Reference Include="JourneyTeam.Xrm, Version=1.2016.8.24, Culture=neutral, PublicKeyToken=8f9a17d5ed016e21, processorArchitecture=MSIL">
+      <HintPath>..\packages\JourneyTeam.Xrm.2016.9.8.30\lib\net40\JourneyTeam.Xrm.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -143,6 +143,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="bin\Debug\JourneyTeam.Xrm.Test.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
