@@ -105,3 +105,4 @@ C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsof
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.csprojResolveAssemblyReference.cache
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.dll
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.pdb
+C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.xml
