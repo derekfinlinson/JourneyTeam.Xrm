@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>JourneyTeam.Xrm</id>
+    <id>JourneyTeam.Xrm.Test</id>
     <version>$version$</version>
-    <title>JourneyTeam.Xrm</title>
+    <title>JourneyTeam.Xrm.Test</title>
     <authors>JourneyTeam</authors>
     <owners>dfinlinson</owners>
     <projectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Base Classes for CRM Plugins and Workflows</description>
+    <description>Base Unit and Integration test classes for Dynamics CRM Plugins and Workflow</description>
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>CRM XRM DYNAMICS</tags>
+    <tags>XRM CRM DYNAMICS</tags>
   </metadata>
 </package>
