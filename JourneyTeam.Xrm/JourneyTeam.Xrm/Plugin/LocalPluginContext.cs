@@ -8,7 +8,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         ///     Microsoft Dynamics CRM organization service factory
         /// </summary>
-        private IOrganizationServiceFactory _factory;
+        private readonly IOrganizationServiceFactory _factory;
 
         /// <summary>
         ///     Microsoft Dynamics CRM organization service.
