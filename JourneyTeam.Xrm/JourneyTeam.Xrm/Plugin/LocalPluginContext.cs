@@ -18,7 +18,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         ///     IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, information related to the execution pipeline, and entity business information.
         /// </summary>
-        public IPluginExecutionContext PluginExecutionContext { get; private set; }
+        public IPluginExecutionContext PluginExecutionContext { get; }
 
         /// <summary>
         ///     Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
@@ -29,7 +29,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         ///     Provides logging run-time trace information for plug-ins. 
         /// </summary>
-        public ITracingService TracingService { get; private set; }
+        public ITracingService TracingService { get; }
 
         /// <summary>
         ///     Post Entity Images
