@@ -55,10 +55,10 @@ namespace JourneyTeam.Xrm.Test
         /// Invokes the plug-in.
         /// </summary>
         /// <param name="target">The target entity</param>
+        /// /// <param name="inputs"></param>
         /// <param name="outputs"></param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
-        /// <param name="inputs"></param>
         protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage)
         {
             var testClass = Activator.CreateInstance(_childType) as IPlugin;

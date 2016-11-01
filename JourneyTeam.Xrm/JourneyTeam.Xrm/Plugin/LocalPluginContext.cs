@@ -6,6 +6,11 @@ namespace JourneyTeam.Xrm.Plugin
     public class LocalPluginContext
     {
         /// <summary>
+        ///     Microsoft Dynamics CRM organization service factory
+        /// </summary>
+        private IOrganizationServiceFactory _factory;
+
+        /// <summary>
         ///     Microsoft Dynamics CRM organization service.
         /// </summary>
         public IOrganizationService OrganizationService { get; private set; }
@@ -61,10 +66,20 @@ namespace JourneyTeam.Xrm.Plugin
             NotificationService = (IServiceEndpointNotificationService)serviceProvider.GetService(typeof(IServiceEndpointNotificationService));
 
             // Obtain the organization factory service from the service provider.
-            IOrganizationServiceFactory factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            _factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             
             // Use the factory to generate the organization service.
-            OrganizationService = factory.CreateOrganizationService(PluginExecutionContext.UserId);
+            OrganizationService = _factory.CreateOrganizationService(PluginExecutionContext.UserId);
+        }
+
+        /// <summary>
+        ///     Create CRM Organization Service for a specific user id
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <returns>CRM Organization Service</returns>
+        public IOrganizationService CreateOrganizationService(Guid userId)
+        {
+            return _factory.CreateOrganizationService(userId);
         }
 
         /// <summary>
