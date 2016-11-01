@@ -69,7 +69,7 @@ namespace JourneyTeam.Xrm.Plugin
             _factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             
             // Use the factory to generate the organization service.
-            OrganizationService = _factory.CreateOrganizationService(PluginExecutionContext.UserId);
+            OrganizationService = CreateOrganizationService(PluginExecutionContext.UserId);
         }
 
         /// <summary>
