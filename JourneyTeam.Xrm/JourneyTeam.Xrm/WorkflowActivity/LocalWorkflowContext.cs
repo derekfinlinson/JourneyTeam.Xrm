@@ -7,6 +7,11 @@ namespace JourneyTeam.Xrm.WorkflowActivity
 {
     public class LocalWorkflowContext
     {
+        /// <summary>
+        /// Microsoft Dynamics CRM organization service factory
+        /// </summary>
+        private readonly IOrganizationServiceFactory _serviceFactory;
+
         public CodeActivityContext ExecutionContext { get; set; }
 
         /// <summary>
@@ -41,10 +46,21 @@ namespace JourneyTeam.Xrm.WorkflowActivity
             TracingService = activityContext.GetExtension<ITracingService>();
 
             // Obtain the organization factory service from the activity context
-            IOrganizationServiceFactory serviceFactory = activityContext.GetExtension<IOrganizationServiceFactory>();
+            _serviceFactory = activityContext.GetExtension<IOrganizationServiceFactory>();
 
             // Use the factory to generate the organization service.
-            OrganizationService = serviceFactory.CreateOrganizationService(Context.UserId);
+            OrganizationService = _serviceFactory.CreateOrganizationService(Context.UserId);
+        }
+
+        /// <summary>
+        /// Create CRM Organization Service for a specific user id
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <returns>CRM Organization Service</returns>
+        /// <remarks>Useful for impersonation</remarks>
+        public IOrganizationService CreateOrganizationService(Guid userId)
+        {
+            return _serviceFactory.CreateOrganizationService(userId);
         }
 
         /// <summary>

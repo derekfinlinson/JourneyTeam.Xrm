@@ -105,3 +105,4 @@ C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsof
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.xml
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.csprojResolveAssemblyReference.cache

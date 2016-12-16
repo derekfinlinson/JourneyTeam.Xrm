@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 
 namespace JourneyTeam.Xrm.Plugin
@@ -6,46 +7,53 @@ namespace JourneyTeam.Xrm.Plugin
     public class LocalPluginContext
     {
         /// <summary>
-        ///     Microsoft Dynamics CRM organization service factory
+        /// Microsoft Dynamics CRM organization service factory
         /// </summary>
         private readonly IOrganizationServiceFactory _factory;
 
         /// <summary>
-        ///     Microsoft Dynamics CRM organization service.
+        /// Microsoft Dynamics CRM organization service
         /// </summary>
         public IOrganizationService OrganizationService { get; private set; }
-
+        
         /// <summary>
-        ///     IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, information related to the execution pipeline, and entity business information.
+        /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
+        /// information related to the execution pipeline, and entity business information
         /// </summary>
         public IPluginExecutionContext PluginExecutionContext { get; }
-
+        
         /// <summary>
-        ///     Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
-        ///     It is through this notification service that synchronous plug-ins can send brokered messages to the Microsoft Azure Service Bus.
+        /// Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
+        /// It is through this notification service that synchronous plug-ins can send brokered messages to the Microsoft Azure Service Bus
         /// </summary>
         public IServiceEndpointNotificationService NotificationService { get; private set; }
 
         /// <summary>
-        ///     Provides logging run-time trace information for plug-ins. 
+        /// Event the current plugin is executing for
+        /// </summary>
+        public RegisteredEvent Event { get; set; }
+
+        /// <summary>
+        /// Provides logging run-time trace information for plug-ins
         /// </summary>
         public ITracingService TracingService { get; }
 
         /// <summary>
-        ///     Post Entity Images
+        /// Post Entity Images
         /// </summary>
         public EntityImageCollection PostImages { get; set; }
 
         /// <summary>
-        ///     Pre Entity Images
+        /// Pre Entity Images
         /// </summary>
         public EntityImageCollection PreImages { get; set; }
-
+        
         /// <summary>
-        /// Helper object that stores the services available in this plug-in.
+        /// Helper object that stores the services available in this plug-in
         /// </summary>
-        /// <param name="serviceProvider"></param>
-        public LocalPluginContext(IServiceProvider serviceProvider)
+        /// <param name="serviceProvider">IServiceProvider</param>
+        /// <param name="events">List of events the plugin should fire against</param>
+        public LocalPluginContext(IServiceProvider serviceProvider, IEnumerable<RegisteredEvent> events)
         {
             if (serviceProvider == null)
             {
@@ -70,13 +78,17 @@ namespace JourneyTeam.Xrm.Plugin
             
             // Use the factory to generate the organization service.
             OrganizationService = CreateOrganizationService(PluginExecutionContext.UserId);
+
+            // Set Event
+            Event = PluginExecutionContext.GetEvent(events);
         }
 
         /// <summary>
-        ///     Create CRM Organization Service for a specific user id
+        /// Create CRM Organization Service for a specific user id
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns>CRM Organization Service</returns>
+        /// <remarks>Useful for impersonation</remarks>
         public IOrganizationService CreateOrganizationService(Guid userId)
         {
             return _factory.CreateOrganizationService(userId);

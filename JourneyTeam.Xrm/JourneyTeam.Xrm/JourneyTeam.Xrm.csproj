@@ -83,7 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugin\BasePlugin.cs" />
+    <Compile Include="Plugin\Extensions.cs" />
     <Compile Include="Plugin\LocalPluginContext.cs" />
+    <Compile Include="Plugin\PipelineStage.cs" />
+    <Compile Include="Plugin\RegisteredEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkflowActivity\BaseWorkflowActivity.cs" />
     <Compile Include="WorkflowActivity\LocalWorkflowContext.cs" />
