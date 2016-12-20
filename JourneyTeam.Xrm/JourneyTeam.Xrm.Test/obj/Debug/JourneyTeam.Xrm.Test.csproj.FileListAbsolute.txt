@@ -20,3 +20,9 @@ C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\Jou
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.dll
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.pdb
 C:\Source\Git\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\JourneyTeam.Xrm.pdb
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\JourneyTeam.Xrm.Test.dll.config
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\JourneyTeam.Xrm.Test.dll
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\JourneyTeam.Xrm.Test.pdb
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.csprojResolveAssemblyReference.cache
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.dll
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.pdb
