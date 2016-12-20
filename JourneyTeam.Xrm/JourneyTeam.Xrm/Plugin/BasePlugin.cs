@@ -20,7 +20,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         /// Registered events for the plugin
         /// </summary>
-        public IEnumerable<RegisteredEvent> RegisteredEvents { get; set; }
+        public List<RegisteredEvent> RegisteredEvents { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the child class.
@@ -57,7 +57,7 @@ namespace JourneyTeam.Xrm.Plugin
 
             // Add registered events
             RegisterEvents();
-
+            
             // Construct the local plug-in context.
             var localContext = new LocalPluginContext(serviceProvider, RegisteredEvents);
 
