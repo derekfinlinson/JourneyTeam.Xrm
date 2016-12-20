@@ -35,6 +35,7 @@ namespace JourneyTeam.Xrm.Plugin
         protected BasePlugin(Type childClassName)
         {
             ChildClassName = childClassName.FullName;
+            RegisteredEvents = new List<RegisteredEvent>();
         }
 
         /// <summary>
