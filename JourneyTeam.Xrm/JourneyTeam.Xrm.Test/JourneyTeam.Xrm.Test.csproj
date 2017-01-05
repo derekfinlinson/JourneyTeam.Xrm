@@ -38,8 +38,8 @@
       <HintPath>..\packages\Microsoft.CrmSdk.Extensions.7.1.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="JourneyTeam.Xrm, Version=1.0.20.0, Culture=neutral, PublicKeyToken=8f9a17d5ed016e21, processorArchitecture=MSIL">
-      <HintPath>..\packages\JourneyTeam.Xrm.1.0.20\lib\net452\JourneyTeam.Xrm.dll</HintPath>
+    <Reference Include="JourneyTeam.Xrm, Version=1.0.21.0, Culture=neutral, PublicKeyToken=8f9a17d5ed016e21, processorArchitecture=MSIL">
+      <HintPath>..\packages\JourneyTeam.Xrm.1.0.21\lib\net452\JourneyTeam.Xrm.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using JourneyTeam.Xrm.Plugin;
 
 namespace JourneyTeam.Xrm.Test
 {
@@ -20,20 +21,26 @@ namespace JourneyTeam.Xrm.Test
         /// Invokes the plug-in.
         /// </summary>
         /// <param name="target">The target entity</param>
+        /// <param name="inputs"></param>
+        /// <param name="outputs"></param>
         /// <param name="serviceMock">The mock Organization Service</param>
-        public void InvokePlugin(ref Entity target, Mock<IOrganizationService> serviceMock)
+        /// <param name="registeredEvent"></param>
+        public void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Mock<IOrganizationService> serviceMock, RegisteredEvent registeredEvent)
         {
-            InvokePlugin(ref target, null, null, serviceMock);
+            InvokePlugin(ref target, inputs, outputs, null, null, serviceMock, registeredEvent);
         }
 
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
         /// <param name="target">The target entity</param>
+        /// <param name="inputs"></param>
+        /// <param name="outputs"></param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
         /// <param name="serviceMock">The mock Organization Service</param>
-        public void InvokePlugin(ref Entity target, Entity preImage, Entity postImage, Mock<IOrganizationService> serviceMock)
+        /// <param name="registeredEvent"></param>
+        public void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage, Mock<IOrganizationService> serviceMock, RegisteredEvent registeredEvent)
         {
             var testClass = Activator.CreateInstance(_childType) as IPlugin;
 
@@ -53,16 +60,14 @@ namespace JourneyTeam.Xrm.Test
                 .Callback<string, object[]>(MoqExtensions.WriteTrace);
             var tracingService = tracingServiceMock.Object;
 
-            //Parameter Collections
-            ParameterCollection inputParameters = new ParameterCollection {{"Target", target}};
-            ParameterCollection outputParameters = new ParameterCollection {{"id", Guid.NewGuid()}};
-
             //Plug-in Context Mock
-            pluginContextMock.Setup(t => t.InputParameters).Returns(inputParameters);
-            pluginContextMock.Setup(t => t.OutputParameters).Returns(outputParameters);
+            pluginContextMock.Setup(t => t.InputParameters).Returns(inputs);
+            pluginContextMock.Setup(t => t.OutputParameters).Returns(outputs);
             pluginContextMock.Setup(t => t.UserId).Returns(Guid.NewGuid());
             pluginContextMock.Setup(t => t.PrimaryEntityName).Returns(target.LogicalName);
             pluginContextMock.Setup(t => t.PrimaryEntityId).Returns(target.Id);
+            pluginContextMock.Setup(t => t.MessageName).Returns(registeredEvent.MessageName);
+            pluginContextMock.Setup(t => t.Stage).Returns((int)registeredEvent.Stage);
 
             var pluginContext = pluginContextMock.Object;
 

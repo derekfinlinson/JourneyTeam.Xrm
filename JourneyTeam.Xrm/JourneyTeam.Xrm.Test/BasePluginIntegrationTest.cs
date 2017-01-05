@@ -7,6 +7,7 @@ using Microsoft.Xrm.Client;
 using Microsoft.Xrm.Client.Services;
 using Microsoft.Xrm.Sdk;
 using Moq;
+using JourneyTeam.Xrm.Plugin;
 
 namespace JourneyTeam.Xrm.Test
 {
@@ -46,20 +47,20 @@ namespace JourneyTeam.Xrm.Test
         /// <param name="target">The target entity</param>
         /// <param name="inputs"></param>
         /// <param name="outputs"></param>
-        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs)
+        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, RegisteredEvent registeredEvent)
         {
-            InvokePlugin(ref target, inputs, outputs, null, null);
+            InvokePlugin(ref target, inputs, outputs, null, null, registeredEvent);
         }
 
         /// <summary>
         /// Invokes the plug-in.
         /// </summary>
         /// <param name="target">The target entity</param>
-        /// /// <param name="inputs"></param>
+        /// <param name="inputs"></param>
         /// <param name="outputs"></param>
         /// <param name="preImage">The pre image</param>
         /// <param name="postImage">The post image</param>
-        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage)
+        protected void InvokePlugin(ref Entity target, ParameterCollection inputs, ParameterCollection outputs, Entity preImage, Entity postImage, RegisteredEvent registeredEvent)
         {
             var testClass = Activator.CreateInstance(_childType) as IPlugin;
 
@@ -85,6 +86,8 @@ namespace JourneyTeam.Xrm.Test
             pluginContextMock.Setup(t => t.UserId).Returns(GetUser(orgService));
             pluginContextMock.Setup(t => t.PrimaryEntityName).Returns(target.LogicalName);
             pluginContextMock.Setup(t => t.PrimaryEntityId).Returns(target.Id);
+            pluginContextMock.Setup(t => t.MessageName).Returns(registeredEvent.MessageName);
+            pluginContextMock.Setup(t => t.Stage).Returns((int)registeredEvent.Stage);
 
             var pluginContext = pluginContextMock.Object;
 
