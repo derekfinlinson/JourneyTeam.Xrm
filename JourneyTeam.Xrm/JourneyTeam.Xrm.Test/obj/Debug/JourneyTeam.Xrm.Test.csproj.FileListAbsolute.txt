@@ -26,3 +26,8 @@ C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Deb
 C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.csprojResolveAssemblyReference.cache
 C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.dll
 C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\obj\Debug\JourneyTeam.Xrm.Test.pdb
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\Microsoft.Xrm.Tooling.Connector.dll
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm.Test\bin\Debug\Microsoft.Xrm.Tooling.Connector.xml
