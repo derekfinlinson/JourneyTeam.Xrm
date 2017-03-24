@@ -34,11 +34,6 @@ namespace JourneyTeam.Xrm.Plugin
         public RegisteredEvent Event { get; set; }
 
         /// <summary>
-        /// Provides logging run-time trace information for plug-ins
-        /// </summary>
-        public ITracingService TracingService { get; }
-
-        /// <summary>
         /// Post Entity Images
         /// </summary>
         public EntityImageCollection PostImages { get; set; }
@@ -47,7 +42,17 @@ namespace JourneyTeam.Xrm.Plugin
         /// Pre Entity Images
         /// </summary>
         public EntityImageCollection PreImages { get; set; }
-        
+
+        /// <summary>
+        /// Plugin InputParameters
+        /// </summary>
+        public ParameterCollection InputParameters { get; set; }
+
+        /// <summary>
+        /// Provides logging run-time trace information for plug-ins
+        /// </summary>
+        private readonly ITracingService _tracingService;
+
         /// <summary>
         /// Helper object that stores the services available in this plug-in
         /// </summary>
@@ -61,26 +66,27 @@ namespace JourneyTeam.Xrm.Plugin
             }
             
             // Obtain the execution context service from the service provider.
-            PluginExecutionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+            this.PluginExecutionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
             
             // Obtain the post and pre images
-            PostImages = PluginExecutionContext.PostEntityImages;
-            PreImages = PluginExecutionContext.PreEntityImages;
+            this.PostImages = this.PluginExecutionContext.PostEntityImages;
+            this.PreImages = this.PluginExecutionContext.PreEntityImages;
+            this.InputParameters = this.InputParameters;
 
             // Obtain the tracing service from the service provider.
-            TracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+            this._tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
 
             // Get the notification service from the service provider.
-            NotificationService = (IServiceEndpointNotificationService)serviceProvider.GetService(typeof(IServiceEndpointNotificationService));
+            this.NotificationService = (IServiceEndpointNotificationService)serviceProvider.GetService(typeof(IServiceEndpointNotificationService));
 
             // Obtain the organization factory service from the service provider.
-            _factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            this._factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
             
             // Use the factory to generate the organization service.
-            OrganizationService = CreateOrganizationService(PluginExecutionContext.UserId);
+            this.OrganizationService = CreateOrganizationService(this.PluginExecutionContext.UserId);
 
             // Set Event
-            Event = PluginExecutionContext.GetEvent(events);
+            this.Event = this.PluginExecutionContext.GetEvent(events);
         }
 
         /// <summary>
@@ -91,7 +97,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <remarks>Useful for impersonation</remarks>
         public IOrganizationService CreateOrganizationService(Guid userId)
         {
-            return _factory.CreateOrganizationService(userId);
+            return this._factory.CreateOrganizationService(userId);
         }
 
         /// <summary>
@@ -100,14 +106,12 @@ namespace JourneyTeam.Xrm.Plugin
         /// <param name="message">Message name to trace.</param>
         public void Trace(string message)
         {
-            if (string.IsNullOrWhiteSpace(message) || TracingService == null)
+            if (string.IsNullOrWhiteSpace(message) || this._tracingService == null)
             {
                 return;
             }
-
-            TracingService.Trace(PluginExecutionContext == null
-                ? message
-                : $"{message}, Correlation Id: {PluginExecutionContext.CorrelationId}, Initiating User: {PluginExecutionContext.InitiatingUserId}");
+            
+            this._tracingService.Trace(message);
         }
     }
 }
