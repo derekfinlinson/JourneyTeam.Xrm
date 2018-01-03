@@ -119,3 +119,16 @@ C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\Jo
 C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.dll
 C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.pdb
 C:\Workspace\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll.config
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.dll
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\JourneyTeam.Xrm.pdb
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.dll
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.IdentityModel.dll
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.dll
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.dll
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Crm.Sdk.Proxy.xml
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.xml
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\bin\Debug\Microsoft.Xrm.Sdk.Workflow.xml
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.csprojResolveAssemblyReference.cache
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.dll
+D:\GitHub\JourneyTeam.Xrm\JourneyTeam.Xrm\JourneyTeam.Xrm\obj\Debug\JourneyTeam.Xrm.pdb
