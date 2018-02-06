@@ -5,17 +5,18 @@ using Microsoft.Xrm.Sdk;
 
 namespace JourneyTeam.Xrm.Plugin
 {
-    public abstract class BasePlugin : IPlugin
+    public abstract class BasePlugin<TRequest, TResponse> : IPlugin
+        where TRequest : OrganizationRequest, new() where TResponse : OrganizationResponse, new()
     {
         /// <summary>
         ///     Pre Image alias name
         /// </summary>
-        public const string PreImageAlias = "PreImage";
+        public readonly string PreImageAlias = "PreImage";
 
         /// <summary>
         ///     Post Image alias name
         /// </summary>
-        public const string PostImageAlias = "PostImage";
+        public readonly string PostImageAlias = "PostImage";
 
         /// <summary>
         /// Registered events for the plugin
@@ -58,9 +59,9 @@ namespace JourneyTeam.Xrm.Plugin
 
             // Add registered events
             RegisterEvents();
-            
+
             // Construct the local plug-in context.
-            var localContext = new LocalPluginContext(serviceProvider, RegisteredEvents);
+            var localContext = new LocalPluginContext<TRequest, TResponse>(serviceProvider, RegisteredEvents);
 
             localContext.Trace($"Entered {ChildClassName}.Execute()");
 
@@ -74,10 +75,10 @@ namespace JourneyTeam.Xrm.Plugin
                     return;
                 }
 
-                // Invoke the custom implementation 
+                // Invoke the custom implementation
                 var execute = localContext.Event.Execute == null
                     ? ExecutePlugin
-                    : new Action<LocalPluginContext>(c => localContext.Event.Execute(c));
+                    : new Action<IExtendedPluginContext>(c => localContext.Event.Execute(c));
 
                 execute(localContext);
             }
@@ -103,6 +104,6 @@ namespace JourneyTeam.Xrm.Plugin
         /// Execution method for the plugin
         /// </summary>
         /// <param name="localContext">Context for the current plug-in.</param>
-        protected abstract void ExecutePlugin(LocalPluginContext localContext);
+        protected abstract void ExecutePlugin(IExtendedPluginContext localContext);
     }
 }

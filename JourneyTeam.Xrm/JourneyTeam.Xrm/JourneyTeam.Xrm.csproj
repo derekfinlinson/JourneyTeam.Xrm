@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Plugin\BasePlugin.cs" />
     <Compile Include="Plugin\Extensions.cs" />
+    <Compile Include="Plugin\IExtendedPluginContext.cs" />
     <Compile Include="Plugin\LocalPluginContext.cs" />
     <Compile Include="Plugin\PipelineStage.cs" />
     <Compile Include="Plugin\RegisteredEvent.cs" />

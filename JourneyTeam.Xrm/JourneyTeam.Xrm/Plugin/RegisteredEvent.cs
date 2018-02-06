@@ -22,7 +22,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         /// Action to execute for the event
         /// </summary>
-        public Action<LocalPluginContext> Execute { get; set; }
+        public Action<IExtendedPluginContext> Execute { get; set; }
 
         /// <summary>
         /// Initialize a RegisteredEvent without an Action
@@ -44,7 +44,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <param name="messageName">Message name</param>
         /// <param name="entityLogicalName">Entity logical name</param>
         /// <param name="action">Action to execute</param>
-        public RegisteredEvent(PipelineStage stage, string messageName, string entityLogicalName, Action<LocalPluginContext> action)
+        public RegisteredEvent(PipelineStage stage, string messageName, string entityLogicalName, Action<IExtendedPluginContext> action)
         {
             Stage = stage;
             MessageName = messageName;
