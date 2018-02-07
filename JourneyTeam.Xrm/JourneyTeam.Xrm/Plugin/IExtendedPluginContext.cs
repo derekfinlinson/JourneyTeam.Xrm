@@ -10,5 +10,6 @@ namespace JourneyTeam.Xrm.Plugin
         IOrganizationService OrganizationService { get; }
         IOrganizationService SystemOrganizationService { get; }
         IOrganizationService InitiatingUserOrganizationService { get; }
+        void Trace(string message);
     }
 }

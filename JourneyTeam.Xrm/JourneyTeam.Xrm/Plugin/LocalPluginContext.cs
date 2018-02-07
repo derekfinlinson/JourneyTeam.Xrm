@@ -4,8 +4,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace JourneyTeam.Xrm.Plugin
 {
-    public class LocalPluginContext<TRequest, TResponse> : IExtendedPluginContext
-        where TRequest : OrganizationRequest, new() where TResponse : OrganizationResponse, new()
+    public class LocalPluginContext : IExtendedPluginContext
     {
         #region IPluginExecutionContext Properties
 
@@ -83,8 +82,15 @@ namespace JourneyTeam.Xrm.Plugin
         /// </summary>
         public RegisteredEvent Event { get; set; }
 
-        public TRequest Request { get; set; }
-        public TResponse Response { get; set; }
+        /// <summary>
+        ///     Pre Image alias name
+        /// </summary>
+        public readonly string PreImageAlias = "PreImage";
+
+        /// <summary>
+        ///     Post Image alias name
+        /// </summary>
+        public readonly string PostImageAlias = "PostImage";
 
         private readonly IOrganizationServiceFactory _factory;
         private IOrganizationService _organizationService;
@@ -123,17 +129,6 @@ namespace JourneyTeam.Xrm.Plugin
 
             // Set Event
             Event = PluginExecutionContext.GetEvent(events);
-
-            // Set Request and Response
-            Request = new TRequest
-            {
-                Parameters = PluginExecutionContext.InputParameters
-            };
-
-            Response = new TResponse
-            {
-                Results = PluginExecutionContext.OutputParameters
-            };
         }
 
         public IOrganizationService CreateOrganizationService(Guid? userId)
