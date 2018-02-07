@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
-<package >
+<package>
   <metadata>
     <id>JourneyTeam.Xrm</id>
     <version>$version$</version>
     <title>JourneyTeam.Xrm</title>
-    <authors>JourneyTeam</authors>
+    <authors>Derek Finlinson</authors>
     <owners>dfinlinson</owners>
     <projectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Base Classes for CRM Plugins and Workflows</description>
+    <description>Base Classes for Dynamics 365 Plugins and Workflows</description>
     <releaseNotes></releaseNotes>
-    <copyright>Copyright 2016</copyright>
-    <tags>CRM XRM DYNAMICS</tags>
+    <copyright>Copyright 2018</copyright>
+    <tags>CRM XRM DYNAMICS 365</tags>
   </metadata>
 </package>
