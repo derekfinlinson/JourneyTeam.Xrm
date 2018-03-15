@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xrm.Sdk;
 
 namespace JourneyTeam.Xrm.Plugin
 {

@@ -4,6 +4,8 @@ namespace JourneyTeam.Xrm.Plugin
 {
     public interface IExtendedPluginContext : IPluginExecutionContext
     {
+        OrganizationRequest Request { get; }
+        OrganizationResponse Response { get; }
         string PluginTypeName { get; }
         RegisteredEvent Event { get; }
         EntityReference PrimaryEntity { get; }

@@ -80,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Plugin\IPluginHandler.cs" />
-    <Compile Include="Plugin\RequestContext.cs" />
     <Compile Include="Plugin\BasePlugin.cs" />
     <Compile Include="Plugin\BasePluginHandler.cs" />
     <Compile Include="Plugin\Extensions.cs" />

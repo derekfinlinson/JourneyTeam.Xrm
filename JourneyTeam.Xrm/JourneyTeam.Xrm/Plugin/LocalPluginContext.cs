@@ -55,6 +55,10 @@ namespace JourneyTeam.Xrm.Plugin
 
         public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
 
+        public OrganizationRequest Request => new OrganizationRequest { Parameters = PluginExecutionContext.InputParameters };
+
+        public OrganizationResponse Response => new OrganizationResponse { Results = PluginExecutionContext.OutputParameters };
+
         #region IPluginExecutionContext Properties
         public int Stage => PluginExecutionContext.Stage;
         public IPluginExecutionContext ParentContext => PluginExecutionContext.ParentContext;

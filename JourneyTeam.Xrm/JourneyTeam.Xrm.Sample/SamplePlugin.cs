@@ -13,10 +13,10 @@ namespace JourneyTeam.Xrm.Sample
         protected override void ExecutePlugin(IExtendedPluginContext context)
         {
             // Create request context to get correct OrganzationRequest/Response
-            var requestContext = (RequestContext<CreateRequest, CreateResponse>)context;
+            var request = (CreateRequest) context.Request;
 
             // Get target
-            var target = requestContext.Request.Target;
+            var target = request.Target;
         }
     }
 }
