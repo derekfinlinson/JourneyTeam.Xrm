@@ -44,7 +44,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         /// Execution method for the plugin
         /// </summary>
-        /// <param name="localContext">Context for the current plug-in.</param>
+        /// <param name="context">Context for the current plug-in.</param>
         protected abstract void ExecutePlugin(T context);
 
         /// <summary>
@@ -78,8 +78,11 @@ namespace JourneyTeam.Xrm.Plugin
                 // Verify plugin is running for a registered event
                 if (context.Event == null)
                 {
-                    context.Trace(
-                        $"No Registered Event Found for Event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.Stage}!");
+                    var message = context.PluginExecutionContext.MessageName;
+                    var entity = context.PluginExecutionContext.PrimaryEntityName;
+                    var stage = context.PluginExecutionContext.Stage;
+
+                    context.Trace($"No Registered Event Found for Event: {message}, Entity: {entity}, and Stage: {stage}!");
                     return;
                 }
 
