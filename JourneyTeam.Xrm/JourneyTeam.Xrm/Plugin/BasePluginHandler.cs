@@ -5,8 +5,7 @@ using System.ServiceModel;
 
 namespace JourneyTeam.Xrm.Plugin
 {
-    public abstract class BasePluginHandler<T> : IPlugin
-        where T: IExtendedPluginContext
+    public abstract class BasePluginHandler : IPluginHandler
     {
         /// <summary>
         /// Registered events for the plugin
@@ -14,17 +13,10 @@ namespace JourneyTeam.Xrm.Plugin
         public List<RegisteredEvent> RegisteredEvents { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the child class.
-        /// </summary>
-        /// <value>The name of the child class.</value>
-        protected string ChildClassName { get; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BasePlugin"/> class.
         /// </summary>
         protected BasePluginHandler()
         {
-            ChildClassName = GetType().FullName;
             RegisteredEvents = new List<RegisteredEvent>();
         }
 
@@ -38,13 +30,13 @@ namespace JourneyTeam.Xrm.Plugin
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public abstract T CreatePluginContext(IServiceProvider serviceProvider);
+        public abstract IExtendedPluginContext CreatePluginContext(IServiceProvider serviceProvider);
 
         /// <summary>
         /// Execution method for the plugin
         /// </summary>
         /// <param name="context">Context for the current plug-in.</param>
-        protected abstract void ExecutePlugin(T context);
+        protected abstract void ExecutePlugin(IExtendedPluginContext context);
 
         /// <summary>
         /// Main entry point for he business logic that the plug-in is to execute.
@@ -70,25 +62,21 @@ namespace JourneyTeam.Xrm.Plugin
             // Construct the local plug-in context.
             var context = CreatePluginContext(serviceProvider);
 
-            context.Trace($"Entered {ChildClassName}.Execute()");
+            context.Trace($"Entered {context.PluginTypeName}.Execute()");
 
             try
             {
                 // Verify plugin is running for a registered event
                 if (context.Event == null)
                 {
-                    var message = context.PluginExecutionContext.MessageName;
-                    var entity = context.PluginExecutionContext.PrimaryEntityName;
-                    var stage = context.PluginExecutionContext.Stage;
-
-                    context.Trace($"No Registered Event Found for Event: {message}, Entity: {entity}, and Stage: {stage}!");
+                    context.Trace($"No Registered Event Found for Event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.Stage}!");
                     return;
                 }
 
                 // Invoke the custom implementation
                 var execute = context.Event.Execute == null
                     ? ExecutePlugin
-                    : new Action<T>(c => context.Event.Execute(c));
+                    : new Action<IExtendedPluginContext>(c => context.Event.Execute(c));
 
                 execute(context);
             }
@@ -100,7 +88,7 @@ namespace JourneyTeam.Xrm.Plugin
             }
             finally
             {
-                context.Trace($"Exiting {ChildClassName}.Execute()");
+                context.Trace($"Exiting {context.PluginTypeName}.Execute()");
             }
         }
     }

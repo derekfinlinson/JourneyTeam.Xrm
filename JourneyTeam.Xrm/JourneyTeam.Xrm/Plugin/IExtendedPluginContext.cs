@@ -2,8 +2,9 @@
 
 namespace JourneyTeam.Xrm.Plugin
 {
-    public interface IExtendedPluginContext
+    public interface IExtendedPluginContext : IPluginExecutionContext
     {
+        string PluginTypeName { get; }
         RegisteredEvent Event { get; }
         EntityReference PrimaryEntity { get; }
         IPluginExecutionContext PluginExecutionContext { get; }
