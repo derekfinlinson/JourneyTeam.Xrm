@@ -5,10 +5,6 @@ namespace JourneyTeam.Xrm.Sample
 {
     public class SamplePlugin : BasePlugin<CreateRequest, CreateResponse>
     {
-        protected SamplePlugin() : base(typeof(SamplePlugin))
-        {
-        }
-
         public override void RegisterEvents()
         {
             RegisteredEvents.Add(new RegisteredEvent(PipelineStage.PostOperation, "Create", "contact"));

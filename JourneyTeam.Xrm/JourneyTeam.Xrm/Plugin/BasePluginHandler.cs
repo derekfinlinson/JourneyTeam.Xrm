@@ -22,10 +22,9 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePlugin"/> class.
         /// </summary>
-        /// <param name="childType">The <see cref="Type"/> of the derived class.</param>
-        protected BasePluginHandler(Type childType)
+        protected BasePluginHandler()
         {
-            ChildClassName = childType.FullName;
+            ChildClassName = GetType().FullName;
             RegisteredEvents = new List<RegisteredEvent>();
         }
 
