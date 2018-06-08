@@ -4,9 +4,11 @@ namespace JourneyTeam.Xrm.Plugin
 {
     public interface IExtendedPluginContext : IPluginExecutionContext
     {
-        OrganizationRequest Request { get; }
-        OrganizationResponse Response { get; }
+        OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new();
+        OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new();
         string PluginTypeName { get; }
+        string PreImageAlias { get; }
+        string PostImageAlias { get; }
         RegisteredEvent Event { get; }
         EntityReference PrimaryEntity { get; }
         IPluginExecutionContext PluginExecutionContext { get; }

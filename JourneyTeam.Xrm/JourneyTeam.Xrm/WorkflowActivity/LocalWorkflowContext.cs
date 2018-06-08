@@ -5,51 +5,111 @@ using Microsoft.Xrm.Sdk.Workflow;
 
 namespace JourneyTeam.Xrm.WorkflowActivity
 {
-    public class LocalWorkflowContext
+    public class LocalWorkflowContext : IExtendedWorkflowContext
     {
+        #region IWorkflowContext Properties
+        public string StageName => WorkflowContext.StageName;
+
+        public int WorkflowCategory => WorkflowContext.WorkflowCategory;
+
+        public IWorkflowContext ParentContext => WorkflowContext.ParentContext;
+
+        public int Mode => WorkflowContext.Mode;
+
+        public int IsolationMode => WorkflowContext.IsolationMode;
+
+        public int Depth => WorkflowContext.Depth;
+
+        public string MessageName => WorkflowContext.MessageName;
+
+        public string PrimaryEntityName => WorkflowContext.PrimaryEntityName;
+
+        public Guid? RequestId => WorkflowContext.RequestId;
+
+        public string SecondaryEntityName => WorkflowContext.SecondaryEntityName;
+
+        public ParameterCollection InputParameters => WorkflowContext.InputParameters;
+
+        public ParameterCollection OutputParameters => WorkflowContext.OutputParameters;
+
+        public ParameterCollection SharedVariables => WorkflowContext.SharedVariables;
+
+        public Guid UserId => WorkflowContext.UserId;
+
+        public Guid InitiatingUserId => WorkflowContext.InitiatingUserId;
+
+        public Guid BusinessUnitId => WorkflowContext.BusinessUnitId;
+
+        public Guid OrganizationId => WorkflowContext.OrganizationId;
+
+        public string OrganizationName => WorkflowContext.OrganizationName;
+
+        public Guid PrimaryEntityId => WorkflowContext.PrimaryEntityId;
+
+        public EntityImageCollection PreEntityImages => WorkflowContext.PreEntityImages;
+
+        public EntityImageCollection PostEntityImages => WorkflowContext.PostEntityImages;
+
+        public EntityReference OwningExtension => WorkflowContext.OwningExtension;
+
+        public Guid CorrelationId => WorkflowContext.CorrelationId;
+
+        public bool IsExecutingOffline => WorkflowContext.IsExecutingOffline;
+
+        public bool IsOfflinePlayback => WorkflowContext.IsOfflinePlayback;
+
+        public bool IsInTransaction => WorkflowContext.IsInTransaction;
+
+        public Guid OperationId => WorkflowContext.OperationId;
+
+        public DateTime OperationCreatedOn => WorkflowContext.OperationCreatedOn;
+        #endregion
+
+        public string WorkflowTypeName { get; }
+
         /// <summary>
-        /// Microsoft Dynamics CRM organization service factory
+        /// Primary entity from the context as an entity reference
         /// </summary>
-        private readonly IOrganizationServiceFactory _serviceFactory;
+        public EntityReference PrimaryEntity => new EntityReference(PrimaryEntityName, PrimaryEntityId);
 
         public CodeActivityContext ExecutionContext { get; set; }
 
         /// <summary>
-        ///     Workflow context
+        /// Workflow context
         /// </summary>
-        public IWorkflowContext Context { get; }
+        public IWorkflowContext WorkflowContext { get; }
 
         /// <summary>
-        ///     Microsoft Dynamics CRM organization service.
-        /// </summary>
-        public IOrganizationService OrganizationService { get; private set; }
-
-        /// <summary>
-        ///     Provides logging run-time trace information for plug-ins. 
+        /// Provides logging run-time trace information for plug-ins. 
         /// </summary>
         public ITracingService TracingService { get; }
 
-        public LocalWorkflowContext(CodeActivityContext activityContext)
-        {
-            if (activityContext == null)
-            {
-                throw new ArgumentNullException(nameof(activityContext));
-            }
+        private readonly IOrganizationServiceFactory _factory;
+        private IOrganizationService _organizationService;
+        private IOrganizationService _systemOrganizationService;
+        private IOrganizationService _initiatedOrganizationService;
 
+        public IOrganizationService OrganizationService => _organizationService ?? (_organizationService = CreateOrganizationService(UserId));
+
+        public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(null));
+
+        public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
+
+        public LocalWorkflowContext(CodeActivityContext activityContext, BaseWorkflowActivity workflow)
+        {
             // Obtain the activity execution context
-            ExecutionContext = activityContext;
+            ExecutionContext = activityContext ?? throw new ArgumentNullException(nameof(activityContext));
 
             // Obtain the execution context service from activity context
-            Context = activityContext.GetExtension<IWorkflowContext>();
+            WorkflowContext = activityContext.GetExtension<IWorkflowContext>();
 
             // Obtain the tracing service from the activity context
             TracingService = activityContext.GetExtension<ITracingService>();
 
             // Obtain the organization factory service from the activity context
-            _serviceFactory = activityContext.GetExtension<IOrganizationServiceFactory>();
+            _factory = activityContext.GetExtension<IOrganizationServiceFactory>();
 
-            // Use the factory to generate the organization service.
-            OrganizationService = _serviceFactory.CreateOrganizationService(Context.UserId);
+            WorkflowTypeName = workflow.GetType().FullName;
         }
 
         /// <summary>
@@ -58,9 +118,9 @@ namespace JourneyTeam.Xrm.WorkflowActivity
         /// <param name="userId">User ID</param>
         /// <returns>CRM Organization Service</returns>
         /// <remarks>Useful for impersonation</remarks>
-        public IOrganizationService CreateOrganizationService(Guid userId)
+        public IOrganizationService CreateOrganizationService(Guid? userId)
         {
-            return _serviceFactory.CreateOrganizationService(userId);
+            return _factory.CreateOrganizationService(userId);
         }
 
         /// <summary>
@@ -74,9 +134,7 @@ namespace JourneyTeam.Xrm.WorkflowActivity
                 return;
             }
 
-            TracingService.Trace(Context == null
-                ? message
-                : $"{message}, Correlation Id: {Context.CorrelationId}, Initiating User: {Context.InitiatingUserId}");
+            TracingService.Trace(message);
         }
     }
 }

@@ -5,6 +5,36 @@ namespace JourneyTeam.Xrm.Plugin
 {
     public class LocalPluginContext : IExtendedPluginContext
     {
+        #region IPluginExecutionContext Properties
+        public int Stage => PluginExecutionContext.Stage;
+        public IPluginExecutionContext ParentContext => PluginExecutionContext.ParentContext;
+        public int Mode => PluginExecutionContext.Mode;
+        public int IsolationMode => PluginExecutionContext.IsolationMode;
+        public int Depth => PluginExecutionContext.Depth;
+        public string MessageName => PluginExecutionContext.MessageName;
+        public string PrimaryEntityName => PluginExecutionContext.PrimaryEntityName;
+        public Guid? RequestId => PluginExecutionContext.RequestId;
+        public string SecondaryEntityName => PluginExecutionContext.SecondaryEntityName;
+        public ParameterCollection InputParameters => PluginExecutionContext.InputParameters;
+        public ParameterCollection OutputParameters => PluginExecutionContext.OutputParameters;
+        public ParameterCollection SharedVariables => PluginExecutionContext.SharedVariables;
+        public Guid UserId => PluginExecutionContext.UserId;
+        public Guid InitiatingUserId => PluginExecutionContext.InitiatingUserId;
+        public Guid BusinessUnitId => PluginExecutionContext.BusinessUnitId;
+        public Guid OrganizationId => PluginExecutionContext.OrganizationId;
+        public string OrganizationName => PluginExecutionContext.OrganizationName;
+        public Guid PrimaryEntityId => PluginExecutionContext.PrimaryEntityId;
+        public EntityImageCollection PreEntityImages => PluginExecutionContext.PreEntityImages;
+        public EntityImageCollection PostEntityImages => PluginExecutionContext.PostEntityImages;
+        public EntityReference OwningExtension => PluginExecutionContext.OwningExtension;
+        public Guid CorrelationId => PluginExecutionContext.CorrelationId;
+        public bool IsExecutingOffline => PluginExecutionContext.IsExecutingOffline;
+        public bool IsOfflinePlayback => PluginExecutionContext.IsOfflinePlayback;
+        public bool IsInTransaction => PluginExecutionContext.IsInTransaction;
+        public Guid OperationId => PluginExecutionContext.OperationId;
+        public DateTime OperationCreatedOn => PluginExecutionContext.OperationCreatedOn;
+        #endregion
+
         public string PluginTypeName { get; }
 
         /// <summary>
@@ -37,12 +67,12 @@ namespace JourneyTeam.Xrm.Plugin
         /// <summary>
         /// Pre Image alias name
         /// </summary>
-        public readonly string PreImageAlias = "PreImage";
+        public string PreImageAlias => "PreImage";
 
         /// <summary>
         /// Post Image alias name
         /// </summary>
-        public readonly string PostImageAlias = "PostImage";
+        public string PostImageAlias => "PostImage";
 
         private readonly IOrganizationServiceFactory _factory;
         private IOrganizationService _organizationService;
@@ -57,39 +87,15 @@ namespace JourneyTeam.Xrm.Plugin
 
         public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
 
-        public OrganizationRequest Request => _request ?? (_request = new OrganizationRequest { Parameters = PluginExecutionContext.InputParameters });
+        public OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new()
+        {
+            return _request ?? (_request = new T { Parameters = PluginExecutionContext.InputParameters });
+        }
 
-        public OrganizationResponse Response => _response ?? (_response = new OrganizationResponse { Results = PluginExecutionContext.OutputParameters });
-
-        #region IPluginExecutionContext Properties
-        public int Stage => PluginExecutionContext.Stage;
-        public IPluginExecutionContext ParentContext => PluginExecutionContext.ParentContext;
-        public int Mode => PluginExecutionContext.Mode;
-        public int IsolationMode => PluginExecutionContext.IsolationMode;
-        public int Depth => PluginExecutionContext.Depth;
-        public string MessageName => PluginExecutionContext.MessageName;
-        public string PrimaryEntityName => PluginExecutionContext.PrimaryEntityName;
-        public Guid? RequestId => PluginExecutionContext.RequestId;
-        public string SecondaryEntityName => PluginExecutionContext.SecondaryEntityName;
-        public ParameterCollection InputParameters => PluginExecutionContext.InputParameters;
-        public ParameterCollection OutputParameters => PluginExecutionContext.OutputParameters;
-        public ParameterCollection SharedVariables => PluginExecutionContext.SharedVariables;
-        public Guid UserId => PluginExecutionContext.UserId;
-        public Guid InitiatingUserId => PluginExecutionContext.InitiatingUserId;
-        public Guid BusinessUnitId => PluginExecutionContext.BusinessUnitId;
-        public Guid OrganizationId => PluginExecutionContext.OrganizationId;
-        public string OrganizationName => PluginExecutionContext.OrganizationName;
-        public Guid PrimaryEntityId => PluginExecutionContext.PrimaryEntityId;
-        public EntityImageCollection PreEntityImages => PluginExecutionContext.PreEntityImages;
-        public EntityImageCollection PostEntityImages => PluginExecutionContext.PostEntityImages;
-        public EntityReference OwningExtension => PluginExecutionContext.OwningExtension;
-        public Guid CorrelationId => PluginExecutionContext.CorrelationId;
-        public bool IsExecutingOffline => PluginExecutionContext.IsExecutingOffline;
-        public bool IsOfflinePlayback => PluginExecutionContext.IsOfflinePlayback;
-        public bool IsInTransaction => PluginExecutionContext.IsInTransaction;
-        public Guid OperationId => PluginExecutionContext.OperationId;
-        public DateTime OperationCreatedOn => PluginExecutionContext.OperationCreatedOn;
-        #endregion
+        public OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new()
+        {
+            return _response ?? (_response = new T { Results = PluginExecutionContext.OutputParameters });
+        }
 
         /// <summary>
         /// Helper object that stores the services available in this plug-in

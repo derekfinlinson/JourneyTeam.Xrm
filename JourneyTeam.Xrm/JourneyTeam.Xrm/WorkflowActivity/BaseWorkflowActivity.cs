@@ -8,18 +8,10 @@ namespace JourneyTeam.Xrm.WorkflowActivity
     public abstract class BaseWorkflowActivity : CodeActivity
     {
         /// <summary>
-        /// Gets or sets the name of the child class.
-        /// </summary>
-        /// <value>The name of the child class.</value>
-        protected string ChildClassName { get; }
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="BaseWorkflowActivity"/> class.
         /// </summary>
-        /// <param name="childClassName">The <see cref="Type"/> of the derived class.</param>
-        protected BaseWorkflowActivity(Type childClassName)
+        protected BaseWorkflowActivity()
         {
-            ChildClassName = childClassName.ToString();
         }
 
         protected override void Execute(CodeActivityContext context)
@@ -30,9 +22,9 @@ namespace JourneyTeam.Xrm.WorkflowActivity
             }
 
             // Get local workflow context
-            var localContext = new LocalWorkflowContext(context);
+            var localContext = new LocalWorkflowContext(context, this);
 
-            localContext.Trace($"Entered {ChildClassName}.Execute()");
+            localContext.Trace($"Entered {localContext.WorkflowTypeName}.Execute()");
 
             try
             {
@@ -48,7 +40,7 @@ namespace JourneyTeam.Xrm.WorkflowActivity
             }
             finally
             {
-                localContext.Trace($"Exiting {ChildClassName}.Execute()");
+                localContext.Trace($"Exiting {localContext.WorkflowTypeName}.Execute()");
             }
         }
 
