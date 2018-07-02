@@ -78,6 +78,8 @@ namespace JourneyTeam.Xrm.Plugin
                     ? ExecutePlugin
                     : new Action<IExtendedPluginContext>(c => context.Event.Execute(c));
 
+                context.Trace("Executing registered event");
+
                 execute(context);
             }
             catch (FaultException<OrganizationServiceFault> e)

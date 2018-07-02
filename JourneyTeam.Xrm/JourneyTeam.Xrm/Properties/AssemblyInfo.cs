@@ -33,3 +33,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.2016.8.24")]
 [assembly: AssemblyFileVersion("1.2016.8.24")]
+
+[assembly: Microsoft.Xrm.Sdk.Client.ProxyTypesAssembly]
