@@ -5,72 +5,14 @@ using Microsoft.Xrm.Sdk.Workflow;
 
 namespace JourneyTeam.Xrm.WorkflowActivity
 {
-    public class LocalWorkflowContext : IExtendedWorkflowContext
+    public class LocalWorkflowContext
     {
-        #region IWorkflowContext Properties
-        public string StageName => WorkflowContext.StageName;
-
-        public int WorkflowCategory => WorkflowContext.WorkflowCategory;
-
-        public IWorkflowContext ParentContext => WorkflowContext.ParentContext;
-
-        public int Mode => WorkflowContext.Mode;
-
-        public int IsolationMode => WorkflowContext.IsolationMode;
-
-        public int Depth => WorkflowContext.Depth;
-
-        public string MessageName => WorkflowContext.MessageName;
-
-        public string PrimaryEntityName => WorkflowContext.PrimaryEntityName;
-
-        public Guid? RequestId => WorkflowContext.RequestId;
-
-        public string SecondaryEntityName => WorkflowContext.SecondaryEntityName;
-
-        public ParameterCollection InputParameters => WorkflowContext.InputParameters;
-
-        public ParameterCollection OutputParameters => WorkflowContext.OutputParameters;
-
-        public ParameterCollection SharedVariables => WorkflowContext.SharedVariables;
-
-        public Guid UserId => WorkflowContext.UserId;
-
-        public Guid InitiatingUserId => WorkflowContext.InitiatingUserId;
-
-        public Guid BusinessUnitId => WorkflowContext.BusinessUnitId;
-
-        public Guid OrganizationId => WorkflowContext.OrganizationId;
-
-        public string OrganizationName => WorkflowContext.OrganizationName;
-
-        public Guid PrimaryEntityId => WorkflowContext.PrimaryEntityId;
-
-        public EntityImageCollection PreEntityImages => WorkflowContext.PreEntityImages;
-
-        public EntityImageCollection PostEntityImages => WorkflowContext.PostEntityImages;
-
-        public EntityReference OwningExtension => WorkflowContext.OwningExtension;
-
-        public Guid CorrelationId => WorkflowContext.CorrelationId;
-
-        public bool IsExecutingOffline => WorkflowContext.IsExecutingOffline;
-
-        public bool IsOfflinePlayback => WorkflowContext.IsOfflinePlayback;
-
-        public bool IsInTransaction => WorkflowContext.IsInTransaction;
-
-        public Guid OperationId => WorkflowContext.OperationId;
-
-        public DateTime OperationCreatedOn => WorkflowContext.OperationCreatedOn;
-        #endregion
-
         public string WorkflowTypeName { get; }
 
         /// <summary>
         /// Primary entity from the context as an entity reference
         /// </summary>
-        public EntityReference PrimaryEntity => new EntityReference(PrimaryEntityName, PrimaryEntityId);
+        public EntityReference PrimaryEntity => new EntityReference(WorkflowContext.PrimaryEntityName, WorkflowContext.PrimaryEntityId);
 
         public CodeActivityContext ExecutionContext { get; set; }
 
@@ -89,11 +31,11 @@ namespace JourneyTeam.Xrm.WorkflowActivity
         private IOrganizationService _systemOrganizationService;
         private IOrganizationService _initiatedOrganizationService;
 
-        public IOrganizationService OrganizationService => _organizationService ?? (_organizationService = CreateOrganizationService(UserId));
+        public IOrganizationService OrganizationService => _organizationService ?? (_organizationService = CreateOrganizationService(WorkflowContext.UserId));
 
         public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(null));
 
-        public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
+        public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(WorkflowContext.InitiatingUserId));
 
         public LocalWorkflowContext(CodeActivityContext activityContext, BaseWorkflowActivity workflow)
         {

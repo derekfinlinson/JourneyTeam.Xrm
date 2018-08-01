@@ -89,7 +89,6 @@
     <Compile Include="Plugin\RegisteredEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkflowActivity\BaseWorkflowActivity.cs" />
-    <Compile Include="WorkflowActivity\IExtendedWorkflowContext.cs" />
     <Compile Include="WorkflowActivity\LocalWorkflowContext.cs" />
   </ItemGroup>
   <ItemGroup>
