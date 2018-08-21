@@ -7,13 +7,6 @@ namespace JourneyTeam.Xrm.WorkflowActivity
 {
     public abstract class BaseWorkflowActivity : CodeActivity
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BaseWorkflowActivity"/> class.
-        /// </summary>
-        protected BaseWorkflowActivity()
-        {
-        }
-
         protected override void Execute(CodeActivityContext context)
         {
             if (context == null)
@@ -48,6 +41,6 @@ namespace JourneyTeam.Xrm.WorkflowActivity
         /// Placeholder for a custom plug-in implementation. 
         /// </summary>
         /// <param name="localContext">Context for the current plug-in.</param>
-        protected abstract void ExecuteWorkflowActivity(LocalWorkflowContext localContext);
+        public abstract void ExecuteWorkflowActivity(LocalWorkflowContext localContext);
     }
 }

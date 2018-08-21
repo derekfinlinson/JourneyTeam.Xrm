@@ -9,9 +9,9 @@ namespace JourneyTeam.Xrm.Plugin
         public static RegisteredEvent GetEvent(this IPluginExecutionContext context, IEnumerable<RegisteredEvent> events)
         {
             return events.FirstOrDefault(e =>
-                    (int) e.Stage == context.Stage &&
-                    e.MessageName == context.MessageName &&
-                    (string.IsNullOrWhiteSpace(e.EntityLogicalName) || e.EntityLogicalName == context.PrimaryEntityName)
+                    (int)e.Stage == context.Stage
+                    && e.MessageName == context.MessageName
+                    && (string.IsNullOrWhiteSpace(e.EntityLogicalName) || e.EntityLogicalName == context.PrimaryEntityName)
             );
         }
     }

@@ -10,7 +10,7 @@ namespace JourneyTeam.Xrm.Sample
             RegisteredEvents.Add(new RegisteredEvent(PipelineStage.PostOperation, "Create", "contact"));
         }
 
-        protected override void ExecutePlugin(IExtendedPluginContext context)
+        public override void ExecutePlugin(IExtendedPluginContext context)
         {
             // Create request context to get correct OrganzationRequest/Response
             var request = (CreateRequest) context.GetRequest<CreateRequest>();

@@ -36,7 +36,7 @@ namespace JourneyTeam.Xrm.Plugin
         /// Execution method for the plugin
         /// </summary>
         /// <param name="context">Context for the current plug-in.</param>
-        protected abstract void ExecutePlugin(IExtendedPluginContext context);
+        public abstract void ExecutePlugin(IExtendedPluginContext context);
 
         /// <summary>
         /// Main entry point for he business logic that the plug-in is to execute.
