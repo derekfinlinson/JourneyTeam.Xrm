@@ -92,11 +92,6 @@
     <Folder Include="bin\Release\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GitVersionTask">
-      <Version>4.0.0-beta0014</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.CrmSdk.Workflow">
       <Version>5.0.17</Version>
     </PackageReference>
