@@ -3,12 +3,6 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
 
-variables:
-- Major: '1'
-- Minor: '1'
-
-name: $(Major).$(Minor).$(rev:.r)
-
 pool:
   vmImage: 'VS2017-Win2016'
 
