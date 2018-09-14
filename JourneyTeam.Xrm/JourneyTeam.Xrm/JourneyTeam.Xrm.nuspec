@@ -12,10 +12,5 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>CRM XRM DYNAMICS 365</tags>
-    <dependencies>
-      <dependency id="Microsoft.CrmSdk.Workflow" version="5.0.17" />
-      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="5.0.17" />
-      <dependency id="Microsoft.IdentityModel" version="6.1.7600.16394" />
-    </dependencies>
   </metadata>
 </package>
