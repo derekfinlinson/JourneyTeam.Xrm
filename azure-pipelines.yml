@@ -1,0 +1,19 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+variables:
+  version: 1.1.$(rev:.r)
+  
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+steps:
+- script: dotnet restore
+  displayName: 'Restore nuget packages'
+
+- script: dotnet build  
+  displayName: 'Build project'
+
+- script: dotnet pack /p:PackageVersion=$(version)
