@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-variables:
-- version: 1.1.$(rev:.r)
+name: 1.1.$(Rev:r)
   
 pool:
   vmImage: 'Ubuntu 16.04'
@@ -16,4 +15,4 @@ steps:
 - script: dotnet build  
   displayName: 'Build project'
 
-- script: dotnet pack /p:PackageVersion=$(version)
+- script: dotnet pack /p:PackageVersion=$(name)
