@@ -6,7 +6,7 @@
 name: 1.1.$(Rev:r)
   
 pool:
-  vmImage: 'Ubuntu 16.04'
+  vmImage: 'vs2017-win2016'
 
 steps:
 - script: dotnet restore
