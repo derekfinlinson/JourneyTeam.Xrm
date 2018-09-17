@@ -8,8 +8,8 @@ name: 1.1.$(Rev:r)
 pool:
   vmImage: 'vs2017-win2016'
 
-- script: dotnet build  
+- script: dotnet build
   displayName: 'Build project'
 
-- script: dotnet pack -c Release --no-build /p:PackageVersion=$(Build.BuildNumber)
+- script: dotnet pack -c 'Release' --no-build /p:PackageVersion=$(Build.BuildNumber)
   displayName: 'Pack nuget package'
