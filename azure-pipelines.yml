@@ -10,7 +10,7 @@ pool:
 
 steps:
 
-- script: dotnet build  
+- script: dotnet build -c Release  
   displayName: 'Build project'
 
 - script: dotnet pack -c Release --no-build /p:PackageVersion=$(Build.BuildNumber)
