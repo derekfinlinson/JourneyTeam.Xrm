@@ -21,4 +21,9 @@ steps:
     contents: '**\*.nupkg'
     targetFolder: $(Build.ArtifactStagingDirectory)
     cleanTargetFolder: true
-    overWrite: true    
+    overWrite: true
+  displayName: 'Copy nuget package to artifact staging'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+    
