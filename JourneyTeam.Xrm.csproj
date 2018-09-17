@@ -1,7 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <NuspecFile>JourneyTeam.Xrm.nuspec</NuspecFile>
+    <PackageId>JourneyTeam.Xrm</PackageId>
+    <Authors>Derek Finlinson</Authors>
+    <PackageProjectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>Base Classes for Dynamics 365 Plugins and Workflows</Description>
+    <Copyright>Copyright 2018</Copyright>
+    <PackageTags>CRM;XRM;DYNAMICS 365</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>

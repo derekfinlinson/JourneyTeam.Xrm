@@ -8,11 +8,8 @@ name: 1.1.$(Rev:r)
 pool:
   vmImage: 'vs2017-win2016'
 
-steps:
-- script: dotnet restore
-  displayName: 'Restore nuget packages'
-
 - script: dotnet build  
   displayName: 'Build project'
 
-- script: dotnet pack /p:PackageVersion=$(Build.BuildNumber)
+- script: dotnet pack -c Release --no-build /p:PackageVersion=$(Build.BuildNumber)
+  displayName: 'Pack nuget package'
