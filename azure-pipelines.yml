@@ -14,4 +14,11 @@ steps:
   displayName: 'Build project'
 
 - script: dotnet pack -c Release --no-build /p:PackageVersion=$(Build.BuildNumber)
-  displayName: 'Pack nuget'
+  displayName: 'Create nuget package'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**\*.nupkg'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+    cleanTargetFolder: true
+    overWrite: true    
