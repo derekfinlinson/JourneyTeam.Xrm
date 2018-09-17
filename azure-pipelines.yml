@@ -15,4 +15,4 @@ steps:
 - script: dotnet build  
   displayName: 'Build project'
 
-- script: dotnet pack /p:PackageVersion=$(name)
+- script: dotnet pack /p:PackageVersion=$(Build.BuildNumber)
