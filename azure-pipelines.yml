@@ -36,11 +36,3 @@ steps:
     command: pack
     packagesToPack: '**/*.nuspec'
     versioningScheme: byBuildNumber
-
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: 'Nuget.org'
-    versioningScheme: byEnvVar
-    versionEnvVar: Version
