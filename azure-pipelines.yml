@@ -15,11 +15,3 @@ steps:
 
 - script: dotnet pack -c Release --no-build /p:PackageVersion=$(Build.BuildNumber)
   displayName: 'Pack nuget'
-
-- task: NuGetCommand@2
-  inputs:
-    command: push
-    nuGetFeedType: external
-    publishFeedCredentials: 'Nuget.org'
-    versioningScheme: byEnvVar
-    versionEnvVar: version
