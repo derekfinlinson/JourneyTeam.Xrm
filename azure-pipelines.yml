@@ -3,8 +3,8 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-name: 1.1.$(Rev:r)
-  
+name: 1.2.$(Rev:r)
+
 pool:
   vmImage: 'vs2017-win2016'
 
@@ -12,9 +12,6 @@ steps:
 
 - script: dotnet build -c Release  
   displayName: 'Build project'
-
-- script: dotnet pack -c Release --no-build /p:PackageVersion=$(Build.BuildNumber)
-  displayName: 'Create nuget package'
 
 - task: CopyFiles@2
   inputs:
@@ -24,6 +21,15 @@ steps:
     overWrite: true
   displayName: 'Copy nuget package to artifact staging'
 
-- task: PublishBuildArtifacts@1
+  - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'
+
+  - task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'Nuget'
+    versioningScheme: byBuildNumber
+
+
     

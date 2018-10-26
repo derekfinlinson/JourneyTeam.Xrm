@@ -1,4 +1,4 @@
-﻿namespace JourneyTeam.Xrm.Plugin
+﻿namespace Xrm
 {
     /// <summary>
     /// Pipeline stage of the Plugin
