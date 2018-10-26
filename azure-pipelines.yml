@@ -22,7 +22,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'
 
-  - task: NuGetCommand@2
+- task: NuGetCommand@2
   inputs:
     command: push
     nuGetFeedType: external
