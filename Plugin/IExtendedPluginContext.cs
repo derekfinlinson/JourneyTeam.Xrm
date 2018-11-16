@@ -25,6 +25,11 @@ namespace Xrm
         string PostImageAlias { get; }
 
         /// <summary>
+        /// Pipeline stage for the context
+        /// </summary>
+        PipelineStage PipelineStage { get; }
+        
+        /// <summary>
         /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
         /// information related to the execution pipeline, and entity business information
         /// </summary>
@@ -46,6 +51,9 @@ namespace Xrm
         /// </summary>
         OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new();
 
-        bool PreventDuplicatePluginExecution(); 
+        /// <summary>
+        /// Prevent plugin from running multiple times for the same context
+        /// </summary>
+        bool IsDuplicatePluginExecution(); 
     }
 }

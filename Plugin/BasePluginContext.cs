@@ -1,11 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
 
 namespace Xrm
 {
     public class BasePluginContext : IExtendedPluginContext
     {
+        #region Private members for lazy loading
+
+        private readonly IServiceProvider _provider;
+        private readonly IOrganizationServiceFactory _factory;
+        private IPluginExecutionContext _pluginContext;
+        private IServiceEndpointNotificationService _notification;
+        private IOrganizationService _organizationService;
+        private IOrganizationService _systemOrganizationService;
+        private IOrganizationService _initiatedOrganizationService;
+        private ITracingService _tracing;
+        private OrganizationRequest _request;
+        private OrganizationResponse _response;
+
+        #endregion
+
         #region IPluginExecutionContext Properties
+
         public int Stage => PluginExecutionContext.Stage;
         public IPluginExecutionContext ParentContext => PluginExecutionContext.ParentContext;
         public int Mode => PluginExecutionContext.Mode;
@@ -33,7 +50,10 @@ namespace Xrm
         public bool IsInTransaction => PluginExecutionContext.IsInTransaction;
         public Guid OperationId => PluginExecutionContext.OperationId;
         public DateTime OperationCreatedOn => PluginExecutionContext.OperationCreatedOn;
+
         #endregion
+
+        #region IExtendedPluginContext Properties
 
         /// <summary>
         /// Name of the plugin the context is running against
@@ -41,36 +61,9 @@ namespace Xrm
         public string PluginTypeName { get; }
 
         /// <summary>
-        /// Pipeline stage for the context
-        /// </summary>
-        public PipelineStage PipelineStage => (PipelineStage)Stage;
-        
-        /// <summary>
-        /// Primary entity from the context as an entity reference
-        /// </summary>
-        public EntityReference PrimaryEntity => new EntityReference(PrimaryEntityName, PrimaryEntityId);
-
-        /// <summary>
         /// Event the current plugin is executing for
         /// </summary>
         public RegisteredEvent Event { get; private set; }
-
-        /// <summary>
-        /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
-        /// information related to the execution pipeline, and entity business information
-        /// </summary>
-        public IPluginExecutionContext PluginExecutionContext { get; }
-
-        /// <summary>
-        /// Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
-        /// It is through this notification service that synchronous plug-ins can send brokered messages to the Microsoft Azure Service Bus
-        /// </summary>
-        public IServiceEndpointNotificationService NotificationService { get; }
-
-        /// <summary>
-        /// Provides logging run-time trace information for plug-ins
-        /// </summary>
-        public ITracingService TracingService { get; }
 
         /// <summary>
         /// Pre Image alias name
@@ -82,12 +75,43 @@ namespace Xrm
         /// </summary>
         public string PostImageAlias => "PostImage";
 
-        private readonly IOrganizationServiceFactory _factory;
-        private IOrganizationService _organizationService;
-        private IOrganizationService _systemOrganizationService;
-        private IOrganizationService _initiatedOrganizationService;
-        private OrganizationRequest _request;
-        private OrganizationResponse _response;
+        /// <summary>
+        /// Pipeline stage for the context
+        /// </summary>
+        public PipelineStage PipelineStage => (PipelineStage)Stage;
+        
+        /// <summary>
+        /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
+        /// information related to the execution pipeline, and entity business information
+        /// </summary>
+        public IPluginExecutionContext PluginExecutionContext =>
+            _pluginContext ?? (_pluginContext = (IPluginExecutionContext)_provider.GetService(typeof(IPluginExecutionContext)));
+
+        /// <summary>
+        /// Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
+        /// It is through this notification service that synchronous plug-ins can send brokered messages to the Microsoft Azure Service Bus
+        /// </summary>
+        public IServiceEndpointNotificationService NotificationService =>
+            _notification ?? (_notification = (IServiceEndpointNotificationService)_provider.GetService(typeof(IServiceEndpointNotificationService)));
+
+        /// <summary>
+        /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
+        /// </summary>
+        public OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new() => _request ?? (_request = new T { Parameters = PluginExecutionContext.InputParameters });        
+
+        /// <summary>
+        /// Get a <see href="OrganizationResponse" /> object for the current plugin execution
+        /// </summary>
+        public OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new() => _response ?? (_response = new T { Results = PluginExecutionContext.OutputParameters });
+
+        #endregion
+
+        #region IExtendedExecutionContext Properties
+
+        /// <summary>
+        /// Provides logging run-time trace information for plug-ins
+        /// </summary>
+        public ITracingService TracingService => _tracing ?? (_tracing = (ITracingService)_provider.GetService(typeof(ITracingService)));
 
         /// <summary>
         /// <see cref="IOrganizationService"/> using the user from the plugin context
@@ -97,55 +121,42 @@ namespace Xrm
         /// <summary>
         /// <see cref="IOrganizationService"/> using the SYSTEM user
         /// </summary>
-        public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(null));
+        public IOrganizationService SystemOrganizationService =>
+            _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(null));
 
         /// <summary>
         /// <see cref="IOrganizationService"/> using the initiating user from the plugin context
         /// </summary>
-        public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
+        public IOrganizationService InitiatingUserOrganizationService =>
+            _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
 
         /// <summary>
-        /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
+        /// Primary entity from the context as an entity reference
         /// </summary>
-        public OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new()
-        {
-            return _request ?? (_request = new T { Parameters = PluginExecutionContext.InputParameters });
-        }
+        public EntityReference PrimaryEntity => new EntityReference(PrimaryEntityName, PrimaryEntityId);
 
-        /// <summary>
-        /// Get a <see href="OrganizationResponse" /> object for the current plugin execution
-        /// </summary>
-        public OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new()
-        {
-            return _response ?? (_response = new T { Results = PluginExecutionContext.OutputParameters });
-        }
+        #endregion
 
         /// <summary>
         /// Helper object that stores the services available in this plug-in
         /// </summary>
         /// <param name="serviceProvider">IServiceProvider</param>
+        /// <param name="events">List of <see href="RegisteredEvents" /> for the plugin</param>
         /// <param name="plugin">Plugin handler</param>
-        public BasePluginContext(IServiceProvider serviceProvider, BasePlugin plugin)
+        public BasePluginContext(IServiceProvider serviceProvider, IEnumerable<RegisteredEvent> events, IBasePlugin plugin)
         {
             if (serviceProvider == null)
             {
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            // Obtain the execution context service from the service provider.
-            PluginExecutionContext = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+            _provider = serviceProvider;
 
-            // Obtain the tracing service from the service provider.
-            TracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
-
-            // Get the notification service from the service provider.
-            NotificationService = (IServiceEndpointNotificationService)serviceProvider.GetService(typeof(IServiceEndpointNotificationService));
-
-            // Obtain the organization factory service from the service provider.
-            _factory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            // Obtain the organization factory service from the service provider
+            _factory = (IOrganizationServiceFactory)_provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Set Event
-            Event = PluginExecutionContext.GetEvent(plugin.RegisteredEvents);
+            Event = PluginExecutionContext.GetEvent(events);
 
             PluginTypeName = plugin.GetType().FullName;
         }
@@ -153,7 +164,7 @@ namespace Xrm
         /// <summary>
         /// Prevent plugin from running multiple times for the same context
         /// </summary>
-        public bool PreventDuplicatePluginExecution()
+        public bool IsDuplicatePluginExecution()
         {
             // Delete message can't be called twice so can ignore
             if (Event.MessageName == "Delete")
@@ -161,7 +172,7 @@ namespace Xrm
                 return false;
             }
 
-            var key = $"{PluginTypeName}|{MessageName}|{PipelineStage}|{PrimaryEntityId}";
+            var key = $"{PluginTypeName}|{MessageName}|{PipelineStage.ToString()}|{PrimaryEntityId}";
 
             // Check if key exists in shared variables
             if (this.GetSharedVariable<bool>(key) == true)

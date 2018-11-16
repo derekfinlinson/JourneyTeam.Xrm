@@ -7,13 +7,6 @@ namespace Xrm
 {
     public abstract class BasePlugin : IBasePlugin
     {
-        private IEnumerable<RegisteredEvent> _events;
-
-        /// <summary>
-        /// Registered events for the plugin
-        /// </summary>
-        public IEnumerable<RegisteredEvent> RegisteredEvents => _events ?? (_events = RegisterEvents());
-
         /// <summary>
         /// Plugin unsecure configuration object
         /// </summary>
@@ -42,25 +35,15 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Registered events for the plugin.
-        /// </summary>
-        public abstract IEnumerable<RegisteredEvent> RegisterEvents();
-
-        /// <summary>
-        /// Creates the local plugin context
+        /// Creates the base plugin context
         /// </summary>
         /// <param name="serviceProvider">The <see href="IServiceProvider" /> object</param>
+        /// <param name="events">List of <see href="RegisteredEvents" /> for the plugin</param>
         /// <returns>IExtendedPluginContext object</returns>
-        public virtual IExtendedPluginContext CreatePluginContext(IServiceProvider serviceProvider)
+        public virtual IExtendedPluginContext CreatePluginContext(IServiceProvider serviceProvider, IEnumerable<RegisteredEvent> events)
         {
-            return new BasePluginContext(serviceProvider, this);
+            return new BasePluginContext(serviceProvider, events, this);
         }
-
-        /// <summary>
-        /// Defalt execution method for the plugin
-        /// </summary>
-        /// <param name="context">Context for the current plug-in.</param>
-        public abstract void ExecutePlugin(IExtendedPluginContext context);
 
         /// <summary>
         /// Main entry point for he business logic that the plug-in is to execute.
@@ -79,9 +62,11 @@ namespace Xrm
             {
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
+            
+            var events = GetRegisteredEvents();
 
             // Construct the local plug-in context.
-            var context = CreatePluginContext(serviceProvider);
+            var context = CreatePluginContext(serviceProvider, events);
 
             context.Trace($"Entered {context.PluginTypeName}.Execute()");
 
@@ -90,11 +75,11 @@ namespace Xrm
                 // Verify plugin is running for a registered event
                 if (context.Event == null)
                 {
-                    context.Trace($"No Registered Event found for event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.Stage}!");
+                    context.Trace($"No Registered Event found for event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.PipelineStage.ToString()}!");
                     return;
                 }
 
-                if (context.PreventDuplicatePluginExecution())
+                if (context.IsDuplicatePluginExecution())
                 {
                     context.Trace("Duplicate execution prevented");
                     return;
@@ -105,7 +90,7 @@ namespace Xrm
                     ? ExecutePlugin
                     : new Action<IExtendedPluginContext>(c => context.Event.Execute(c));
 
-                context.Trace($"Executing registered event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.Stage}!");
+                context.Trace($"Executing registered event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.PipelineStage.ToString()}!");
 
                 execute(context);
             }
@@ -120,5 +105,16 @@ namespace Xrm
                 context.Trace($"Exiting {context.PluginTypeName}.Execute()");
             }
         }
+
+        /// <summary>
+        /// Get list of <see href="RegisteredEvents" /> for the plugin.
+        /// </summary>
+        public abstract IEnumerable<RegisteredEvent> GetRegisteredEvents();
+
+        /// <summary>
+        /// Defalt execution method for the plugin
+        /// </summary>
+        /// <param name="context"><see href="IExtendedPluginContext" /> object for the current plug-in.</param>
+        public abstract void ExecutePlugin(IExtendedPluginContext context);
     }
 }

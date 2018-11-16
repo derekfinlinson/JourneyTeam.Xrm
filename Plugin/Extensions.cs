@@ -47,6 +47,18 @@ namespace Xrm
             return null;
         }
 
+        public static T GetTargetEntity<T>(this IPluginExecutionContext context) where T : Entity
+        {
+            if (!context.InputParameters.Contains("Target") || context.InputParameters["Target"] is Entity)
+            {
+                return null;
+            }
+
+            var entity = (Entity)context.InputParameters["Target"];
+
+            return entity.ToEntity<T>();
+        }
+
         #endregion
     }
 }
