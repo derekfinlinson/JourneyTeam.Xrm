@@ -9,7 +9,6 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     <NoWarn>CS8021</NoWarn>
     <NoBuild>true</NoBuild>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Derek Finlinson</Authors>
     <PackageProjectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
