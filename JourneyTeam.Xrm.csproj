@@ -17,7 +17,6 @@
     <Description>Base Classes for Dynamics 365 Plugins and Workflows</Description>
     <Copyright>Copyright 2018</Copyright>
     <PackageTags>CRM;XRM;DYNAMICS 365</PackageTags>
-    <PackageVersion>1.3.0</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
