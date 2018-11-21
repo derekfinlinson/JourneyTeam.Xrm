@@ -8,16 +8,15 @@ steps:
 - script: dotnet build -c $(buildConfiguration)
   displayName: 'Build project'
 
-steps:
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
-
 - task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
   inputs:
     command: pack
     packagesToPack: '**/*.csproj'
   displayName: 'Create nupkg'
 
 - task: CopyFiles@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
   inputs:
     contents: '**\*.nupkg'
     targetFolder: $(Build.ArtifactStagingDirectory)
@@ -26,9 +25,11 @@ steps:
   displayName: 'Copy nuget package to artifact staging'
 
 - task: PublishBuildArtifacts@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
   displayName: 'Publish artifacts'
 
 - task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
   inputs:
     command: push
     nuGetFeedType: external
