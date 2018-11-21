@@ -1,38 +1,35 @@
-jobs:
-  - job: 'Build'
-    pool:
-      vmImage: 'vs2017-win2016'
+pool:
+  vmImage: 'vs2017-win2016'
 
-    steps:
-      - script: dotnet build -c Release  
-        displayName: 'Build project'
-    
-  - job: 'Nuget'
-    dependsOn: 'Build'
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
-    pool:
-      vmImage: 'vs2017-win2016'
+variables:
+  buildConfiguration: 'Release'
 
-    steps:
-      - task: NuGetCommand@2
-        inputs:
-          command: pack
-          packagesToPack: '**/*.csproj'
-        displayName: 'Create nupkg'
+steps:
+- script: dotnet build -c $(buildConfiguration)
+  displayName: 'Build project'
 
-      - task: CopyFiles@2
-        inputs:
-          contents: '**\*.nupkg'
-          targetFolder: $(Build.ArtifactStagingDirectory)
-          cleanTargetFolder: true
-          overWrite: true
-        displayName: 'Copy nuget package to artifact staging'
+steps:
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
 
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish artifacts'
+- task: NuGetCommand@2
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj'
+  displayName: 'Create nupkg'
 
-      - task: NuGetCommand@2
-        inputs:
-          command: push
-          nuGetFeedType: external
-          publishFeedCredentials: 'Nuget'
+- task: CopyFiles@2
+  inputs:
+    contents: '**\*.nupkg'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+    cleanTargetFolder: true
+    overWrite: true
+  displayName: 'Copy nuget package to artifact staging'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+
+- task: NuGetCommand@2
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'Nuget'
