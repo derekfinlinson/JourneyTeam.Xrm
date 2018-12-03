@@ -38,9 +38,9 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Placeholder for a custom plug-in implementation. 
+        /// Execution method for the workflow activity
         /// </summary>
         /// <param name="localContext">Context for the current plug-in.</param>
-        public abstract void ExecuteWorkflowActivity(BaseWorkflowActivityContext localContext);
+        public abstract void ExecuteWorkflowActivity(IExtendedWorkflowContext context);
     }
 }

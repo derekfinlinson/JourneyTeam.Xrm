@@ -7,6 +7,17 @@ namespace Xrm
 {
     public class BaseWorkflowActivityContext : IExtendedWorkflowContext
     {
+        #region Private members for lazy loading
+
+        private readonly IOrganizationServiceFactory _factory;
+        private IOrganizationService _organizationService;
+        private IOrganizationService _systemOrganizationService;
+        private IOrganizationService _initiatedOrganizationService;
+        private ITracingService _tracing;
+        private IWorkflowContext _workflowContext;
+
+        #endregion
+
         #region IWorkflowContext Properties
 
         public string StageName => WorkflowContext.StageName;
@@ -69,10 +80,21 @@ namespace Xrm
 
         #endregion
 
+        #region IExtendedWorkflowContext Properties
+
         /// <summary>
         /// Name of the workflow activity the context is running against
         /// </summary>
         public string WorkflowTypeName { get; }
+
+        /// <summary>
+        /// Extends ActivityContext and provides additional functionality for CodeActivity
+        /// </summary>
+        public CodeActivityContext ActivityContext { get; }
+
+        #endregion
+
+        #region IExecutionContext Properties
 
         /// <summary>
         /// Primary entity from the context as an entity reference
@@ -80,24 +102,14 @@ namespace Xrm
         public EntityReference PrimaryEntity => new EntityReference(PrimaryEntityName, PrimaryEntityId);
 
         /// <summary>
-        ///
-        /// </summary>
-        public CodeActivityContext ActivityContext { get; set; }
-
-        /// <summary>
         /// Workflow context
         /// </summary>
-        public IWorkflowContext WorkflowContext { get; }
+        public IWorkflowContext WorkflowContext => _workflowContext ?? (_workflowContext = ActivityContext.GetExtension<IWorkflowContext>());
 
         /// <summary>
-        /// Provides logging run-time trace information for plug-ins. 
+        /// Provides logging run-time trace information for plug-ins
         /// </summary>
-        public ITracingService TracingService { get; }
-
-        private readonly IOrganizationServiceFactory _factory;
-        private IOrganizationService _organizationService;
-        private IOrganizationService _systemOrganizationService;
-        private IOrganizationService _initiatedOrganizationService;
+        public ITracingService TracingService => _tracing ?? (_tracing = (ITracingService)ActivityContext.GetExtension<ITracingService>());
 
         /// <summary>
         /// <see cref="IOrganizationService"/> using the user from the plugin context
@@ -114,16 +126,12 @@ namespace Xrm
         /// </summary>
         public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
         
+        #endregion
+        
         public BaseWorkflowActivityContext(CodeActivityContext activityContext, BaseWorkflowActivity workflow)
         {
             // Obtain the activity execution context
             ActivityContext = activityContext ?? throw new ArgumentNullException(nameof(activityContext));
-
-            // Obtain the execution context service from activity context
-            WorkflowContext = activityContext.GetExtension<IWorkflowContext>();
-
-            // Obtain the tracing service from the activity context
-            TracingService = activityContext.GetExtension<ITracingService>();
 
             // Obtain the organization factory service from the activity context
             _factory = activityContext.GetExtension<IOrganizationServiceFactory>();
