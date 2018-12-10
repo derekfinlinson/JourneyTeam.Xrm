@@ -49,7 +49,7 @@ namespace Xrm
 
         public static T GetTargetEntity<T>(this IPluginExecutionContext context) where T : Entity
         {
-            if (!context.InputParameters.Contains("Target") || context.InputParameters["Target"] is Entity)
+            if (!context.InputParameters.Contains("Target") || !(context.InputParameters["Target"] is Entity))
             {
                 return null;
             }
