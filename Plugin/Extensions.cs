@@ -12,6 +12,7 @@ namespace Xrm
         {
             return events.FirstOrDefault(e =>
                     (int)e.Stage == context.Stage
+                    && (int)e.Mode == context.Mode
                     && e.MessageName == context.MessageName
                     && (string.IsNullOrWhiteSpace(e.EntityLogicalName) || e.EntityLogicalName == context.PrimaryEntityName)
             );
@@ -47,7 +48,11 @@ namespace Xrm
             return null;
         }
 
-        public static T GetTargetEntity<T>(this IPluginExecutionContext context) where T : Entity
+        #endregion
+
+        #region IExtendedExecutionContext Extensions
+
+        public static T GetTargetEntity<T>(this IExtendedExecutionContext context) where T : Entity
         {
             if (!context.InputParameters.Contains("Target") || !(context.InputParameters["Target"] is Entity))
             {
@@ -57,6 +62,26 @@ namespace Xrm
             var entity = (Entity)context.InputParameters["Target"];
 
             return entity.ToEntity<T>();
+        }
+
+        public static T GetFirstPostImage<T>(this IExtendedExecutionContext context) where T : Entity
+        {
+            if (context.PostEntityImages.Count == 0)
+            {
+                return null;
+            }
+
+            return context.PostEntityImages.First().Value.ToEntity<T>();
+        }
+
+        public static T GetFirstPreImage<T>(this IExtendedExecutionContext context) where T : Entity
+        {
+            if (context.PreEntityImages.Count == 0)
+            {
+                return null;
+            }
+
+            return context.PreEntityImages.First().Value.ToEntity<T>();
         }
 
         #endregion
