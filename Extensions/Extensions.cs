@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
@@ -82,6 +83,15 @@ namespace Xrm
             }
 
             return context.PreEntityImages.First().Value.ToEntity<T>();
+        }
+
+        #endregion
+
+        #region EntityReference Extensions
+
+        public static T ToEntity<T>(this EntityReference reference, ColumnSet columns, IOrganizationService service) where T : Entity
+        {
+            return (T)service.Retrieve(reference.LogicalName, reference.Id, columns);
         }
 
         #endregion
