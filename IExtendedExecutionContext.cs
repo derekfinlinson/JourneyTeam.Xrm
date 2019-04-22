@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Xrm
 {
-        public interface IExtendedExecutionContext : IExecutionContext, ITracingService
+        public interface IExtendedExecutionContext : IExecutionContext, ITracingService, IOrganizationService
         {
                 /// <summary>
                 /// Provides logging run-time trace information

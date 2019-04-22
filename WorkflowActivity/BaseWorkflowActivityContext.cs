@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
-using  System.Activities;
+using System.Activities;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
@@ -125,9 +126,9 @@ namespace Xrm
         /// <see cref="IOrganizationService"/> using the initiating user from the plugin context
         /// </summary>
         public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
-        
+
         #endregion
-        
+
         public BaseWorkflowActivityContext(CodeActivityContext activityContext, BaseWorkflowActivity workflow)
         {
             // Obtain the activity execution context
@@ -138,6 +139,50 @@ namespace Xrm
 
             WorkflowTypeName = workflow.GetType().FullName;
         }
+
+        #region IOrganizationService methods
+
+        public Guid Create(Entity entity)
+        {
+            return OrganizationService.Create(entity);
+        }
+
+        public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
+        {
+            return OrganizationService.Retrieve(entityName, id, columnSet);
+        }
+
+        public void Update(Entity entity)
+        {
+            OrganizationService.Update(entity);
+        }
+
+        public void Delete(string entityName, Guid id)
+        {
+            OrganizationService.Delete(entityName, id);
+        }
+
+        public OrganizationResponse Execute(OrganizationRequest request)
+        {
+            return OrganizationService.Execute(request);
+        }
+
+        public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
+        {
+            OrganizationService.Associate(entityName, entityId, relationship, relatedEntities);
+        }
+
+        public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
+        {
+            OrganizationService.Disassociate(entityName, entityId, relationship, relatedEntities);
+        }
+
+        public EntityCollection RetrieveMultiple(QueryBase query)
+        {
+            return OrganizationService.RetrieveMultiple(query);
+        }
+
+        #endregion
 
         /// <summary>
         /// Create CRM Organization Service for a specific user id

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
@@ -79,7 +80,7 @@ namespace Xrm
         /// Pipeline stage for the context
         /// </summary>
         public PipelineStage PipelineStage => (PipelineStage)Stage;
-        
+
         /// <summary>
         /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
         /// information related to the execution pipeline, and entity business information
@@ -97,7 +98,7 @@ namespace Xrm
         /// <summary>
         /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
         /// </summary>
-        public OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new() => _request ?? (_request = new T { Parameters = PluginExecutionContext.InputParameters });        
+        public OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new() => _request ?? (_request = new T { Parameters = PluginExecutionContext.InputParameters });
 
         /// <summary>
         /// Get a <see href="OrganizationResponse" /> object for the current plugin execution
@@ -160,6 +161,50 @@ namespace Xrm
 
             PluginTypeName = plugin.GetType().FullName;
         }
+
+        #region IOrganizationService methods
+
+        public Guid Create(Entity entity)
+        {
+            return OrganizationService.Create(entity);
+        }
+
+        public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
+        {
+            return OrganizationService.Retrieve(entityName, id, columnSet);
+        }
+
+        public void Update(Entity entity)
+        {
+            OrganizationService.Update(entity);
+        }
+
+        public void Delete(string entityName, Guid id)
+        {
+            OrganizationService.Delete(entityName, id);
+        }
+
+        public OrganizationResponse Execute(OrganizationRequest request)
+        {
+            return OrganizationService.Execute(request);
+        }
+
+        public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
+        {
+            OrganizationService.Associate(entityName, entityId, relationship, relatedEntities);
+        }
+
+        public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
+        {
+            OrganizationService.Disassociate(entityName, entityId, relationship, relatedEntities);
+        }
+
+        public EntityCollection RetrieveMultiple(QueryBase query)
+        {
+            return OrganizationService.RetrieveMultiple(query);
+        }
+
+        #endregion
 
         /// <summary>
         /// Prevent plugin from running multiple times for the same context
