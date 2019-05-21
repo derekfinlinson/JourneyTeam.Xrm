@@ -44,12 +44,12 @@ namespace Xrm
         /// <summary>
         /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
         /// </summary>
-        OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new();
+        T GetRequest<T>() where T : OrganizationRequest, new();
 
         /// <summary>
         /// Get a <see href="OrganizationResponse" /> object for the current plugin execution
         /// </summary>
-        OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new();
+        T GetResponse<T>() where T : OrganizationResponse, new();
 
         /// <summary>
         /// Prevent plugin from running multiple times for the same context

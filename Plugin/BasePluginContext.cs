@@ -17,8 +17,6 @@ namespace Xrm
         private IOrganizationService _systemOrganizationService;
         private IOrganizationService _initiatedOrganizationService;
         private ITracingService _tracing;
-        private OrganizationRequest _request;
-        private OrganizationResponse _response;
 
         #endregion
 
@@ -98,12 +96,12 @@ namespace Xrm
         /// <summary>
         /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
         /// </summary>
-        public OrganizationRequest GetRequest<T>() where T : OrganizationRequest, new() => _request ?? (_request = new T { Parameters = PluginExecutionContext.InputParameters });
+        public T GetRequest<T>() where T : OrganizationRequest, new() => new T { Parameters = PluginExecutionContext.InputParameters };
 
         /// <summary>
         /// Get a <see href="OrganizationResponse" /> object for the current plugin execution
         /// </summary>
-        public OrganizationResponse GetResponse<T>() where T : OrganizationResponse, new() => _response ?? (_response = new T { Results = PluginExecutionContext.OutputParameters });
+        public T GetResponse<T>() where T : OrganizationResponse, new() => new T { Results = PluginExecutionContext.OutputParameters };
 
         #endregion
 
