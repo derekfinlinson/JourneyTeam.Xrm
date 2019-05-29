@@ -17,6 +17,11 @@ namespace Xrm
         /// <returns></returns>
         public static T ToEntity<T>(this EntityReference reference, ColumnSet columns, IOrganizationService service) where T : Entity
         {
+            if (reference == null)
+            {
+                return null;
+            }
+            
             return (T)service.Retrieve(reference.LogicalName, reference.Id, columns);
         }
     }
