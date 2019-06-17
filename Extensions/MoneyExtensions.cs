@@ -13,12 +13,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Add(this Money money, Money add)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (add != null)
             {
-                money.Value += add.Value;
+                result.Value += add.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -29,12 +31,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Add(this Money money, double? add)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (add != null)
             {
-                money.Value += (decimal)add.Value;
+                result.Value += (decimal)add;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -45,12 +49,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Add(this Money money, decimal? add)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (add != null)
             {
-                money.Value += add.Value;
+                result.Value += add.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -61,12 +67,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Add(this Money money, int? add)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (add != null)
             {
-                money.Value += add.Value;
+                result.Value += add.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -75,14 +83,16 @@ namespace Xrm
         /// <param name="money">Money value</param>
         /// <param name="add">Money to subtract</param>
         /// <returns></returns>
-        public static Money Subtract(this Money money, Money add)
+        public static Money Subtract(this Money money, Money subtract)
         {            
-            if (add != null)
+            var result = new Money(money?.Value ?? 0);
+
+            if (subtract != null)
             {
-                money.Value -= add.Value;
+                result.Value -= subtract.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -91,14 +101,16 @@ namespace Xrm
         /// <param name="money">Money value</param>
         /// <param name="add">Amount to subtract</param>
         /// <returns></returns>
-        public static Money Subtract(this Money money, double? add)
+        public static Money Subtract(this Money money, double? subtract)
         {
-            if (add != null)
+            var result = new Money(money?.Value ?? 0);
+
+            if (subtract != null)
             {
-                money.Value -= (decimal)add.Value;
+                result.Value -= (decimal)subtract;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -107,14 +119,16 @@ namespace Xrm
         /// <param name="money">Money value</param>
         /// <param name="add">Amount to subtract</param>
         /// <returns></returns>
-        public static Money Subtract(this Money money, decimal? add)
+        public static Money Subtract(this Money money, decimal? subtract)
         {
-            if (add != null)
+            var result = new Money(money?.Value ?? 0);
+
+            if (subtract != null)
             {
-                money.Value -= add.Value;
+                result.Value -= subtract.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -123,14 +137,16 @@ namespace Xrm
         /// <param name="money">Money value</param>
         /// <param name="add">Amount to subtract</param>
         /// <returns></returns>
-        public static Money Subtract(this Money money, int? add)
+        public static Money Subtract(this Money money, int? subtract)
         {
-            if (add != null)
+            var result = new Money(money?.Value ?? 0);
+
+            if (subtract != null)
             {
-                money.Value -= add.Value;
+                result.Value -= subtract.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -141,12 +157,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Multiply(this Money money, Money multiply)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (multiply != null)
             {
-                money.Value *= multiply.Value;
+                result.Value *= multiply.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -157,12 +175,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Multiply(this Money money, double? multiply)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (multiply != null)
             {
-                money.Value *= (decimal)multiply.Value;
+                result.Value *= (decimal)multiply;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -173,12 +193,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Multiply(this Money money, decimal? multiply)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (multiply != null)
             {
-                money.Value *= multiply.Value;
+                result.Value *= multiply.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -189,12 +211,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Multiply(this Money money, int? multiply)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (multiply != null)
             {
-                money.Value *= multiply.Value;
+                result.Value *= multiply.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -205,12 +229,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Divide(this Money money, Money divide)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (divide != null)
             {
-                money.Value /= divide.Value;
+                result.Value /= divide.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -221,12 +247,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Divide(this Money money, double? divide)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (divide != null)
             {
-                money.Value /= (decimal)divide.Value;
+                result.Value /= (decimal)divide;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -237,12 +265,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Divide(this Money money, decimal? divide)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (divide != null)
             {
-                money.Value /= divide.Value;
+                result.Value /= divide.Value;
             }
 
-            return money;
+            return result;
         }
 
         /// <summary>
@@ -253,12 +283,14 @@ namespace Xrm
         /// <returns></returns>
         public static Money Divide(this Money money, int? divide)
         {
+            var result = new Money(money?.Value ?? 0);
+
             if (divide != null)
             {
-                money.Value /= divide.Value;
+                result.Value /= divide.Value;
             }
 
-            return money;
+            return result;
         }
     }
 }
