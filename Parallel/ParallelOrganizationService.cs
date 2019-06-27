@@ -4,63 +4,58 @@ using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Xrm.Sdk;
-using System.Collections.Concurrent;
 
 namespace Xrm
 {
-    public class ParallelOrganizationService
+    public static class ParallelOrganizationService
     {
-        private IExtendedExecutionContext _context;
-
-        public ParallelOrganizationService(IExtendedExecutionContext context)
-        {
-            _context = context;
-        }
-
-        public IEnumerable<Entity> Create(IEnumerable<Entity> entities, Guid userId, ParallelOptions options)
+        public static IEnumerable<Entity> Create(IEnumerable<Entity> entities, Guid userId, ParallelOptions options, IExtendedExecutionContext context)
         {
             ExecuteParallel<Entity>(entities, userId, options,
                 (entity, service) =>
                 {
                     entity.Id = service.Create(entity);
-                }
+                },
+                context
             );
 
             return entities;
         }
 
-        public void Update(IEnumerable<Entity> entities, Guid userId, ParallelOptions options)
+        public static void Update(IEnumerable<Entity> entities, Guid userId, ParallelOptions options, IExtendedExecutionContext context)
         {
             ExecuteParallel<Entity>(entities, userId, options,
                 (entity, service) =>
                 {
                     service.Update(entity);
-                }
+                },
+                context
             );
         }
 
-        public void Delete(IEnumerable<Entity> entities, Guid userId, ParallelOptions options)
+        public static void Delete(IEnumerable<Entity> entities, Guid userId, ParallelOptions options, IExtendedExecutionContext context)
         {
             ExecuteParallel<Entity>(entities, userId, options,
                 (entity, service) =>
                 {
                     service.Delete(entity.LogicalName, entity.Id);
-                }
+                },
+                context
             );
         }
 
-        public void ExecuteParallel<TRequest>(IEnumerable<TRequest> requests, Guid userId, ParallelOptions options,
-            Action<TRequest, IOrganizationService> execute)
+        public static void ExecuteParallel<TRequest>(IEnumerable<TRequest> requests, Guid userId, ParallelOptions options,
+            Action<TRequest, IOrganizationService> execute, IExtendedExecutionContext context)
         {
             Func<IOrganizationService> serviceInit = () =>
             {
-                return _context.CreateOrganizationService(userId);
+                return context.CreateOrganizationService(userId);
             };
 
             using (var threadLocal = new ThreadLocal<IOrganizationService>(serviceInit, true))
             {
                 Parallel.ForEach(requests, options,
-                    (request, loopState, index) => 
+                    (request, loopState, index) =>
                     {
                         try
                         {
