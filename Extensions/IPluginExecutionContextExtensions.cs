@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
-    public static class IPluginExecutionExtensions
+    public static partial class IPluginExecutionExtensions
     {
         /// <summary>
         /// Get matching RegisteredEvent from the plugin execution

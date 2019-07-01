@@ -7,7 +7,7 @@ using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
-    public static class EntityExtensions
+    public static partial class EntityExtensions
     {
         /// <summary>
         /// Clone entity. Returned entity must be passed to IOrganizationService.Create

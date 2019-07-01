@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Xrm
 {
-    public static class MoneyExtensions
+    public static partial class MoneyExtensions
     {
         /// <summary>
         /// Add Money value to existing Money

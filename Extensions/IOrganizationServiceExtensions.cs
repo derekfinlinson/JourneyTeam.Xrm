@@ -2,7 +2,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Xrm
 {
-    public static class IOrganizationServiceExtensions
+    public static partial class IOrganizationServiceExtensions
     {
         public static void Delete(this IOrganizationService service, EntityReference reference)
         {

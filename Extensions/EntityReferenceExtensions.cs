@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
-    public static class EntityReferenceExtensions
+    public static partial class EntityReferenceExtensions
     {
         /// <summary>
         /// Retrieve entity from EntityReference

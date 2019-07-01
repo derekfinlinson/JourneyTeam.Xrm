@@ -1,11 +1,9 @@
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
-    public static class IExtendedExecutionContextExtensions
+    public static partial class IExtendedExecutionContextExtensions
     {
         /// <summary>
         /// Get Target entity from InputParameters
