@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata.Query;
 
 namespace Xrm
 {
@@ -53,6 +56,71 @@ namespace Xrm
             }
 
             return context.PreEntityImages.First().Value.ToEntity<T>();
+        }
+
+        public static EntityReference RecordUrlToEntityReference(this IExtendedExecutionContext context, string url)
+        {
+            var uri = new Uri(url);
+
+            int entityTypeCode = 0;
+            var id = Guid.Empty;
+
+            var parameters = uri.Query.TrimStart('?').Split('&');
+
+            foreach (var param in parameters)
+            {
+                var nameValue = param.Split('=');
+
+                switch (nameValue[0])
+                {
+                    case "etc":
+                        entityTypeCode = int.Parse(nameValue[1]);
+                        break;
+                    case "id":
+                        id = new Guid(nameValue[1]);
+                        break;
+                }
+
+                if (entityTypeCode != 0 && id != Guid.Empty)
+                {
+                    break;
+                }
+            }
+
+            if (id == Guid.Empty)
+            {
+                return null;
+            }
+
+            var retrieveMetadataChangesRequest = new RetrieveMetadataChangesRequest()
+            {
+                Query = new EntityQueryExpression()
+                {
+                    Criteria = new MetadataFilterExpression
+                    {
+                        Conditions =
+                        {
+                            new MetadataConditionExpression("ObjectTypeCode ", MetadataConditionOperator.Equals, entityTypeCode)
+                        }
+                    },
+                    Properties = new MetadataPropertiesExpression
+                    {
+                        PropertyNames =
+                        {
+                            "LogicalName"
+                        }
+                    }
+                }
+            };
+
+            var response = (RetrieveMetadataChangesResponse)context.SystemOrganizationService.Execute(retrieveMetadataChangesRequest);
+
+            if (response.EntityMetadata.Count >= 1)
+            {
+                return new EntityReference(response.EntityMetadata[0].LogicalName, id);
+            }
+
+            return null;
         }
     }
 }
