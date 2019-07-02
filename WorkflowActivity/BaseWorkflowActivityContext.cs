@@ -3,6 +3,8 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using System.Activities;
 using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk.Metadata.Query;
+using Microsoft.Xrm.Sdk.Messages;
 
 namespace Xrm
 {
@@ -193,6 +195,71 @@ namespace Xrm
         public IOrganizationService CreateOrganizationService(Guid? userId)
         {
             return _factory.CreateOrganizationService(userId);
+        }
+
+        public EntityReference RecordUrlToEntityReference(string url)
+        {
+            var uri = new Uri(url);
+
+            int entityTypeCode = 0;
+            var id = Guid.Empty;
+
+            var parameters = uri.Query.TrimStart('?').Split('&');
+
+            foreach (var param in parameters)
+            {
+                var nameValue = param.Split('=');
+
+                switch (nameValue[0])
+                {
+                    case "etc":
+                        entityTypeCode = int.Parse(nameValue[1]);
+                        break;
+                    case "id":
+                        id = new Guid(nameValue[1]);
+                        break;
+                }
+
+                if (entityTypeCode != 0 && id != Guid.Empty)
+                {
+                    break;
+                }
+            }
+
+            if (id == Guid.Empty)
+            {
+                return null;
+            }
+
+            var retrieveMetadataChangesRequest = new RetrieveMetadataChangesRequest()
+            {
+                Query = new EntityQueryExpression()
+                {
+                    Criteria = new MetadataFilterExpression
+                    {
+                        Conditions =
+                        {
+                            new MetadataConditionExpression("ObjectTypeCode ", MetadataConditionOperator.Equals, entityTypeCode)
+                        }
+                    },
+                    Properties = new MetadataPropertiesExpression
+                    {
+                        PropertyNames =
+                        {
+                            "LogicalName"
+                        }
+                    }
+                }
+            };
+
+            var response = (RetrieveMetadataChangesResponse)SystemOrganizationService.Execute(retrieveMetadataChangesRequest);
+
+            if (response.EntityMetadata.Count >= 1)
+            {
+                return new EntityReference(response.EntityMetadata[0].LogicalName, id);
+            }
+
+            return null;
         }
 
         /// <summary>
