@@ -77,7 +77,7 @@ namespace Xrm
                 {
                     return (T)(object)new Money(0);
                 }
-                
+
                 return default(T);
             }
 
@@ -94,10 +94,10 @@ namespace Xrm
                 {
                     return (T)(object)new Money(0);
                 }
-                
+
                 return default(T);
             }
-            
+
             try
             {
                 return (T)aliased.Value;
@@ -108,6 +108,12 @@ namespace Xrm
             }
         }
 
+        /// <summary>
+        /// Merge attributes from an entity if current entity doesn't contain them
+        /// </summary>
+        /// <param name="baseEntity"></param>
+        /// <param name="entity">Entity to merge</param>
+        /// <returns></returns>
         public static Entity CoalesceEntityAttributes(this Entity baseEntity, Entity entity)
         {
             if (entity == null)
