@@ -107,5 +107,20 @@ namespace Xrm
                 throw new InvalidCastException($"Unable to cast {attributeName} from {aliased.Value.GetType().Name} to {typeof(T).Name}");
             }
         }
+
+        public static Entity CoalesceEntityAttributes(this Entity baseEntity, Entity entity)
+        {
+            if (entity == null)
+            {
+                return baseEntity;
+            }
+
+            foreach (var attribute in entity.Attributes.Where(a => !baseEntity.Attributes.Contains(a.Key)))
+            {
+                baseEntity[attribute.Key] = attribute.Value;
+            }
+
+            return baseEntity;
+        }
     }
 }
