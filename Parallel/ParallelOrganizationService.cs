@@ -9,7 +9,7 @@ namespace Xrm
 {
     public static class ParallelOrganizationService
     {
-        public static IEnumerable<Entity> Create(IEnumerable<Entity> entities, Guid userId, ParallelOptions options, IExtendedExecutionContext context)
+        public static IEnumerable<Entity> Create(IEnumerable<Entity> entities, Guid? userId, ParallelOptions options, IExtendedExecutionContext context)
         {
             ExecuteParallel<Entity>(entities, userId, options,
                 (entity, service) =>
@@ -22,7 +22,7 @@ namespace Xrm
             return entities;
         }
 
-        public static void Update(IEnumerable<Entity> entities, Guid userId, ParallelOptions options, IExtendedExecutionContext context)
+        public static void Update(IEnumerable<Entity> entities, Guid? userId, ParallelOptions options, IExtendedExecutionContext context)
         {
             ExecuteParallel<Entity>(entities, userId, options,
                 (entity, service) =>
@@ -33,7 +33,7 @@ namespace Xrm
             );
         }
 
-        public static void Delete(IEnumerable<Entity> entities, Guid userId, ParallelOptions options, IExtendedExecutionContext context)
+        public static void Delete(IEnumerable<Entity> entities, Guid? userId, ParallelOptions options, IExtendedExecutionContext context)
         {
             ExecuteParallel<Entity>(entities, userId, options,
                 (entity, service) =>
@@ -44,7 +44,7 @@ namespace Xrm
             );
         }
 
-        public static void ExecuteParallel<TRequest>(IEnumerable<TRequest> requests, Guid userId, ParallelOptions options,
+        public static void ExecuteParallel<TRequest>(IEnumerable<TRequest> requests, Guid? userId, ParallelOptions options,
             Action<TRequest, IOrganizationService> execute, IExtendedExecutionContext context)
         {
             Func<IOrganizationService> serviceInit = () =>
