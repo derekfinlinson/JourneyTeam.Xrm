@@ -95,7 +95,7 @@ namespace Xrm
 
         #endregion
 
-        #region IExecutionContext Properties
+        #region IExtendedExecutionContext Properties
 
         /// <summary>
         /// Primary entity from the context as an entity reference

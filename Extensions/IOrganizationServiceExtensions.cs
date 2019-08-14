@@ -38,10 +38,33 @@ namespace Xrm
         /// Deletes a record.
         /// </summary>
         /// <param name="service"></param>
+        /// <param name="reference">Entity record to delete.</param>
+        public static void Delete(this IOrganizationService service, Entity entity)
+        {
+            service.Delete(entity.LogicalName, entity.Id);
+        }
+
+        /// <summary>
+        /// Deletes a record.
+        /// </summary>
+        /// <param name="service"></param>
         /// <param name="reference">EntityReference record to delete.</param>
         public static void Delete(this IOrganizationService service, EntityReference reference)
         {
             service.Delete(reference.LogicalName, reference.Id);
+        }
+
+        /// <summary>
+        /// Deletes a list of records.
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="entities">A list of entity reference records to delete.</param>
+        public static void Delete(this IOrganizationService service, IEnumerable<Entity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                service.Delete(entity);
+            }
         }
 
         /// <summary>
@@ -56,7 +79,7 @@ namespace Xrm
                 service.Delete(reference);
             }
         }
-        
+
         /// <summary>
         /// Creates a link between records.
         /// </summary>
