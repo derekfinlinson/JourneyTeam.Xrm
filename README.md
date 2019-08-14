@@ -15,6 +15,11 @@ Base classes and libraries for developing Dynamics 365 Plugins and Custom Workfl
   - Create IOrganizationService for any user 
 - [ParallelOrganizationService](Parallel/ParallelOrganizationService.cs)
   - Execute IOrganizationService methods using Parallel.ForEach
-- [MoneyExtension](Extensions/MoneyExtensions.cs) methods
+- [MoneyExtensions](Extensions/MoneyExtensions.cs) methods
   - Add, Subtract, Multiple and Divide Money
+- [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
+  - Overloads for Create, Update, Delete, Associate and Disassociate
+- [EntityExtensions](Extensions/EntityExtensions.cs)
+  - Clone entity
+  - Get Aliased Values
 - Other [Extension](Extensions) methods
