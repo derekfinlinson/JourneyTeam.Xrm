@@ -44,6 +44,17 @@ namespace Xrm
             );
         }
 
+        public static void Execute(IEnumerable<OrganizationRequest> requests, Guid? userId, ParallelOptions options, IExtendedExecutionContext context)
+        {
+            ExecuteParallel<OrganizationRequest>(requests, userId, options,
+                (request, service) =>
+                {
+                    service.Execute(request);
+                },
+                context
+            );
+        }
+
         public static void ExecuteParallel<TRequest>(IEnumerable<TRequest> requests, Guid? userId, ParallelOptions options,
             Action<TRequest, IOrganizationService> execute, IExtendedExecutionContext context)
         {
