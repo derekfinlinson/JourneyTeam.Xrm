@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
@@ -78,6 +78,17 @@ namespace Xrm
             {
                 service.Delete(reference);
             }
+        }
+
+        /// <summary>
+        /// Retrieve
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="fetch"></param>
+        /// <returns></returns>
+        public static EntityCollection RetrieveMultiple(this IOrganizationService service, string fetch)
+        {
+            return service.RetrieveMultiple(new FetchExpression(fetch));
         }
 
         /// <summary>
