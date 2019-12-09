@@ -1,6 +1,6 @@
 # JourneyTeam.Xrm
 
-[![Build Status](https://derekfinlinson.visualstudio.com/GitHub/_apis/build/status/derekfinlinson.JourneyTeam.Xrm)](https://derekfinlinson.visualstudio.com/GitHub/_build/latest?definitionId=6)
+[![Build Status](https://dev.azure.com/derekfinlinson/GitHub/_apis/build/status/derekfinlinson.JourneyTeam.Xrm?branchName=master)](https://dev.azure.com/derekfinlinson/GitHub/_build/latest?definitionId=6&branchName=master)
 
 Base classes and libraries for developing Dynamics 365 Plugins and Custom Workflow Activities.
 

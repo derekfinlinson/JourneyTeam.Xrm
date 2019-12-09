@@ -6,9 +6,8 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo> 
-    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>    
     <NoWarn>CS8021</NoWarn>
-    <NoBuild>true</NoBuild>
     <Authors>Derek Finlinson</Authors>
     <PackageProjectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
@@ -20,6 +19,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="6.0.0" />
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.0.28">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <Reference Include="System" />
   </ItemGroup>
 
