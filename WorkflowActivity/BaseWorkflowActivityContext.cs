@@ -120,7 +120,7 @@ namespace Xrm
         /// <summary>
         /// <see cref="IOrganizationService"/> using the SYSTEM user
         /// </summary>
-        public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(null));
+        public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(Guid.Parse("d829fce2-c474-4f5a-be10-82002ee9dd04")));
 
         /// <summary>
         /// <see cref="IOrganizationService"/> using the initiating user from the plugin context
