@@ -3,6 +3,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Workflow;
 using System.Activities;
 using Microsoft.Xrm.Sdk.Query;
+using System.Linq;
 
 namespace Xrm
 {
@@ -120,7 +121,7 @@ namespace Xrm
         /// <summary>
         /// <see cref="IOrganizationService"/> using the SYSTEM user
         /// </summary>
-        public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(Guid.Parse("d829fce2-c474-4f5a-be10-82002ee9dd04")));
+        public IOrganizationService SystemOrganizationService => _systemOrganizationService ?? (_systemOrganizationService = CreateOrganizationService(null));
 
         /// <summary>
         /// <see cref="IOrganizationService"/> using the initiating user from the plugin context
@@ -192,6 +193,24 @@ namespace Xrm
         /// <remarks>Useful for impersonation</remarks>
         public IOrganizationService CreateOrganizationService(Guid? userId)
         {
+            if (userId == null)
+            {
+                var query = new QueryExpression("systemuser")
+                {
+                    ColumnSet = new ColumnSet("systemuserid"),
+                    Criteria = new FilterExpression
+                    {
+                        Conditions = 
+                        {
+                            new ConditionExpression("fullname", ConditionOperator.Equal, "SYSTEM")
+                        }
+                    },
+                    TopCount = 1
+                };
+
+                userId = this.OrganizationService.RetrieveMultiple(query).Entities.FirstOrDefault()?.Id;
+            }
+            
             return _factory.CreateOrganizationService(userId);
         }
 
