@@ -20,7 +20,7 @@ namespace Xrm
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePlugin"/> class without configuration data.
         /// </summary>
-        protected BasePlugin() : this(null, null) {}
+        protected BasePlugin() : this(null, null) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BasePlugin"/> class with configuration data.
@@ -62,7 +62,7 @@ namespace Xrm
             {
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
-            
+
             var events = GetRegisteredEvents();
 
             // Construct the local plug-in context.
@@ -90,7 +90,9 @@ namespace Xrm
                     ? ExecutePlugin
                     : new Action<IExtendedPluginContext>(c => context.Event.Execute(c));
 
-                context.Trace($"Executing registered event: {context.MessageName}, Entity: {context.PrimaryEntityName}, and Stage: {context.PipelineStage.ToString()}!");
+                var mode = (SdkMessageProcessingStepMode)context.Mode;
+                
+                context.Trace($"Executing registered event: {context.MessageName}, Entity: {context.PrimaryEntityName}, Mpde: {mode.ToString()}, and Stage: {context.PipelineStage.ToString()}!");
 
                 execute(context);
             }

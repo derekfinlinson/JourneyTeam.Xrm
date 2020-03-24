@@ -215,7 +215,7 @@ namespace Xrm
                 return false;
             }
 
-            var key = $"{PluginTypeName}|{MessageName}|{PipelineStage.ToString()}|{PrimaryEntityId}";
+            var key = $"{PluginTypeName}|{MessageName}|{PipelineStage.ToString()}|{PrimaryEntityId}|{Mode}";
 
             // Check if key exists in shared variables
             if (this.GetSharedVariable<bool>(key) == true)

@@ -27,7 +27,9 @@ namespace Xrm
 
             var response = (RetrieveEntityResponse)service.Execute(request);
 
-            var attributes = response.EntityMetadata.Attributes.Where(a => a.IsValidForCreate == true && a.IsPrimaryId == false).Select(a => a.LogicalName);
+            var attributes = response.EntityMetadata.Attributes
+                .Where(a => a.IsValidForCreate == true && a.IsPrimaryId == false)
+                .Select(a => a.LogicalName);
 
             foreach (var field in attributes)
             {
