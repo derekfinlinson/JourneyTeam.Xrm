@@ -15,7 +15,7 @@ namespace Xrm
         /// <param name="entity">Entity to clone</param>
         /// <param name="service">IOrganizationService</param>
         /// <returns></returns>
-        public static Entity CloneEntity(this Entity entity, IOrganizationService service)
+        public static T CloneEntity<T>(this Entity entity, IOrganizationService service) where T : Entity
         {
             var clone = new Entity(entity.LogicalName);
 
@@ -39,7 +39,7 @@ namespace Xrm
                 }
             }
 
-            return clone;
+            return clone.ToEntity<T>();
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Xrm
         /// <param name="columnSet">Columns to clone</param>
         /// <param name="service">IOrganizationService</param>
         /// <returns></returns>
-        public static Entity CloneEntity(this Entity entity, IOrganizationService service, ColumnSet columnSet)
+        public static T CloneEntity<T>(this Entity entity, IOrganizationService service, ColumnSet columnSet) where T : Entity
         {
             var clone = new Entity(entity.LogicalName);
 
@@ -61,7 +61,7 @@ namespace Xrm
                 }
             }
 
-            return clone;
+            return clone.ToEntity<T>();
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Xrm
         /// <param name="baseEntity"></param>
         /// <param name="entity">Entity to merge</param>
         /// <returns></returns>
-        public static Entity CoalesceEntityAttributes(this Entity baseEntity, Entity entity)
+        public static T CoalesceEntityAttributes<T>(this T baseEntity, T entity) where T : Entity
         {
             if (entity == null)
             {
