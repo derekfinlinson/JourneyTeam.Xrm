@@ -17,6 +17,7 @@ Base classes and libraries for developing Dynamics 365 Plugins and Custom Workfl
   - Execute IOrganizationService methods using Parallel.ForEach
 - [MoneyExtensions](Extensions/MoneyExtensions.cs) methods
   - Add, Subtract, Multiple and Divide Money
+- [FetchXml Builder](FetchXml/FetchXmlBuilder.cs)
 - [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
   - Overloads for Create, Update, Delete, Associate and Disassociate
 - [EntityExtensions](Extensions/EntityExtensions.cs)
