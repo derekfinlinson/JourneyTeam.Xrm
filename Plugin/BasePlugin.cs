@@ -92,7 +92,7 @@ namespace Xrm
 
                 var mode = (SdkMessageProcessingStepMode)context.Mode;
                 
-                context.Trace($"Executing registered event: {context.MessageName}, Entity: {context.PrimaryEntityName}, Mpde: {mode.ToString()}, and Stage: {context.PipelineStage.ToString()}!");
+                context.Trace($"Executing registered event: {context.MessageName}, Entity: {context.PrimaryEntityName}, Mode: {mode.ToString()}, and Stage: {context.PipelineStage.ToString()}!");
 
                 execute(context);
             }
