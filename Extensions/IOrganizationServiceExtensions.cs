@@ -9,7 +9,6 @@ namespace Xrm
         /// <summary>
         /// Creates a list of records.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="entities">A list of entity instances that contains the properties to set in the newly created records.</param>
         public static IEnumerable<Entity> Create(this IOrganizationService service, IEnumerable<Entity> entities)
         {
@@ -24,7 +23,6 @@ namespace Xrm
         /// <summary>
         /// Updates a list of existing records.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="entities">A list of entity instances that have one or more properties set to be updated in the records.</param>
         public static void Update(this IOrganizationService service, IEnumerable<Entity> entities)
         {
@@ -37,7 +35,6 @@ namespace Xrm
         /// <summary>
         /// Deletes a record.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="reference">Entity record to delete.</param>
         public static void Delete(this IOrganizationService service, Entity entity)
         {
@@ -47,7 +44,6 @@ namespace Xrm
         /// <summary>
         /// Deletes a record.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="reference">EntityReference record to delete.</param>
         public static void Delete(this IOrganizationService service, EntityReference reference)
         {
@@ -57,7 +53,6 @@ namespace Xrm
         /// <summary>
         /// Deletes a list of records.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="entities">A list of entity reference records to delete.</param>
         public static void Delete(this IOrganizationService service, IEnumerable<Entity> entities)
         {
@@ -70,7 +65,6 @@ namespace Xrm
         /// <summary>
         /// Deletes a list of records.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="entities">A list of entity reference records to delete.</param>
         public static void Delete(this IOrganizationService service, IEnumerable<EntityReference> references)
         {
@@ -81,9 +75,19 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Retrieve
+        /// Retrieve entity from entity reference
         /// </summary>
-        /// <param name="service"></param>
+        /// <param name="reference">Entity reference</param>
+        /// <param name="columnSet">Columns to retrieve</param>
+        /// <returns></returns>
+        public static Entity Retrieve(this IOrganizationService service, EntityReference reference, ColumnSet columnSet)
+        {
+            return service.Retrieve(reference.LogicalName, reference.Id, columnSet);
+        }
+
+        /// <summary>
+        /// Retrieve multiple based on string FetchXML
+        /// </summary>
         /// <param name="fetch"></param>
         /// <returns></returns>
         public static EntityCollection RetrieveMultiple(this IOrganizationService service, string fetch)
@@ -94,7 +98,6 @@ namespace Xrm
         /// <summary>
         /// Creates a link between records.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="reference">EntityReference to disassociate.</param>
         /// <param name="relationship">The name of the relationship to be used to create the link.</param>
         /// <param name="relatedEntities">A collection of entity references (references to records) to be associated.</param>
@@ -106,7 +109,6 @@ namespace Xrm
         /// <summary>
         /// Deletes a link between records.
         /// </summary>
-        /// <param name="service"></param>
         /// <param name="reference">EntityReference to disassociate.</param>
         /// <param name="relationship">The name of the relationship to be used to remove the link.</param>
         /// <param name="relatedEntities">A collection of entity references (references to records) to be disassociated.</param>

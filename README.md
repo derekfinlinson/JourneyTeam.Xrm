@@ -19,7 +19,7 @@ Base classes and libraries for developing Dynamics 365 Plugins and Custom Workfl
   - Add, Subtract, Multiple and Divide Money
 - [FetchXml Builder](FetchXml/FetchXmlBuilder.cs)
 - [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
-  - Overloads for Create, Update, Delete, Associate and Disassociate
+  - Overloads for Create, Update, Delete, Retrieve, RetrieveMultiple, Associate and Disassociate
 - [EntityExtensions](Extensions/EntityExtensions.cs)
   - Clone entity
   - Get Aliased Values
