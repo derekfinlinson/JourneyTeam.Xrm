@@ -14,5 +14,10 @@ namespace Xrm
         /// Asynchronous: 1
         /// </summary>
         Asynchronous = 1,
+
+        /// <summary>
+        /// Custom API: 2
+        /// </summary>
+        CustomAPI = 2
     }
 }

@@ -16,6 +16,11 @@
         PreOperation = 20,
 
         /// <summary>
+        /// Main operation: 30
+        /// </summary>
+        MainOperation = 30,
+
+        /// <summary>
         /// Post operation: 40
         /// </summary>
         PostOperation = 40

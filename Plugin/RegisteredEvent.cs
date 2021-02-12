@@ -37,6 +37,7 @@ namespace Xrm
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode and message using the default action
         /// </summary>
         /// <param name="stage">Pipeline stage</param>
+        /// <param name="mode">SDK Message Processing Step Mode</param>
         /// <param name="messageName">Message name</param>
         public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode, string messageName) : this(stage, mode, messageName, null, null) { }
 
@@ -44,6 +45,7 @@ namespace Xrm
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode, message and action
         /// </summary>
         /// <param name="stage">Pipeline stage</param>
+        /// <param name="mode">SDK Message Processing Step Mode</param>
         /// <param name="messageName">Message name</param>
         /// <param name="action">Action to execute</param>
         public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode, string messageName, Action<IExtendedPluginContext> action) : this(stage, mode, messageName, null, action) { }
@@ -52,6 +54,7 @@ namespace Xrm
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode, message and entity using the default action
         /// </summary>
         /// <param name="stage">Pipeline stage</param>
+        /// <param name="mode">SDK Message Processing Step Mode</param>
         /// <param name="messageName">Message name</param>
         /// <param name="entityLogicalName">Entity logical name</param>
         public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode, string messageName, string entityLogicalName) : this(stage, mode, messageName, entityLogicalName, null) { }
@@ -60,6 +63,7 @@ namespace Xrm
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode, message, entity and action
         /// </summary>
         /// <param name="stage">Pipeline stage</param>
+        /// <param name="mode">SDK Message Processing Step Mode</param>
         /// <param name="messageName">Message name</param>
         /// <param name="entityLogicalName">Entity logical name</param>
         /// <param name="action">Action to execute</param>
