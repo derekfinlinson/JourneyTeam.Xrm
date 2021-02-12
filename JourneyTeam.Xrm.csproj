@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="6.0.0" />
-    <PackageReference Include="Nerdbank.GitVersioning" Version="3.0.28">
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
