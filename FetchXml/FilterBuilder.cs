@@ -8,10 +8,10 @@ namespace Xrm
     {
         private string _type = "and";
 
-        private List<string> _conditions = new List<string>();
+        private readonly List<string> _conditions = new List<string>();
 
-        private List<FilterBuilder> _childFilters = new List<FilterBuilder>();
-        
+        private readonly List<FilterBuilder> _childFilters = new List<FilterBuilder>();
+
         public FilterBuilder WithType(string type)
         {
             _type = type;

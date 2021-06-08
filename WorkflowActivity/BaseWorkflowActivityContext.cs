@@ -111,7 +111,7 @@ namespace Xrm
         /// <summary>
         /// Provides logging run-time trace information for plug-ins
         /// </summary>
-        public ITracingService TracingService => _tracing ?? (_tracing = (ITracingService)ActivityContext.GetExtension<ITracingService>());
+        public ITracingService TracingService => _tracing ?? (_tracing = ActivityContext.GetExtension<ITracingService>());
 
         /// <summary>
         /// <see cref="IOrganizationService"/> using the user from the plugin context

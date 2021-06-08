@@ -7,33 +7,33 @@ namespace Xrm
 {
     public abstract class BaseWorkflowActivity : CodeActivity
     {
-        protected override void Execute(CodeActivityContext activityContext)
+        protected override void Execute(CodeActivityContext context)
         {
-            if (activityContext == null)
+            if (context == null)
             {
-                throw new ArgumentNullException(nameof(activityContext));
+                throw new ArgumentNullException(nameof(context));
             }
 
             // Get local workflow context
-            var context = new BaseWorkflowActivityContext(activityContext, this);
+            var workflowContext = new BaseWorkflowActivityContext(context, this);
 
-            context.Trace($"Entered {context.WorkflowTypeName}.Execute()");
+            workflowContext.Trace($"Entered {workflowContext.WorkflowTypeName}.Execute()");
 
             try
             {
                 // Invoke the custom implementation 
-                ExecuteWorkflowActivity(context);
+                ExecuteWorkflowActivity(workflowContext);
             }
             catch (FaultException<OrganizationServiceFault> e)
             {
-                context.Trace($"Exception: {e}");
+                workflowContext.Trace($"Exception: {e}");
 
                 // Handle the exception.
                 throw;
             }
             finally
             {
-                context.Trace($"Exiting {context.WorkflowTypeName}.Execute()");
+                workflowContext.Trace($"Exiting {workflowContext.WorkflowTypeName}.Execute()");
             }
         }
 

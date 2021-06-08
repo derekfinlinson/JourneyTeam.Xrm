@@ -1,6 +1,6 @@
 namespace Xrm
 {
-    public partial class Messages
+    public static partial class Messages
     {
         /// <summary>
         /// Add Item Message.

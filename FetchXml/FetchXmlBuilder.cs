@@ -8,10 +8,10 @@ namespace Xrm
     {
         private string _fetch;
         private string _entity;
-        private List<string> _attributes = new List<string>();
-        private List<string> _orders = new List<string>();
-        private List<FilterBuilder> _filters = new List<FilterBuilder>();
-        private List<string> _linkEntities = new List<string>();
+        private readonly List<string> _attributes = new List<string>();
+        private readonly List<string> _orders = new List<string>();
+        private readonly List<FilterBuilder> _filters = new List<FilterBuilder>();
+        private readonly List<string> _linkEntities = new List<string>();
         
         public FetchXmlBuilder WithFetch(bool aggregate = false, int? count = null)
         {
