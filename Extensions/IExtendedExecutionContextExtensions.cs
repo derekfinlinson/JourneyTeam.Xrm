@@ -58,6 +58,12 @@ namespace Xrm
             return context.PreEntityImages.First().Value.ToEntity<T>();
         }
 
+        /// <summary>
+        /// Get an entity reference from a record URL
+        /// </summary>
+        /// <param name="context">IExtendedExecutionContext</param>
+        /// <param name="url">Record URL</param>
+        /// <returns>EntityReference</returns>
         public static EntityReference RecordUrlToEntityReference(this IExtendedExecutionContext context, string url)
         {
             var uri = new Uri(url);
@@ -121,6 +127,43 @@ namespace Xrm
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Get typed environment variable
+        /// </summary>
+        /// <param name="context">IExtendedExecutionContext</param>
+        /// <param name="variable">Schema name of variable to retrieve</param>
+        /// <typeparam name="T">Type of variable</typeparam>
+        /// <returns>Current or default variable value</returns>
+        public static T GetEnvironmentVariable<T>(this IExtendedExecutionContext context, string variable)
+        {
+            var fetch = $@"
+              <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+	            <entity name='environmentvariabledefinition'>
+		          <attribute name='defaultvalue' alias='default' />
+		          <filter type='and'>
+		            <condition attribute='schemaname' operator='eq' value='{variable}' />
+		          </filter>
+		          <link-entity name='environmentvariablevalue' from='environmentvariabledefinitionid' to='environmentvariabledefinitionid' link-type='outer'>
+		            <attribute name='value' alias='current' />
+		          </link-entity>
+	            </entity>
+	          </fetch>";
+
+            var entity = context.RetrieveMultiple(fetch).Entities.FirstOrDefault();
+
+            if (entity == null)
+            {
+                return default(T);
+            }
+
+            if (entity.GetAliasedValue<T>("current") != null)
+            {
+                return entity.GetAliasedValue<T>("current");
+            }
+
+            return entity.GetAliasedValue<T>("default");
         }
     }
 }
