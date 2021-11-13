@@ -19,12 +19,16 @@ namespace Xrm
 
             return Encoding.UTF8.GetString(json);
         }
-        
+
         public static T DeserializeJson<T>(string json)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof(T));
+                var serializer = new DataContractJsonSerializer(typeof(T), new DataContractJsonSerializerSettings
+                {
+                    UseSimpleDictionaryFormat = true
+                });
+                
                 return (T)serializer.ReadObject(stream);
             }
         }
