@@ -12,7 +12,11 @@ namespace Xrm
 
             using (var stream = new MemoryStream())
             {
-                var serializer = new DataContractJsonSerializer(typeof(T));
+                var serializer = new DataContractJsonSerializer(typeof(T), new DataContractJsonSerializerSettings
+                {
+                    UseSimpleDictionaryFormat = true
+                });
+
                 serializer.WriteObject(stream, instance);
                 json = stream.ToArray();
             }
@@ -24,11 +28,8 @@ namespace Xrm
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var serializer = new DataContractJsonSerializer(typeof(T), new DataContractJsonSerializerSettings
-                {
-                    UseSimpleDictionaryFormat = true
-                });
-                
+                var serializer = new DataContractJsonSerializer(typeof(T));
+
                 return (T)serializer.ReadObject(stream);
             }
         }
