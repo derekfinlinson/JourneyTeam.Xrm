@@ -2,7 +2,7 @@ using System.Text;
 
 namespace Xrm
 {
-    public class LinkEntityBuilder : EntityBuilder
+    public class LinkEntityBuilder : EntityBuilder<LinkEntityBuilder>
     {
         private string _linkEntity;
 

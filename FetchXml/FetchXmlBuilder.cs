@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
-    public class FetchXmlBuilder : EntityBuilder
+    public class FetchXmlBuilder : EntityBuilder<FetchXmlBuilder>
     {
         private string _fetch;
         private string _entity;
