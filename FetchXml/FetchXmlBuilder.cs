@@ -67,7 +67,7 @@ namespace Xrm
 
             foreach (var linkEntity in _linkEntities)
             {
-                builder.Append(linkEntity);
+                builder.Append(linkEntity.Build());
             }
 
             builder.Append("</entity>");

@@ -52,5 +52,12 @@ namespace Xrm
 
             return this;
         }
+
+        public EntityBuilder WithLinkEntity(LinkEntityBuilder linkEntity)
+        {
+            _linkEntities.Add(linkEntity);
+
+            return this;
+        }
     }
 }
