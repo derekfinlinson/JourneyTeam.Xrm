@@ -8,7 +8,7 @@ namespace Xrm
         private string _fetch;
         private string _entity;
 
-        public FetchXmlBuilder WithFetch(bool aggregate = false, int? count = null)
+        public FetchXmlBuilder(bool aggregate = false, int? count = null)
         {
             var builder = new StringBuilder("<fetch");
 
@@ -25,8 +25,6 @@ namespace Xrm
             builder.Append(">");
 
             _fetch = builder.ToString();
-
-            return this;
         }
 
         public FetchXmlBuilder WithEntity(string logicalName, string alias = null)

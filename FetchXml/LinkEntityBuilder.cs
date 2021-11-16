@@ -6,7 +6,7 @@ namespace Xrm
     {
         private string _linkEntity;
 
-        public LinkEntityBuilder WithLinkEntity(string table, string from, string to, string alias = null, string linkType = "inner")
+        public LinkEntityBuilder(string table, string from, string to, string alias = null, string linkType = "inner")
         {
             var builder = new StringBuilder("<link-entity");
 
@@ -20,8 +20,6 @@ namespace Xrm
             builder.Append(">");
 
             _linkEntity = builder.ToString();
-
-            return this;
         }
 
         public string Build()

@@ -12,11 +12,9 @@ namespace Xrm
 
         private readonly List<FilterBuilder> _childFilters = new List<FilterBuilder>();
 
-        public FilterBuilder WithType(string type)
+        public FilterBuilder(string type = "and")
         {
             _type = type;
-
-            return this;
         }
 
         public FilterBuilder WithCondition(string attribute, string conditionOperator, object value)
