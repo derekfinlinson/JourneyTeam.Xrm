@@ -10,7 +10,7 @@ namespace Xrm
         {
             var builder = new StringBuilder("<link-entity");
 
-            builder.Append($" name={table} from={from} to={to} link-type={linkType}");
+            builder.Append($" name='{table}' from='{from}' to='{to}' link-type='{linkType}'");
 
             if (!string.IsNullOrWhiteSpace(alias))
             {
