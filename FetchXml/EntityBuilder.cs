@@ -10,7 +10,7 @@ namespace Xrm
         protected readonly List<FilterBuilder> _filters = new List<FilterBuilder>();
         protected readonly List<LinkEntityBuilder> _linkEntities = new List<LinkEntityBuilder>();
 
-        public EntityBuilder WithAttributes(IEnumerable<string> attributes)
+        public EntityBuilder WithAttributes(params string[] attributes)
         {
             foreach (var attribute in attributes)
             {
