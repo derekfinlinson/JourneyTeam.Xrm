@@ -44,6 +44,13 @@ namespace Xrm
             return this;
         }
 
+        public FilterBuilder WithFilter(FilterBuilder childFilter)
+        {
+            _childFilters.Add(childFilter);
+
+            return this;
+        }
+
         public string Build()
         {
             var builder = new StringBuilder($"<filter type='{_type}'>");
