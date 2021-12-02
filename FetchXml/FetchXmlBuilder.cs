@@ -8,7 +8,7 @@ namespace Xrm
         private string _fetch;
         private string _entity;
 
-        public FetchXmlBuilder(bool aggregate = false, int? count = null)
+        public FetchXmlBuilder(bool aggregate = false, int? count = null, bool distinct = false)
         {
             var builder = new StringBuilder("<fetch");
 
@@ -20,6 +20,11 @@ namespace Xrm
             if (count != null)
             {
                 builder.Append($" count='{count}");
+            }
+
+            if (distinct)
+            {
+                builder.Append(" distinct='true'");
             }
 
             builder.Append(">");
