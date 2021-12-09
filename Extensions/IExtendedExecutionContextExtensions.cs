@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata.Query;
+using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
 {
@@ -164,6 +165,67 @@ namespace Xrm
             }
 
             return entity.GetAliasedValue<T>("default");
+        }
+
+        /// <summary>
+        /// Check if user is the SYSTEM account
+        /// </summary>
+        /// <param name="context">IExtendedExecutionContext</param>
+        /// <param name="userId">User id to check</param>
+        /// <returns>If user is the SYSTEM account</returns>
+        public static bool IsSystemAccount(this IExtendedExecutionContext context, Guid userId)
+        {
+            var user = context.Retrieve("systemuser", userId, new ColumnSet("fullname"));
+
+            return user.GetAttributeValue<string>("fullname") == "SYSTEM";
+        }
+
+        /// <summary>
+        /// Check if user has a specific role
+        /// /// </summary>
+        /// <param name="context">IExtendedExecutionContext</param>
+        /// <param name="userId">User id to check</param>
+        /// <param name="role">Role to check</param>
+        /// <returns>User has the role</returns>
+        public static bool UserHasRole(this IExtendedExecutionContext context, Guid userId, string role)
+        {
+            var query = new QueryExpression("role")
+            {
+                ColumnSet = new ColumnSet("roleid")
+            };
+
+            query.Criteria.AddCondition("name", ConditionOperator.Equal, role);
+
+            var link = query.AddLink("systemuserroles", "roleid", "roleid");
+            link.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userId);
+
+            var results = context.RetrieveMultiple(query);
+
+            return results.Entities.Count > 0;
+        }
+
+        /// <summary>
+        /// Check if user has a specific role
+        /// /// </summary>
+        /// <param name="context">IExtendedExecutionContext</param>
+        /// <param name="userId">User id to check</param>
+        /// <param name="roleId">Role id to check</param>
+        /// <returns>User has the role</returns>
+        public static bool UserHasRole(this IExtendedExecutionContext context, Guid userId, Guid roleId)
+        {
+            var query = new QueryExpression("role")
+            {
+                ColumnSet = new ColumnSet("roleid")
+            };
+
+            query.Criteria.AddCondition("roleid", ConditionOperator.Equal, roleId);
+
+            var link = query.AddLink("systemuserroles", "roleid", "roleid");
+            link.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userId);
+
+            var results = context.RetrieveMultiple(query);
+
+            return results.Entities.Count > 0;
         }
     }
 }
