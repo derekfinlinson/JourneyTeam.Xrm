@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.Xrm.Sdk.Query;
+using System.Collections.Generic;
 
 namespace Xrm
 {
@@ -7,6 +8,7 @@ namespace Xrm
     {
         private string _fetch;
         private string _entity;
+        private readonly List<string> _orders = new List<string>();
 
         public FetchXmlBuilder(bool aggregate = false, int? count = null, bool distinct = false)
         {
@@ -44,6 +46,13 @@ namespace Xrm
             builder.Append(">");
 
             _entity = builder.ToString();
+
+            return this;
+        }
+
+        public FetchXmlBuilder WithOrder(string attribute, bool descending)
+        {
+            _orders.Add($"<order attribute='{attribute}' descending='{descending.ToString().ToLower()}' />");
 
             return this;
         }

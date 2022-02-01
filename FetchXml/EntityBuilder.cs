@@ -6,7 +6,6 @@ namespace Xrm
     public class EntityBuilder<T> where T : EntityBuilder<T>
     {
         protected readonly List<string> _attributes = new List<string>();
-        protected readonly List<string> _orders = new List<string>();
         protected readonly List<FilterBuilder> _filters = new List<FilterBuilder>();
         protected readonly List<LinkEntityBuilder> _linkEntities = new List<LinkEntityBuilder>();
 

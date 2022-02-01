@@ -31,11 +31,6 @@ namespace Xrm
                 builder.Append(attribute);
             }
 
-            foreach (var order in _orders)
-            {
-                builder.Append(order);
-            }
-
             foreach (var filter in _filters)
             {
                 builder.Append(filter.Build());
