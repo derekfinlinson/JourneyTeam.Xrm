@@ -34,6 +34,12 @@ namespace Xrm
             _fetch = builder.ToString();
         }
 
+        /// <summary>
+        /// Add entity
+        /// </summary>
+        /// <param name="logicalName">Logical name of entity</param>
+        /// <param name="alias">Alias</param>
+        /// <returns></returns>
         public FetchXmlBuilder WithEntity(string logicalName, string alias = null)
         {
             var builder = new StringBuilder($"<entity name='{logicalName}'");
@@ -50,13 +56,23 @@ namespace Xrm
             return this;
         }
 
-        public FetchXmlBuilder WithOrder(string attribute, bool descending)
+        /// <summary>
+        /// Add order by
+        /// </summary>
+        /// <param name="attribute">Attribute to order by</param>
+        /// <param name="descending">Order descending</param>
+        /// <returns></returns>
+        public FetchXmlBuilder WithOrder(string attribute, bool descending = false)
         {
             _orders.Add($"<order attribute='{attribute}' descending='{descending.ToString().ToLower()}' />");
 
             return this;
         }
 
+        /// <summary>
+        /// Build FetchXml string
+        /// </summary>
+        /// <returns></returns>
         public FetchExpression Build()
         {
             var builder = new StringBuilder();

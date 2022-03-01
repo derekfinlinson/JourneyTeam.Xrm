@@ -17,6 +17,13 @@ namespace Xrm
             _type = type;
         }
 
+        /// <summary>
+        /// Add condition with a value or values
+        /// </summary>
+        /// <param name="attribute">Attribute to filter on</param>
+        /// <param name="conditionOperator">Condition operator</param>
+        /// <param name="value">Value or values</param>
+        /// <returns>FilterBuilder</returns>
         public FilterBuilder WithCondition(string attribute, string conditionOperator, object value)
         {
             var builder = new StringBuilder($"<condition attribute='{attribute}' operator='{conditionOperator}'");
@@ -44,6 +51,26 @@ namespace Xrm
             return this;
         }
 
+        /// <summary>
+        /// Add condition that doesn't require a value like null or not-null
+        /// </summary>
+        /// <param name="attribute">Attribute to filter on</param>
+        /// <param name="conditionOperator">Condition operator</param>
+        /// <returns>FilterBuilder</returns>
+        public FilterBuilder WithCondition(string attribute, string conditionOperator)
+        {
+            var builder = new StringBuilder($"<condition attribute='{attribute}' operator='{conditionOperator}'");
+
+            _conditions.Add(builder.ToString());
+
+            return this;
+        }
+
+        /// <summary>
+        /// Add child filter
+        /// </summary>
+        /// <param name="childFilter">Child FilterBuilder</param>
+        /// <returns>FilterBuilder</returns>
         public FilterBuilder WithFilter(FilterBuilder childFilter)
         {
             _childFilters.Add(childFilter);
@@ -51,6 +78,10 @@ namespace Xrm
             return this;
         }
 
+        /// <summary>
+        /// Build FilterBuilder
+        /// </summary>
+        /// <returns>Filter string</returns>
         public string Build()
         {
             var builder = new StringBuilder($"<filter type='{_type}'>");

@@ -22,6 +22,10 @@ namespace Xrm
             _linkEntity = builder.ToString();
         }
 
+        /// <summary>
+        /// Build link entity
+        /// </summary>
+        /// <returns></returns>
         public string Build()
         {
             var builder = new StringBuilder(_linkEntity);
