@@ -59,7 +59,7 @@ namespace Xrm
         /// <returns>FilterBuilder</returns>
         public FilterBuilder WithCondition(string attribute, string conditionOperator)
         {
-            var builder = new StringBuilder($"<condition attribute='{attribute}' operator='{conditionOperator}'");
+            var builder = new StringBuilder($"<condition attribute='{attribute}' operator='{conditionOperator}' />");
 
             _conditions.Add(builder.ToString());
 
