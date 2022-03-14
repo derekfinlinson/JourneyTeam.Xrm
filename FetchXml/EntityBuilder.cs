@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using System.Collections.Generic;
 using System.Text;
 
@@ -29,16 +30,22 @@ namespace Xrm
         /// </summary>
         /// <param name="logicalName">Logical name of attribute</param>
         /// <param name="groupBy">Group by</param>
+        /// /// <param name="dateGrouping">Date grouping</param>
         /// <param name="aggregate">Aggregate</param>
         /// <param name="alias">Alias</param>
         /// <returns></returns>
-        public T WithAttribute(string logicalName, bool groupBy = false, string aggregate = null, string alias = null)
+        public T WithAttribute(string logicalName, bool groupBy = false, string dateGrouping = null, string aggregate = null, string alias = null)
         {
             var builder = new StringBuilder($"<attribute name='{logicalName.ToLower()}'");
 
             if (groupBy)
             {
                 builder.Append(" groupby='true'");
+
+                if (!string.IsNullOrWhiteSpace(dateGrouping))
+                {
+                    builder.Append($" dategrouping='{dateGrouping.ToLower()}'");
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(aggregate))
