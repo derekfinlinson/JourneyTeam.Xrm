@@ -10,6 +10,23 @@ namespace Xrm
     public static partial class EntityExtensions
     {
         /// <summary>
+        /// Retrieve entity metadata
+        /// </summary>
+        /// <param name="entity">Entity to retrieve metadata for</param>
+        /// <param name="service">IOrganizationService</param>
+        /// <returns>RetrieveEntityResponse</returns>
+        public static RetrieveEntityResponse GetEntityMetadata(this Entity entity, IOrganizationService service)
+        {
+            var request = new RetrieveEntityRequest
+            {
+                EntityFilters = EntityFilters.Attributes,
+                LogicalName = entity.LogicalName
+            };
+
+            return (RetrieveEntityResponse)service.Execute(request);
+        }
+
+        /// <summary>
         /// Clone entity. Returned entity must be passed to IOrganizationService.Create
         /// </summary>
         /// <param name="entity">Entity to clone</param>
@@ -19,13 +36,7 @@ namespace Xrm
         {
             var clone = new Entity(entity.LogicalName);
 
-            var request = new RetrieveEntityRequest
-            {
-                EntityFilters = EntityFilters.Attributes,
-                LogicalName = entity.LogicalName
-            };
-
-            var response = (RetrieveEntityResponse)service.Execute(request);
+            var response = entity.GetEntityMetadata(service);
 
             var attributes = response.EntityMetadata.Attributes
                 .Where(a => a.IsValidForCreate == true && a.IsPrimaryId == false)
