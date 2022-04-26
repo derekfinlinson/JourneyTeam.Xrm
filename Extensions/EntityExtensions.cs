@@ -124,9 +124,9 @@ namespace Xrm
         /// <summary>
         /// Merge attributes from an entity if current entity doesn't contain them
         /// </summary>
-        /// <param name="baseEntity"></param>
+        /// <param name="baseEntity">Base entity</param>
         /// <param name="entity">Entity to merge</param>
-        /// <returns></returns>
+        /// <returns>Merged entity</returns>
         public static T CoalesceEntityAttributes<T>(this T baseEntity, T entity) where T : Entity
         {
             if (entity == null)
@@ -134,12 +134,15 @@ namespace Xrm
                 return baseEntity;
             }
 
+            // Create copy of baseEntity so we don't overwrite anything on accident
+            var combined = baseEntity;
+
             foreach (var attribute in entity.Attributes.Where(a => !baseEntity.Attributes.Contains(a.Key)))
             {
-                baseEntity[attribute.Key] = attribute.Value;
+                combined[attribute.Key] = attribute.Value;
             }
 
-            return baseEntity;
+            return combined;
         }
     }
 }
