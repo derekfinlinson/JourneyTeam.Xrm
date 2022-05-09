@@ -60,11 +60,19 @@ namespace Xrm
         /// Add order by
         /// </summary>
         /// <param name="attribute">Attribute to order by</param>
+        /// <param name="isAlias">Order by attribute is an alias</param>
         /// <param name="descending">Order descending</param>
         /// <returns></returns>
-        public FetchXmlBuilder WithOrder(string attribute, bool descending = false)
+        public FetchXmlBuilder WithOrder(string attribute, bool isAlias = false, bool descending = false)
         {
-            _orders.Add($"<order attribute='{attribute}' descending='{descending.ToString().ToLower()}' />");
+            if (isAlias)
+            {
+                _orders.Add($"<order alias='{attribute}' descending='{descending.ToString().ToLower()}' />");
+            }
+            else
+            {
+                _orders.Add($"<order attribute='{attribute}' descending='{descending.ToString().ToLower()}' />");
+            }
 
             return this;
         }
