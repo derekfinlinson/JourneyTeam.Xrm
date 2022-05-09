@@ -21,7 +21,7 @@ namespace Xrm
 
             if (count != null)
             {
-                builder.Append($" count='{count}");
+                builder.Append($" count='{count}'");
             }
 
             if (distinct)
