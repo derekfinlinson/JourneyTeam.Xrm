@@ -9,6 +9,7 @@
     <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>    
     <NoWarn>CS8021</NoWarn>
     <Authors>Derek Finlinson</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -27,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <Compile Update="@(Compile)">
       <Pack>true</Pack>
     </Compile>
