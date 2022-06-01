@@ -77,7 +77,7 @@ namespace Xrm
                 // case ConditionOperator.EqualUserOrUserHierarchy:
                 //     return "eq-useroruserhierarchy";
                 // case ConditionOperator.EqualUserOrUserHierarchyAndTeams:
-                    return "eq-useroruserhierarchyandteams";
+                //     return "eq-useroruserhierarchyandteams";
                 case ConditionOperator.EqualUserOrUserTeams:
                     return "eq-useroruserteams";
                 case ConditionOperator.EqualUserTeams:
