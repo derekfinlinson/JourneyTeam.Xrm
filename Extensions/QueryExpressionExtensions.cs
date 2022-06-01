@@ -44,10 +44,10 @@ namespace Xrm
         {
             switch (conditionOperator)
             {
-                // case ConditionOperator.Above:
-                //     return "above";                
-                // case ConditionOperator.AboveOrEqual:
-                //     return "eq-or-above";
+                case ConditionOperator.Above:
+                    return "above";                
+                case ConditionOperator.AboveOrEqual:
+                    return "eq-or-above";
                 case ConditionOperator.BeginsWith:
                     return "begins-with";
                 case ConditionOperator.Between:
@@ -74,10 +74,10 @@ namespace Xrm
                     return "eq-userid";
                 case ConditionOperator.EqualUserLanguage:
                     return "eq-userlanguage";
-                // case ConditionOperator.EqualUserOrUserHierarchy:
-                //     return "eq-useroruserhierarchy";
-                // case ConditionOperator.EqualUserOrUserHierarchyAndTeams:
-                //     return "eq-useroruserhierarchyandteams";
+                case ConditionOperator.EqualUserOrUserHierarchy:
+                    return "eq-useroruserhierarchy";
+                case ConditionOperator.EqualUserOrUserHierarchyAndTeams:
+                    return "eq-useroruserhierarchyandteams";
                 case ConditionOperator.EqualUserOrUserTeams:
                     return "eq-useroruserteams";
                 case ConditionOperator.EqualUserTeams:
@@ -170,22 +170,22 @@ namespace Xrm
                     return "not-null";
                 case ConditionOperator.NotOn:
                     return "not-on";
-                // case ConditionOperator.NotUnder:
-                //     return "not-under";
+                case ConditionOperator.NotUnder:
+                    return "not-under";
                 case ConditionOperator.Null:
                     return "null";
-                // case ConditionOperator.OlderThanXDays:
-                //     return "older-than-x-days";
-                // case ConditionOperator.OlderThanXHours:
-                //     return "older-than-x-hours";
-                // case ConditionOperator.OlderThanXMinutes:
-                //     return "older-than-x-minutes";
+                case ConditionOperator.OlderThanXDays:
+                    return "older-than-x-days";
+                case ConditionOperator.OlderThanXHours:
+                    return "older-than-x-hours";
+                case ConditionOperator.OlderThanXMinutes:
+                    return "older-than-x-minutes";
                 case ConditionOperator.OlderThanXMonths:
                     return "older-than-x-months";
-                // case ConditionOperator.OlderThanXWeeks:
-                //     return "older-than-x-weeks";
-                // case ConditionOperator.OlderThanXYears:
-                //     return "older-than-x-years";
+                case ConditionOperator.OlderThanXWeeks:
+                    return "older-than-x-weeks";
+                case ConditionOperator.OlderThanXYears:
+                    return "older-than-x-years";
                 case ConditionOperator.On:
                     return "on";
                 case ConditionOperator.OnOrAfter:
@@ -206,10 +206,10 @@ namespace Xrm
                     return "today";
                 case ConditionOperator.Tomorrow:
                     return "tomorrow";
-                // case ConditionOperator.Under:
-                //     return "under";
-                // case ConditionOperator.UnderOrEqual:
-                //     return "eq-or-under";
+                case ConditionOperator.Under:
+                    return "under";
+                case ConditionOperator.UnderOrEqual:
+                    return "eq-or-under";
                 case ConditionOperator.Yesterday:
                     return "yesterday";
                 default:
