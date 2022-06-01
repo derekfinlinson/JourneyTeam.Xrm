@@ -2,6 +2,11 @@
 
 Base classes and libraries for developing Dynamics 365 Plugins and Custom Workflow Activities.
 
+## Versions
+
+- Version 2.x supports CRM 2011+
+- Version 3.x supports CRM 2016+
+
 ## Includes
 
 - [BasePlugin](Plugin/BasePlugin.cs) class
@@ -16,6 +21,7 @@ Base classes and libraries for developing Dynamics 365 Plugins and Custom Workfl
 - [MoneyExtensions](Extensions/MoneyExtensions.cs) methods
   - Add, Subtract, Multiple and Divide Money
 - [FetchXml Builder](FetchXml/FetchXmlBuilder.cs)
+  - Fluent builder class for FetchXML queries
 - [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
   - Overloads for Create, Update, Delete, Retrieve, RetrieveMultiple, Associate and Disassociate
 - [EntityExtensions](Extensions/EntityExtensions.cs)
