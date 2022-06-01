@@ -12,13 +12,13 @@
     <PackageProjectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>Base Classes for Dynamics 365 Plugins and Workflows</Description>
-    <Copyright>Copyright 2018</Copyright>
-    <PackageTags>CRM;XRM;DYNAMICS 365</PackageTags>
+    <Description>Base Classes for Dataverse Plugins and Workflows</Description>
+    <Copyright>Copyright 2022</Copyright>
+    <PackageTags>CRM;XRM;DYNAMICS 365;DATAVERSE</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="6.0.0" />
+    <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="8.2.0.2" />
     <PackageReference Include="Nerdbank.GitVersioning" Version="3.3.37">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
