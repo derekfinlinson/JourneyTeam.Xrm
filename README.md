@@ -1,30 +1,54 @@
 # JourneyTeam.Xrm
 
-Base classes and libraries for developing Dynamics 365 Plugins and Custom Workflow Activities.
+Base classes and library for developing Microsoft Dataverse Plugins 
+and Custom Workflow Activities.
 
-## Versions
+| NuGet |
+| ----- |
+| [![#](https://img.shields.io/nuget/v/JourneyTeam.Xrm.svg)](https://www.nuget.org/packages/JourneyTeam.Xrm/) |
 
-- Version 2.x supports CRM 2011+
-- Version 3.x supports CRM 2016+
+## Releases
 
-## Includes
+- Versions 2.x supports CRM 2011+
+- Versions 3.x supports CRM 2016+
 
-- [BasePlugin](Plugin/BasePlugin.cs) class
-  - Configure [RegisteredEvent](Plugin/RegisteredEvent.cs) your plugin should execute for
-  - Expanded [IPluginExecutionContext](Plugin/BasePluginContext.cs) with many useful features including implementing IOrganizationService
-  - Create IOrganizationService for any user
-- [BaseWorkflowActivity](WorkflowActivity/BaseWorkflowActivity.cs) class
-  - Expanded [IWorkflowContext](WorkflowActivity/BaseWorkflowActivityContext.cs) with many useful features including implementing IOrganizationService  
-  - Create IOrganizationService for any user 
-- [ParallelOrganizationService](Parallel/ParallelOrganizationService.cs)
-  - Execute IOrganizationService methods using Parallel.ForEach
-- [MoneyExtensions](Extensions/MoneyExtensions.cs) methods
-  - Add, Subtract, Multiple and Divide Money
-- [FetchXml Builder](FetchXml/FetchXmlBuilder.cs)
-  - Fluent builder class for FetchXML queries
-- [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
-  - Overloads for Create, Update, Delete, Retrieve, RetrieveMultiple, Associate and Disassociate
-- [EntityExtensions](Extensions/EntityExtensions.cs)
-  - Clone entity
-  - Get Aliased Values
-- Other [Extension](Extensions) methods
+## Features
+
+### [BasePlugin](Plugin/BasePlugin.cs)
+- Configure [RegisteredEvent](Plugin/RegisteredEvent.cs) your plugin should execute for
+- Specify which method each [RegisteredEvent](Plugin/RegisteredEvent.cs) should execute
+- Expanded [IPluginExecutionContext](Plugin/BasePluginContext.cs) with many useful features
+- [IPluginExecutionContext](Plugin/BasePluginContext.cs) implements IOrganizationService
+- Create IOrganizationService for any user
+
+### [BaseWorkflowActivity](WorkflowActivity/BaseWorkflowActivity.cs)
+- Expanded [IWorkflowContext](WorkflowActivity/BaseWorkflowActivityContext.cs) with many useful features
+- [IWorkflowContext](WorkflowActivity/BaseWorkflowActivityContext.cs) implements IOrganizationService
+- Create IOrganizationService for any user
+
+### [MoneyExtensions](Extensions/MoneyExtensions.cs) methods
+- Add
+- Subtract
+- Multiply
+- Divide
+
+### [FetchXml Builder](FetchXml/FetchXmlBuilder.cs)
+- Fluent builder class for FetchXML queries
+- Extension method to convert FilterExpression to a FilterBuilder
+
+### [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
+- Overloads for Create, Update, Delete, Retrieve, RetrieveMultiple, Associate and Disassociate
+
+### [EntityExtensions](Extensions/EntityExtensions.cs)
+- Clone entity
+- Get Aliased Values
+
+### [JsonSerializer](Utilities/JsonSerializer.cs)
+- Serialize object to JSON string
+- Deserialize JSON string to object
+
+### Other [Extension](Extensions) methods
+- Convert EntityReference to Entity
+- Get EnvironmentVariable
+- Check if UserHasRole
+- Convert RecordUrl to EntityReference
