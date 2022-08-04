@@ -27,7 +27,18 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Clone entity. Returned entity must be passed to IOrganizationService.Create
+        /// Clone a record. Returned entity must be passed to IOrganizationService.Create
+        /// </summary>
+        /// <param name="entity">Entity to clone</param>
+        /// <param name="service">IOrganizationService</param>
+        /// <returns></returns>
+        public static T CloneRecord<T>(this Entity entity, IOrganizationService service) where T : Entity
+        {
+            return CloneEntity<T>(entity, service);
+        }
+
+        /// <summary>
+        /// Clone an entity. Returned entity must be passed to IOrganizationService.Create
         /// </summary>
         /// <param name="entity">Entity to clone</param>
         /// <param name="service">IOrganizationService</param>
@@ -54,7 +65,18 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Clone entity with provided columns. Returned entity must be passed to IOrganizationService.Create
+        /// Clone a record with provided columns. Returned entity must be passed to IOrganizationService.Create
+        /// </summary>
+        /// <param name="entity">Entity to clone</param>
+        /// <param name="service">IOrganizationService</param>
+        /// <returns></returns>
+        public static T CloneRecord<T>(this Entity entity, IOrganizationService service, ColumnSet columnSet) where T : Entity
+        {
+            return CloneEntity<T>(entity, service, columnSet);
+        }
+
+        /// <summary>
+        /// Clone an entity with provided columns. Returned entity must be passed to IOrganizationService.Create
         /// </summary>
         /// <param name="entity">Entity to clone</param>
         /// <param name="columnSet">Columns to clone</param>
@@ -135,14 +157,19 @@ namespace Xrm
             }
 
             // Create copy of baseEntity so we don't overwrite anything on accident
-            var combined = baseEntity;
+            var combined = new Entity();
 
-            foreach (var attribute in entity.Attributes.Where(a => !baseEntity.Attributes.Contains(a.Key)))
+            foreach (var attribute in baseEntity.Attributes)
             {
                 combined[attribute.Key] = attribute.Value;
             }
 
-            return combined;
+            foreach (var attribute in entity.Attributes.Where(a => !combined.Attributes.Contains(a.Key)))
+            {
+                combined[attribute.Key] = attribute.Value;
+            }
+
+            return combined.ToEntity<T>();
         }
     }
 }
