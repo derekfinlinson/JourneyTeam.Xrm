@@ -114,7 +114,7 @@ namespace Xrm
         public abstract IEnumerable<RegisteredEvent> GetRegisteredEvents();
 
         /// <summary>
-        /// Defalt execution method for the plugin
+        /// Default execution method for the plugin
         /// </summary>
         /// <param name="context"><see href="IExtendedPluginContext" /> object for the current plug-in.</param>
         public abstract void ExecutePlugin(IExtendedPluginContext context);

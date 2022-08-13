@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Extensions;
+using Microsoft.Xrm.Sdk.PluginTelemetry;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
@@ -13,6 +15,7 @@ namespace Xrm
         private readonly IOrganizationServiceFactory _factory;
         private IPluginExecutionContext _pluginContext;
         private IServiceEndpointNotificationService _notification;
+        private ILogger _logger;
         private IOrganizationService _organizationService;
         private IOrganizationService _systemOrganizationService;
         private IOrganizationService _initiatedOrganizationService;
@@ -84,15 +87,16 @@ namespace Xrm
         /// information related to the execution pipeline, and entity business information
         /// </summary>
         public IPluginExecutionContext PluginExecutionContext =>
-            _pluginContext ?? (_pluginContext = (IPluginExecutionContext)_provider.GetService(typeof(IPluginExecutionContext)));
+            _pluginContext ?? (_pluginContext = _provider.Get<IPluginExecutionContext>());
 
         /// <summary>
         /// Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
         /// It is through this notification service that synchronous plug-ins can send brokered messages to the Microsoft Azure Service Bus
         /// </summary>
         public IServiceEndpointNotificationService NotificationService =>
-            _notification ?? (_notification = (IServiceEndpointNotificationService)_provider.GetService(typeof(IServiceEndpointNotificationService)));
+            _notification ?? (_notification = _provider.Get<IServiceEndpointNotificationService>());
 
+        public ILogger Logger => _logger ?? (_logger = _provider.Get<ILogger>());
         /// <summary>
         /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
         /// </summary>
@@ -136,6 +140,8 @@ namespace Xrm
 
         #endregion
 
+        private DateTime _previousTraceTime;
+
         /// <summary>
         /// Helper object that stores the services available in this plug-in
         /// </summary>
@@ -149,10 +155,22 @@ namespace Xrm
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
+            // Set trace time for performance diagnostics
+            var utcNow = DateTime.UtcNow;
+
             _provider = serviceProvider;
 
+            var timestamp = PluginExecutionContext.OperationCreatedOn;
+
+            if (timestamp > utcNow)
+            {
+                timestamp = utcNow;
+            }
+
+            _previousTraceTime = timestamp;
+
             // Obtain the organization factory service from the service provider
-            _factory = (IOrganizationServiceFactory)_provider.GetService(typeof(IOrganizationServiceFactory));
+            _factory = _provider.Get<IOrganizationServiceFactory>();
 
             // Set Event
             Event = PluginExecutionContext.GetEvent(events);
@@ -240,13 +258,20 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Writes a trace message to the CRM trace log.
+        /// Writes a trace message to the CRM trace log. All messages are prefixed with a time delta for performance diagnostics
         /// </summary>
         /// <param name="format">Message format</param>
-        /// <param name="args">Message format arguments</param>
-        public void Trace(string format, params object[] args)
+        /// <param name="message">Message format arguments</param>
+        public void Trace(string message, params object[] args)
         {
-            TracingService.Trace(format, args);
+            var utcNow = DateTime.UtcNow;
+
+            // The duration since the last trace.
+            var deltaMilliseconds = utcNow.Subtract(_previousTraceTime).TotalMilliseconds;
+
+            TracingService.Trace($"[+{deltaMilliseconds:N0}ms] - {string.Format(message, args)}");
+
+            _previousTraceTime = utcNow;
         }
     }
 }

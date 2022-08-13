@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.PluginTelemetry;
 
 namespace Xrm
 {
@@ -28,7 +29,7 @@ namespace Xrm
         /// Pipeline stage for the context
         /// </summary>
         PipelineStage PipelineStage { get; }
-        
+
         /// <summary>
         /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
         /// information related to the execution pipeline, and entity business information
@@ -40,6 +41,11 @@ namespace Xrm
         /// It is through this notification service that synchronous plug-ins can send brokered messages to the Microsoft Azure Service Bus
         /// </summary>
         IServiceEndpointNotificationService NotificationService { get; }
+
+        /// <summary>
+        /// ILogger for this plugin.
+        /// </summary>
+        ILogger Logger { get; }
 
         /// <summary>
         /// Get a <see href="OrganizationRequest" /> object for the current plugin execution
@@ -54,6 +60,6 @@ namespace Xrm
         /// <summary>
         /// Prevent plugin from running multiple times for the same context
         /// </summary>
-        bool IsDuplicatePluginExecution(); 
+        bool IsDuplicatePluginExecution();
     }
 }
