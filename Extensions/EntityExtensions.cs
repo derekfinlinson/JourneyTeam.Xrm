@@ -157,7 +157,7 @@ namespace Xrm
             }
 
             // Create copy of baseEntity so we don't overwrite anything on accident
-            var combined = new Entity();
+            var combined = new Entity(baseEntity.LogicalName);
 
             foreach (var attribute in baseEntity.Attributes)
             {
