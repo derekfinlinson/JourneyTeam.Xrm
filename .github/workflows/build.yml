@@ -34,5 +34,5 @@ jobs:
         run: dotnet build --configuration Release
       - name: Create nupkg
         run: dotnet pack --configuration Release
-      - name: Copy nuget package to artifact staging
+      - name: Push nuget package
         run: dotnet nuget push JourneyTeam.Xrm/bin/Release/*.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
