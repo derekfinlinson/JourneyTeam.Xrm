@@ -35,4 +35,4 @@ jobs:
       - name: Create nupkg
         run: dotnet pack --configuration Release
       - name: Push nuget package
-        run: dotnet nuget push JourneyTeam.Xrm/bin/Release/*.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
+        run: dotnet nuget push /bin/Release/*.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
