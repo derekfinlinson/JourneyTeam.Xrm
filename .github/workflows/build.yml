@@ -10,10 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dotnet-version: ["3.0", "3.1.x", "5.0.x"]
+        dotnet-version: ["5.0.x"]
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v3
         with:
@@ -26,6 +28,8 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget
+      - name: Nerdbank.GitVersioning
+        uses: dotnet/nbgv@v0.4.0
       - name: Build project
         run: dotnet build --configuration Release
       - name: Create nupkg
