@@ -156,15 +156,19 @@ namespace Xrm
                 return baseEntity;
             }
 
-            // Create copy of baseEntity so we don't overwrite anything on accident
-            var combined = new Entity(baseEntity.LogicalName);
+            // Create copy of baseEntity to avoid messing with the Target
+            var combined = new Entity(baseEntity.LogicalName)
+            {
+                Id = baseEntity.Id
+            };
 
             foreach (var attribute in baseEntity.Attributes)
             {
                 combined[attribute.Key] = attribute.Value;
             }
 
-            foreach (var attribute in entity.Attributes.Where(a => !combined.Attributes.Contains(a.Key)))
+            // Add Attributes from entity that aren't in baseEntity
+            foreach (var attribute in entity.Attributes.Where(a => !baseEntity.Contains(a.Key)))
             {
                 combined[attribute.Key] = attribute.Value;
             }
