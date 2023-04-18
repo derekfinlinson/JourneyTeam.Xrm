@@ -143,6 +143,7 @@ namespace Xrm
               <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
 	            <entity name='environmentvariabledefinition'>
 		          <attribute name='defaultvalue' alias='default' />
+                  <attribute name='type' alias='type' />
 		          <filter type='and'>
 		            <condition attribute='schemaname' operator='eq' value='{variable}' />
 		          </filter>
@@ -157,6 +158,18 @@ namespace Xrm
             if (entity == null)
             {
                 return default(T);
+            }
+
+            if (entity.GetAttributeValue<OptionSetValue>("type").Value == 100000005) // Secret
+            {
+                var request = new OrganizationRequest("RetrieveEnvironmentVariableSecretValueRequest")
+                {
+                    ["EnvironmentVariableName"] = variable
+                };
+
+                var response = context.Execute(request);
+
+                return (T)response.Results["EnvironmentVariableSecretValue"];
             }
 
             if (entity.GetAliasedValue<T>("current") != null)
