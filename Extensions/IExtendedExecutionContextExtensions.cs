@@ -222,16 +222,16 @@ namespace Xrm
         /// /// </summary>
         /// <param name="context">IExtendedExecutionContext</param>
         /// <param name="userId">User id to check</param>
-        /// <param name="roleId">Role id to check</param>
+        /// <param name="roleIds">Ids of roles to check</param>
         /// <returns>User has the role</returns>
-        public static bool UserHasRole(this IExtendedExecutionContext context, Guid userId, Guid roleId)
+        public static bool UserHasRole(this IExtendedExecutionContext context, Guid userId, params Guid[] roleIds)
         {
             var query = new QueryExpression("role")
             {
                 ColumnSet = new ColumnSet("roleid")
             };
 
-            query.Criteria.AddCondition("roleid", ConditionOperator.Equal, roleId);
+            query.Criteria.AddCondition("roleid", ConditionOperator.In, roleIds);
 
             var link = query.AddLink("systemuserroles", "roleid", "roleid");
             link.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userId);
@@ -239,6 +239,44 @@ namespace Xrm
             var results = context.RetrieveMultiple(query);
 
             return results.Entities.Count > 0;
+        }
+
+        /// <summary>
+        /// Check if user has a specific role or roles
+        /// /// </summary>
+        /// <param name="context">IExtendedExecutionContext</param>
+        /// <param name="userId">User id to check</param>
+        /// <param name="roles">Roles to check</param>
+        /// <returns>User has the role</returns>
+        public static bool UserHasRole(this IExtendedExecutionContext context, Guid userId, params string[] roles)
+        {
+            context.Trace("Check if user has security role or roles");
+
+            var roleConditions = string.Join("", roles.Select(r => $"<condition attribute='name' operator='eq' value='{r}' />"));
+
+            var usersFetch = $@"<fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
+                                    <entity name='systemuser'>
+                                    <attribute name='fullname' />
+                                    <attribute name='systemuserid' />
+                                    <order attribute='fullname' descending='false' />
+                                    <filter type='and'>
+                                        <condition attribute='systemuserid' operator='eq' value='{context.UserId}' />
+                                    </filter>
+                                    <link-entity name='systemuserroles' from='systemuserid' to='systemuserid' visible='false' intersect='true'>
+                                        <link-entity name='role' from='roleid' to='roleid' alias='ag'>
+                                        <filter type='and'>
+                                            <filter type='or'>
+                                                {roleConditions}
+                                            </filter>
+                                        </filter>
+                                        </link-entity>
+                                    </link-entity>
+                                    </entity>
+                                </fetch>";
+
+            var authorized = context.RetrieveMultiple(new FetchExpression(usersFetch));
+
+            return authorized.Entities.Count > 0;
         }
     }
 }
