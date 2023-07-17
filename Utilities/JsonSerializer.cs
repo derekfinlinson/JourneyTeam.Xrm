@@ -1,4 +1,5 @@
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
@@ -14,7 +15,8 @@ namespace Xrm
             {
                 var serializer = new DataContractJsonSerializer(typeof(T), new DataContractJsonSerializerSettings
                 {
-                    UseSimpleDictionaryFormat = true
+                    UseSimpleDictionaryFormat = true,
+                    DateTimeFormat = new DateTimeFormat("yyyy-MM-ddTHH:mm:ssZ")
                 });
 
                 serializer.WriteObject(stream, instance);
@@ -30,7 +32,8 @@ namespace Xrm
             {
                 var serializer = new DataContractJsonSerializer(typeof(T), new DataContractJsonSerializerSettings
                 {
-                    UseSimpleDictionaryFormat = true
+                    UseSimpleDictionaryFormat = true,
+                    DateTimeFormat = new DateTimeFormat("yyyy-MM-ddTHH:mm:ssZ")
                 });
 
                 return (T)serializer.ReadObject(stream);
