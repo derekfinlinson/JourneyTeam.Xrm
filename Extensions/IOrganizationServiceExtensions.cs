@@ -1,4 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 
@@ -115,6 +119,82 @@ namespace Xrm
         public static void Disassociate(this IOrganizationService service, EntityReference reference, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
             service.Disassociate(reference.LogicalName, reference.Id, relationship, relatedEntities);
+        }
+
+        /// <summary>
+        /// Upload a file to a file type column
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        /// <param name="fileAttributeName">File column name</param>
+        /// <param name="fileName">Filename</param>
+        /// <param name="fileMimeType">File type</param>
+        /// <param name="file">File as Base64 string</param>
+        public static void UploadFile(this IOrganizationService service, Entity entity, string fileAttributeName, string fileName, string fileMimeType, string file)
+        {
+            // Initialize the upload
+            var uploadRequest = new InitializeFileBlocksUploadRequest
+            {
+                Target = entity.ToEntityReference(),
+                FileAttributeName = fileAttributeName,
+                FileName = fileName
+            };
+
+            var uploadResponse = (InitializeFileBlocksUploadResponse)service.Execute(uploadRequest);
+
+            string fileContinuationToken = uploadResponse.FileContinuationToken;
+
+            // Capture blockids while uploading
+            var blockIds = new List<string>();
+
+            using (var uploadFileStream = new MemoryStream(Convert.FromBase64String(file)))
+            {
+                int blockSize = 4 * 1024 * 1024; // 4 MB
+
+                byte[] buffer = new byte[blockSize];
+                int bytesRead = 0;
+
+                // The number of iterations that will be required:
+                // int blocksCount = (int)Math.Ceiling(fileSize / (float)blockSize);
+                int blockNumber = 0;
+
+                // While there is unread data from the file
+                while ((bytesRead = uploadFileStream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    // The file or final block may be smaller than 4MB
+                    if (bytesRead < buffer.Length)
+                    {
+                        Array.Resize(ref buffer, bytesRead);
+                    }
+
+                    blockNumber++;
+
+                    string blockId = Convert.ToBase64String(Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()));
+
+                    blockIds.Add(blockId);
+
+                    // Prepare the request
+                    var uploadBlockRequest = new UploadBlockRequest()
+                    {
+                        BlockData = buffer,
+                        BlockId = blockId,
+                        FileContinuationToken = fileContinuationToken,
+                    };
+
+                    // Send the request
+                    service.Execute(uploadBlockRequest);
+                }
+            }
+
+            // Commit the upload
+            var commitFileBlocksUploadRequest = new CommitFileBlocksUploadRequest()
+            {
+                BlockList = blockIds.ToArray(),
+                FileContinuationToken = fileContinuationToken,
+                FileName = fileName,
+                MimeType = fileMimeType
+            };
+
+            service.Execute(commitFileBlocksUploadRequest);
         }
     }
 }
