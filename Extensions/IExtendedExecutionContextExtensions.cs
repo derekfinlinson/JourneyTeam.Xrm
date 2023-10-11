@@ -131,56 +131,6 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Get typed environment variable
-        /// </summary>
-        /// <param name="context">IExtendedExecutionContext</param>
-        /// <param name="variable">Schema name of variable to retrieve</param>
-        /// <typeparam name="T">Type of variable</typeparam>
-        /// <returns>Current or default variable value</returns>
-        public static T GetEnvironmentVariable<T>(this IExtendedExecutionContext context, string variable)
-        {
-            var fetch = $@"
-              <fetch version='1.0' output-format='xml-platform' mapping='logical' distinct='true'>
-	            <entity name='environmentvariabledefinition'>
-		          <attribute name='defaultvalue' alias='default' />
-                  <attribute name='type' alias='type' />
-		          <filter type='and'>
-		            <condition attribute='schemaname' operator='eq' value='{variable}' />
-		          </filter>
-		          <link-entity name='environmentvariablevalue' from='environmentvariabledefinitionid' to='environmentvariabledefinitionid' link-type='outer'>
-		            <attribute name='value' alias='current' />
-		          </link-entity>
-	            </entity>
-	          </fetch>";
-
-            var entity = context.RetrieveMultiple(fetch).Entities.FirstOrDefault();
-
-            if (entity == null)
-            {
-                return default(T);
-            }
-
-            if (entity.GetAttributeValue<OptionSetValue>("type").Value == 100000005) // Secret
-            {
-                var request = new OrganizationRequest("RetrieveEnvironmentVariableSecretValueRequest")
-                {
-                    ["EnvironmentVariableName"] = variable
-                };
-
-                var response = context.Execute(request);
-
-                return (T)response.Results["EnvironmentVariableSecretValue"];
-            }
-
-            if (entity.GetAliasedValue<T>("current") != null)
-            {
-                return entity.GetAliasedValue<T>("current");
-            }
-
-            return entity.GetAliasedValue<T>("default");
-        }
-
-        /// <summary>
         /// Check if user is the SYSTEM account
         /// </summary>
         /// <param name="context">IExtendedExecutionContext</param>
