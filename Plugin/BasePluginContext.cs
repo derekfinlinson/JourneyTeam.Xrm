@@ -78,6 +78,11 @@ namespace Xrm
         public string PostImageAlias => "PostImage";
 
         /// <summary>
+        /// Service provider
+        /// </summary>
+        public IServiceProvider ServiceProvider => _provider;
+
+        /// <summary>
         /// Pipeline stage for the context
         /// </summary>
         public PipelineStage PipelineStage => (PipelineStage)Stage;
