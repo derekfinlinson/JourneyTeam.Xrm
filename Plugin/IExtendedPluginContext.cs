@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using System;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.PluginTelemetry;
 
 namespace Xrm
@@ -24,6 +25,8 @@ namespace Xrm
         /// Post Image alias name
         /// </summary>
         string PostImageAlias { get; }
+
+        IServiceProvider ServiceProvider { get; }
 
         /// <summary>
         /// Pipeline stage for the context
