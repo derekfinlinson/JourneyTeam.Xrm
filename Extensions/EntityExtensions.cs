@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -174,6 +175,26 @@ namespace Xrm
             }
 
             return combined.ToEntity<T>();
+        }
+
+        /// <summary>
+        /// Calculate rollup field for entity
+        /// </summary>
+        /// <param name="entity">Entity to calculate</param>
+        /// <param name="columnName">Column to calculate</param>
+        /// <param name="service">Organization service</param>
+        /// <returns>Calculate rollup response</returns> <summary>
+        public static object CalculateRollup(this Entity entity, string columnName, IOrganizationService service)
+        {
+            var request = new CalculateRollupFieldRequest
+            {
+                Target = entity.ToEntityReference(),
+                FieldName = columnName
+            };
+
+            var response = (CalculateRollupFieldResponse)service.Execute(request);
+
+            return response.Entity[columnName];
         }
     }
 }

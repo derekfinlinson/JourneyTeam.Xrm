@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Xrm.Sdk.Query;
@@ -21,7 +22,7 @@ namespace Xrm
             {
                 return null;
             }
-            
+
             return (T)service.Retrieve(reference.LogicalName, reference.Id, columns);
         }
 
@@ -40,6 +41,26 @@ namespace Xrm
             };
 
             return (RetrieveEntityResponse)service.Execute(request);
+        }
+
+        /// <summary>
+        /// Calculate rollup field for entity
+        /// </summary>
+        /// <param name="entity">Entity to calculate</param>
+        /// <param name="columnName">Column to calculate</param>
+        /// <param name="service">Organization service</param>
+        /// <returns>Calculate rollup response</returns> <summary>
+        public static object CalculateRollup(this EntityReference entity, string columnName, IOrganizationService service)
+        {
+            var request = new CalculateRollupFieldRequest
+            {
+                Target = entity,
+                FieldName = columnName
+            };
+
+            var response = (CalculateRollupFieldResponse)service.Execute(request);
+
+            return response.Entity[columnName];
         }
     }
 }
