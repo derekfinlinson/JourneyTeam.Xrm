@@ -184,7 +184,7 @@ namespace Xrm
         /// <param name="columnName">Column to calculate</param>
         /// <param name="service">Organization service</param>
         /// <returns>Calculate rollup response</returns> <summary>
-        public static object CalculateRollup(this Entity entity, string columnName, IOrganizationService service)
+        public static T CalculateRollup<T>(this Entity entity, string columnName, IOrganizationService service)
         {
             var request = new CalculateRollupFieldRequest
             {
@@ -194,7 +194,7 @@ namespace Xrm
 
             var response = (CalculateRollupFieldResponse)service.Execute(request);
 
-            return response.Entity[columnName];
+            return (T)response.Entity[columnName];
         }
     }
 }
