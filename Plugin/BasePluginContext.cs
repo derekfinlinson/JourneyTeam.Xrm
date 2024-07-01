@@ -274,7 +274,14 @@ namespace Xrm
             // The duration since the last trace.
             var deltaMilliseconds = utcNow.Subtract(_previousTraceTime).TotalMilliseconds;
 
-            TracingService.Trace($"[+{deltaMilliseconds:N0}ms] - {string.Format(message, args)}");
+            if (args.Length > 0)
+            {
+                TracingService.Trace($"[+{deltaMilliseconds:N0}ms] - {string.Format(message, args)}");
+            }
+            else
+            {
+                TracingService.Trace($"[+{deltaMilliseconds:N0}ms] - {message}");
+            }
 
             _previousTraceTime = utcNow;
         }
