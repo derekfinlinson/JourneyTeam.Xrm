@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Organization;
 using Microsoft.Xrm.Sdk.Query;
 
 namespace Xrm
@@ -246,6 +247,20 @@ namespace Xrm
             };
 
             service.Execute(commitFileBlocksUploadRequest);
+        }
+
+        /// <summary>
+        /// Get details about current environment
+        /// </summary>
+        /// <param name="service">IOrganizationService</param>
+        /// <returns>Details about current environment</returns>
+        public static OrganizationDetail GetCurrentEnvironment(this IOrganizationService service)
+        {
+            var request = new RetrieveCurrentOrganizationRequest();
+
+            var response = (RetrieveCurrentOrganizationResponse)service.Execute(request);
+
+            return response.Detail;
         }
     }
 }
