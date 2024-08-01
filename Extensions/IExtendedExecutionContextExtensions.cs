@@ -181,7 +181,7 @@ namespace Xrm
                 ColumnSet = new ColumnSet("roleid")
             };
 
-            query.Criteria.AddCondition("roleid", ConditionOperator.In, roleIds);
+            query.Criteria.AddCondition("roleid", ConditionOperator.In, roleIds.Select(x => x.ToString()).ToArray());
 
             var link = query.AddLink("systemuserroles", "roleid", "roleid");
             link.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userId);
