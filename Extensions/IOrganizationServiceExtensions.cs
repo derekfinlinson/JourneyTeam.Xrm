@@ -81,24 +81,59 @@ namespace Xrm
         }
 
         /// <summary>
+        /// Retrieve an entity and cast to type
+        /// </summary>
+        /// <param name="service">IOrganizationService</param>
+        /// <param name="entityName">Logical name of entity to retrieve</param>
+        /// <param name="id">Id of row to retrieve</param>
+        /// <param name="columnSet">Columns to retrieve</param>
+        /// <returns>Entity cast to type T</returns>
+        public static T Retrieve<T>(this IOrganizationService service, string entityName, Guid id, ColumnSet columnSet) where T : Entity
+        {
+            return service.Retrieve(entityName, id, columnSet).ToEntity<T>();
+        }
+
+        /// <summary>
         /// Retrieve entity from entity reference
         /// </summary>
         /// <param name="reference">Entity reference</param>
         /// <param name="columnSet">Columns to retrieve</param>
         /// <returns></returns>
-        public static Entity Retrieve(this IOrganizationService service, EntityReference reference, ColumnSet columnSet)
+        public static T Retrieve<T>(this IOrganizationService service, EntityReference reference, ColumnSet columnSet) where T : Entity
         {
-            return service.Retrieve(reference.LogicalName, reference.Id, columnSet);
+            return service.Retrieve(reference.LogicalName, reference.Id, columnSet).ToEntity<T>();
         }
 
         /// <summary>
         /// Retrieve multiple based on string FetchXML
         /// </summary>
-        /// <param name="fetch"></param>
-        /// <returns></returns>
+        /// <param name="fetch">FetchXML string</param>
+        /// <returns>EntityCollection</returns>
         public static EntityCollection RetrieveMultiple(this IOrganizationService service, string fetch)
         {
             return service.RetrieveMultiple(new FetchExpression(fetch));
+        }
+
+        /// <summary>
+        /// Retrieve first record from a RetrieveMultiple
+        /// </summary>
+        /// <param name="service">IOrganizationService</param>
+        /// <param name="table">Logical name of table</param>
+        /// <param name="columns">Columns to retrieve</param>
+        /// <param name="filter">Filter expression</param>        
+        /// <returns>Entity cast to type</returns>
+        public static T RetrieveMultipleFirst<T>(this IOrganizationService service, string table, ColumnSet columns, FilterExpression filter)
+        {
+            var query = new QueryExpression(table)
+            {
+                ColumnSet = columns,
+                Criteria = filter,
+                TopCount = 1
+            };
+
+            var records = service.RetrieveMultiple(query);
+
+            return records.Entities.Cast<T>().FirstOrDefault();
         }
 
         /// <summary>

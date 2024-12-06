@@ -265,8 +265,8 @@ namespace Xrm
         /// <summary>
         /// Writes a trace message to the CRM trace log. All messages are prefixed with a time delta for performance diagnostics
         /// </summary>
-        /// <param name="format">Message format</param>
         /// <param name="message">Message format arguments</param>
+        /// <param name="args">Message args</param>
         public void Trace(string message, params object[] args)
         {
             var utcNow = DateTime.UtcNow;
