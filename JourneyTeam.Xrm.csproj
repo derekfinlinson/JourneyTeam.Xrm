@@ -19,7 +19,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="9.0.2.*" />    
+    <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="9.0.2.*" />
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.*" /> 
     <Reference Include="System" />
   </ItemGroup>
 

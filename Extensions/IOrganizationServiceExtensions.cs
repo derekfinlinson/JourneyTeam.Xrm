@@ -83,7 +83,6 @@ namespace Xrm
         /// <summary>
         /// Retrieve an entity and cast to type
         /// </summary>
-        /// <param name="service">IOrganizationService</param>
         /// <param name="entityName">Logical name of entity to retrieve</param>
         /// <param name="id">Id of row to retrieve</param>
         /// <param name="columnSet">Columns to retrieve</param>
@@ -117,7 +116,6 @@ namespace Xrm
         /// <summary>
         /// Retrieve first record from a RetrieveMultiple
         /// </summary>
-        /// <param name="service">IOrganizationService</param>
         /// <param name="table">Logical name of table</param>
         /// <param name="columns">Columns to retrieve</param>
         /// <param name="filter">Filter expression</param>        
@@ -161,7 +159,6 @@ namespace Xrm
         /// <summary>
         /// Get typed environment variable
         /// </summary>
-        /// <param name="service">IOrganizationService</param>
         /// <param name="variable">Schema name of variable to retrieve</param>
         /// <typeparam name="T">Type of variable</typeparam>
         /// <returns>Current or default variable value</returns>
@@ -185,7 +182,7 @@ namespace Xrm
 
             if (entity == null)
             {
-                return default(T);
+                return default;
             }
 
             if (entity.GetAttributeValue<OptionSetValue>("type").Value == 100000005) // Secret
@@ -209,10 +206,71 @@ namespace Xrm
         }
 
         /// <summary>
-        /// Upload a file to a file type column
+        /// Download a file or image from a file type column
+        /// </summary>
+        /// <param name="entity">Entity record</param>
+        /// <param name="attributeName">File or image column name</param>
+        /// <returns>File as byte array</returns>
+        public static byte[] DownloadFile(this IOrganizationService service, Entity entity, string attributeName)
+        {
+            var initializeFileBlocksDownloadRequest = new InitializeFileBlocksDownloadRequest
+            {
+                Target = entity.ToEntityReference(),
+                FileAttributeName = attributeName
+            };
+
+            var initializeFileBlocksDownloadResponse =
+                  (InitializeFileBlocksDownloadResponse)service.Execute(initializeFileBlocksDownloadRequest);
+
+            string fileContinuationToken = initializeFileBlocksDownloadResponse.FileContinuationToken;
+            long fileSizeInBytes = initializeFileBlocksDownloadResponse.FileSizeInBytes;
+
+            var fileBytes = new List<byte>((int)fileSizeInBytes);
+
+            long offset = 0;
+
+            // If chunking is not supported, chunk size will be full size of the file.
+            long blockSizeDownload = !initializeFileBlocksDownloadResponse.IsChunkingSupported ? fileSizeInBytes : 4 * 1024 * 1024;
+
+            // File size may be smaller than defined block size
+            if (fileSizeInBytes < blockSizeDownload)
+            {
+                blockSizeDownload = fileSizeInBytes;
+            }
+
+            while (fileSizeInBytes > 0)
+            {
+                // Prepare the request
+                var downLoadBlockRequest = new DownloadBlockRequest
+                {
+                    BlockLength = blockSizeDownload,
+                    FileContinuationToken = fileContinuationToken,
+                    Offset = offset
+                };
+
+                // Send the request
+                var downloadBlockResponse =
+                         (DownloadBlockResponse)service.Execute(downLoadBlockRequest);
+
+                // Add the block returned to the list
+                fileBytes.AddRange(downloadBlockResponse.Data);
+
+                // Subtract the amount downloaded,
+                // which may make fileSizeInBytes < 0 and indicate
+                // no further blocks to download
+                fileSizeInBytes -= (int)blockSizeDownload;
+                // Increment the offset to start at the beginning of the next block.
+                offset += blockSizeDownload;
+            }
+
+            return fileBytes.ToArray();
+        }
+
+        /// <summary>
+        /// Upload a file or image to a file type column
         /// </summary>
         /// <param name="entity">Entity</param>
-        /// <param name="fileAttributeName">File column name</param>
+        /// <param name="fileAttributeName">File or image column name</param>
         /// <param name="fileName">Filename</param>
         /// <param name="fileMimeType">File type</param>
         /// <param name="file">File as Base64 string</param>
@@ -287,7 +345,6 @@ namespace Xrm
         /// <summary>
         /// Get details about current environment
         /// </summary>
-        /// <param name="service">IOrganizationService</param>
         /// <returns>Details about current environment</returns>
         public static OrganizationDetail GetCurrentEnvironment(this IOrganizationService service)
         {
