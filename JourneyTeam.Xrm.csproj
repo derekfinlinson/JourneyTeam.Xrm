@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Base Classes for Dataverse Plugins and Workflows</Description>
-    <Copyright>Copyright 2022</Copyright>
+    <Copyright>Copyright 2025</Copyright>
     <PackageTags>CRM;XRM;DYNAMICS 365;DATAVERSE</PackageTags>
   </PropertyGroup>
 
