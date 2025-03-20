@@ -213,24 +213,24 @@ namespace Xrm
         /// <returns>File as byte array</returns>
         public static byte[] DownloadFile(this IOrganizationService service, Entity entity, string attributeName)
         {
-            var initializeFileBlocksDownloadRequest = new InitializeFileBlocksDownloadRequest
+            var fileDownloadRequest = new InitializeFileBlocksDownloadRequest
             {
                 Target = entity.ToEntityReference(),
                 FileAttributeName = attributeName
             };
 
-            var initializeFileBlocksDownloadResponse =
-                  (InitializeFileBlocksDownloadResponse)service.Execute(initializeFileBlocksDownloadRequest);
+            var fileDownloadResponse =
+                  (InitializeFileBlocksDownloadResponse)service.Execute(fileDownloadRequest);
 
-            string fileContinuationToken = initializeFileBlocksDownloadResponse.FileContinuationToken;
-            long fileSizeInBytes = initializeFileBlocksDownloadResponse.FileSizeInBytes;
+            string fileContinuationToken = fileDownloadResponse.FileContinuationToken;
+            long fileSizeInBytes = fileDownloadResponse.FileSizeInBytes;
 
             var fileBytes = new List<byte>((int)fileSizeInBytes);
 
             long offset = 0;
 
             // If chunking is not supported, chunk size will be full size of the file.
-            long blockSizeDownload = !initializeFileBlocksDownloadResponse.IsChunkingSupported ? fileSizeInBytes : 4 * 1024 * 1024;
+            long blockSizeDownload = !fileDownloadResponse.IsChunkingSupported ? fileSizeInBytes : 4 * 1024 * 1024;
 
             // File size may be smaller than defined block size
             if (fileSizeInBytes < blockSizeDownload)

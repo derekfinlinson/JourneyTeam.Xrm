@@ -19,6 +19,7 @@ namespace Xrm
         private IOrganizationService _organizationService;
         private IOrganizationService _systemOrganizationService;
         private IOrganizationService _initiatedOrganizationService;
+        private DataverseCache _cache;
         private ITracingService _tracing;
 
         #endregion
@@ -137,6 +138,8 @@ namespace Xrm
         /// </summary>
         public IOrganizationService InitiatingUserOrganizationService =>
             _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
+
+        public DataverseCache Cache => _cache ?? (_cache = DataverseCache.Instance);
 
         /// <summary>
         /// Primary entity from the context as an entity reference
