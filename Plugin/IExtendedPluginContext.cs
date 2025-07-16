@@ -4,7 +4,7 @@ using Microsoft.Xrm.Sdk.PluginTelemetry;
 
 namespace Xrm
 {
-    public interface IExtendedPluginContext : IPluginExecutionContext, IExtendedExecutionContext
+    public interface IExtendedPluginContext : IPluginExecutionContext7, IExtendedExecutionContext
     {
         /// <summary>
         /// Fullname of the plugin
@@ -34,10 +34,10 @@ namespace Xrm
         PipelineStage PipelineStage { get; }
 
         /// <summary>
-        /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
+        /// IPluginExecutionContext7 contains information that describes the run-time environment in which the plug-in executes, 
         /// information related to the execution pipeline, and entity business information
         /// </summary>
-        IPluginExecutionContext PluginExecutionContext { get; }
+        IPluginExecutionContext7 PluginExecutionContext { get; }
 
         /// <summary>
         /// Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 

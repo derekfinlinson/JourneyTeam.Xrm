@@ -13,7 +13,7 @@ namespace Xrm
 
         private readonly IServiceProvider _provider;
         private readonly IOrganizationServiceFactory _factory;
-        private IPluginExecutionContext _pluginContext;
+        private IPluginExecutionContext7 _pluginContext;
         private IServiceEndpointNotificationService _notification;
         private ILogger _logger;
         private IOrganizationService _organizationService;
@@ -24,7 +24,7 @@ namespace Xrm
 
         #endregion
 
-        #region IPluginExecutionContext Properties
+        #region IPluginExecutionContext7 Properties
 
         public int Stage => PluginExecutionContext.Stage;
         public IPluginExecutionContext ParentContext => PluginExecutionContext.ParentContext;
@@ -53,6 +53,18 @@ namespace Xrm
         public bool IsInTransaction => PluginExecutionContext.IsInTransaction;
         public Guid OperationId => PluginExecutionContext.OperationId;
         public DateTime OperationCreatedOn => PluginExecutionContext.OperationCreatedOn;
+        public bool IsApplicationUser => PluginExecutionContext.IsApplicationUser;
+        public string EnvironmentId => PluginExecutionContext.EnvironmentId;
+        public Guid TenantId => PluginExecutionContext.TenantId;
+        public EntityImageCollection[] PreEntityImagesCollection => PluginExecutionContext.PreEntityImagesCollection;
+        public EntityImageCollection[] PostEntityImagesCollection => PluginExecutionContext.PostEntityImagesCollection;
+        public string InitiatingUserAgent => PluginExecutionContext.InitiatingUserAgent;
+        public Guid AuthenticatedUserId => PluginExecutionContext.AuthenticatedUserId;
+        public Guid UserAzureActiveDirectoryObjectId => PluginExecutionContext.UserAzureActiveDirectoryObjectId;
+        public Guid InitiatingUserAzureActiveDirectoryObjectId => PluginExecutionContext.InitiatingUserAzureActiveDirectoryObjectId;
+        public Guid InitiatingUserApplicationId => PluginExecutionContext.InitiatingUserApplicationId;
+        public Guid PortalsContactId => PluginExecutionContext.PortalsContactId;
+        public bool IsPortalsClientCall => PluginExecutionContext.IsPortalsClientCall;
 
         #endregion
 
@@ -89,11 +101,11 @@ namespace Xrm
         public PipelineStage PipelineStage => (PipelineStage)Stage;
 
         /// <summary>
-        /// IPluginExecutionContext contains information that describes the run-time environment in which the plug-in executes, 
+        /// IPluginExecutionContext7 contains information that describes the run-time environment in which the plug-in executes, 
         /// information related to the execution pipeline, and entity business information
         /// </summary>
-        public IPluginExecutionContext PluginExecutionContext =>
-            _pluginContext ?? (_pluginContext = _provider.Get<IPluginExecutionContext>());
+        public IPluginExecutionContext7 PluginExecutionContext =>
+            _pluginContext ?? (_pluginContext = _provider.Get<IPluginExecutionContext7>());
 
         /// <summary>
         /// Synchronous registered plug-ins can post the execution context to the Microsoft Azure Service Bus. <br/> 
