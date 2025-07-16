@@ -151,6 +151,10 @@ namespace Xrm
         public IOrganizationService InitiatingUserOrganizationService =>
             _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
 
+        /// <summary>
+        /// Provides an in memory cache
+        /// </summary>
+        /// <returns></returns>
         public DataverseCache Cache => _cache ?? (_cache = DataverseCache.Instance);
 
         /// <summary>

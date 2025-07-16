@@ -37,5 +37,11 @@ namespace Xrm
         /// <returns>CRM Organization Service</returns>
         /// <remarks>Useful for impersonation</remarks>
         IOrganizationService CreateOrganizationService(Guid? userId);
+
+        /// <summary>
+        /// Provides an in memory cache
+        /// </summary>
+        /// <value></value>
+        DataverseCache Cache { get; }
     }
 }
