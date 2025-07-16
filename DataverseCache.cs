@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Runtime.Caching;
-using Microsoft.Xrm.Sdk;
 
 namespace Xrm
 {
@@ -14,12 +13,12 @@ namespace Xrm
         public static DataverseCache Instance => _instance;
         private static DateTime GetDefaultExpirationTime => DateTime.UtcNow.AddHours(2);
 
-        public static T GetOrAdd<T>(string key, Func<string, T> getValue)
+        public T GetOrAdd<T>(string key, Func<T> getValue)
         {
             return GetOrAdd(key, getValue, GetDefaultExpirationTime);
         }
         
-        public static T GetOrAdd<T>(string key, Func<string, T> getValue, DateTime expiration)
+        public T GetOrAdd<T>(string key, Func<T> getValue, DateTime expiration)
         {
             var value = (T)Cache.Get(key);
 
@@ -39,7 +38,7 @@ namespace Xrm
                     return value;
                 }
 
-                value = getValue(key);
+                value = getValue();
 
                 Cache.Set(key, value, new CacheItemPolicy
                 {
