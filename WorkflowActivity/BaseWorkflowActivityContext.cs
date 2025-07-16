@@ -16,6 +16,7 @@ namespace Xrm
         private IOrganizationService _systemOrganizationService;
         private IOrganizationService _initiatedOrganizationService;
         private ITracingService _tracing;
+        private DataverseCache _cache;
         private IWorkflowContext _workflowContext;
 
         #endregion
@@ -127,6 +128,12 @@ namespace Xrm
         /// <see cref="IOrganizationService"/> using the initiating user from the plugin context
         /// </summary>
         public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
+
+        /// <summary>
+        /// Provides an in memory cache
+        /// </summary>
+        /// <returns></returns>
+        public DataverseCache Cache => _cache ?? (_cache = DataverseCache.Instance);
 
         #endregion
 
