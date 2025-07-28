@@ -14,11 +14,26 @@ namespace Xrm
         public static DataverseCache Instance => _instance;
         private static DateTime GetDefaultExpirationTime => DateTime.UtcNow.AddHours(2);
 
+        /// <summary>
+        /// Get or add an item to the cache with a default expiration time of 2 hours.
+        /// </summary>
+        /// <param name="key">Key for cached item</param>
+        /// <param name="getValue">Function for getting the item if it isn't in the cache</param>
+        /// <typeparam name="T">Type of the cached item</typeparam>
+        /// <returns>Item</returns>
         public T GetOrAdd<T>(string key, Func<T> getValue)
         {
             return GetOrAdd(key, getValue, GetDefaultExpirationTime);
         }
 
+        /// <summary>
+        /// Get or add an item to the cache with a specified expiration time.
+        /// </summary>
+        /// <typeparam name="T">Type of the cached item</typeparam>
+        /// <param name="key">Key for the cached item</param>
+        /// <param name="getValue">Function for getting the item if it isn't in the cache</param>
+        /// <param name="expiration">Expiration time of the cached item</param>
+        /// <returns>Item</returns>Cached item<summary>
         public T GetOrAdd<T>(string key, Func<T> getValue, DateTime expiration)
         {
             var value = (T)Cache.Get(key);
