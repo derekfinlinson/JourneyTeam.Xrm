@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Linq;
 using System.Runtime.Caching;
 
 namespace Xrm
@@ -49,21 +50,25 @@ namespace Xrm
             return value;
         }
 
+        /// <summary>
+        /// Remove an item from the cache. Uses a Contains filter to find all items with a similar key
+        /// </summary>
+        /// <param name="key">Key of cache items to remove</param>
         public void Remove(string key)
         {
-            if (!Cache.Contains(key))
-            {
-                return;
-            }
+            var keys = Cache.Where(c => c.Key == key).Select(c => c.Key);
 
-            var lockForKey = LocksByKey.GetOrAdd(key, k => new object());
-
-            lock (lockForKey)
+            foreach (var cacheKey in keys)
             {
-                if (Cache.Contains(key))
+                var lockForKey = LocksByKey.GetOrAdd(cacheKey, k => new object());
+
+                lock (lockForKey)
                 {
-                    Cache.Remove(key);
-                    LocksByKey.TryRemove(key, out _);
+                    if (Cache.Contains(cacheKey))
+                    {
+                        Cache.Remove(cacheKey);
+                        LocksByKey.TryRemove(cacheKey, out _);
+                    }
                 }
             }
         }
