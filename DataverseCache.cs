@@ -9,7 +9,7 @@ namespace Xrm
         private static readonly DataverseCache _instance = new DataverseCache();
         private static readonly MemoryCache Cache = new MemoryCache(typeof(DataverseCache).FullName);
         private static readonly ConcurrentDictionary<string, object> LocksByKey = new ConcurrentDictionary<string, object>();
-        
+
         public static DataverseCache Instance => _instance;
         private static DateTime GetDefaultExpirationTime => DateTime.UtcNow.AddHours(2);
 
@@ -17,7 +17,7 @@ namespace Xrm
         {
             return GetOrAdd(key, getValue, GetDefaultExpirationTime);
         }
-        
+
         public T GetOrAdd<T>(string key, Func<T> getValue, DateTime expiration)
         {
             var value = (T)Cache.Get(key);
@@ -48,5 +48,25 @@ namespace Xrm
 
             return value;
         }
+
+        public void Remove(string key)
+        {
+            if (!Cache.Contains(key))
+            {
+                return;
+            }
+
+            var lockForKey = LocksByKey.GetOrAdd(key, k => new object());
+
+            lock (lockForKey)
+            {
+                if (Cache.Contains(key))
+                {
+                    Cache.Remove(key);
+                    LocksByKey.TryRemove(key, out _);
+                }
+            }
+        }
+
     }
 }
