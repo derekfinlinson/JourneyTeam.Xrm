@@ -38,6 +38,7 @@ and Custom Workflow Activities.
 
 ### [IOrganizationServiceExtensions](Extensions/IOrganizationServiceExtensions.cs)
 - Overloads for Create, Update, Delete, Retrieve, RetrieveMultiple, Associate and Disassociate
+- Upload file to a file type column
 
 ### [EntityExtensions](Extensions/EntityExtensions.cs)
 - Clone entity
