@@ -4,6 +4,7 @@ using Microsoft.Xrm.Sdk.Workflow;
 using System.Activities;
 using Microsoft.Xrm.Sdk.Query;
 using System.Linq;
+using Microsoft.Xrm.Sdk.Extensions;
 
 namespace Xrm
 {
@@ -18,6 +19,7 @@ namespace Xrm
         private ITracingService _tracing;
         private DataverseCache _cache;
         private IWorkflowContext _workflowContext;
+        private IManagedIdentityService _managedIdentityService;
 
         #endregion
 
@@ -129,6 +131,7 @@ namespace Xrm
         /// </summary>
         public IOrganizationService InitiatingUserOrganizationService => _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
 
+        public IManagedIdentityService ManagedIdentityService => _managedIdentityService ?? (_managedIdentityService = ActivityContext.GetExtension<IManagedIdentityService>());
         /// <summary>
         /// Provides an in memory cache
         /// </summary>
@@ -207,7 +210,7 @@ namespace Xrm
                     ColumnSet = new ColumnSet("systemuserid"),
                     Criteria = new FilterExpression
                     {
-                        Conditions = 
+                        Conditions =
                         {
                             new ConditionExpression("fullname", ConditionOperator.Equal, "SYSTEM")
                         }
@@ -217,7 +220,7 @@ namespace Xrm
 
                 userId = this.OrganizationService.RetrieveMultiple(query).Entities.FirstOrDefault()?.Id;
             }
-            
+
             return _factory.CreateOrganizationService(userId);
         }
 

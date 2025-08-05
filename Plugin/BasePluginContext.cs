@@ -21,6 +21,7 @@ namespace Xrm
         private IOrganizationService _initiatedOrganizationService;
         private DataverseCache _cache;
         private ITracingService _tracing;
+        private IManagedIdentityService _managedIdentityService;
 
         #endregion
 
@@ -150,6 +151,12 @@ namespace Xrm
         /// </summary>
         public IOrganizationService InitiatingUserOrganizationService =>
             _initiatedOrganizationService ?? (_initiatedOrganizationService = CreateOrganizationService(InitiatingUserId));
+
+
+        /// <summary>
+        /// The Managed Identity Service of the plugin, used to retrieve tokens for Azure resources.
+        /// </summary>
+        public IManagedIdentityService ManagedIdentityService => _managedIdentityService ?? (_managedIdentityService = _provider.Get<IManagedIdentityService>());
 
         /// <summary>
         /// Provides an in memory cache

@@ -26,6 +26,11 @@ namespace Xrm
         IOrganizationService InitiatingUserOrganizationService { get; }
 
         /// <summary>
+        /// The Managed Identity Service of the plugin, used to retrieve tokens for Azure resources.
+        /// </summary>
+        IManagedIdentityService ManagedIdentityService { get; }
+
+        /// <summary>
         /// Gets an entity reference from the context PrimaryEntityName and PrimaryEntityId
         /// </summary>
         EntityReference PrimaryEntity { get; }

@@ -47,13 +47,6 @@ namespace Xrm
 
             lock (lockForKey)
             {
-                value = (T)Cache.Get(key);
-
-                if (value != null)
-                {
-                    return value;
-                }
-
                 value = getValue();
 
                 Cache.Set(key, value, new CacheItemPolicy
@@ -71,7 +64,7 @@ namespace Xrm
         /// <param name="key">Key of cache items to remove</param>
         public void Remove(string key)
         {
-            var keys = Cache.Where(c => c.Key == key).Select(c => c.Key);
+            var keys = Cache.Where(c => c.Key.Contains(key)).Select(c => c.Key);
 
             foreach (var cacheKey in keys)
             {
