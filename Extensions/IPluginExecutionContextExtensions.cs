@@ -17,7 +17,7 @@ namespace Xrm
             return events.FirstOrDefault(e =>
                     (int)e.Stage == context.Stage
                     && ((int)e.Mode == context.Mode || e.Mode == SdkMessageProcessingStepMode.CustomAPI)
-                    && e.MessageName == context.MessageName
+                    && (string.IsNullOrWhiteSpace(e.MessageName) || e.MessageName == context.MessageName)
                     && (string.IsNullOrWhiteSpace(e.EntityLogicalName) || e.EntityLogicalName == context.PrimaryEntityName)
             );
         }

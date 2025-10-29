@@ -34,6 +34,23 @@ namespace Xrm
         public Action<IExtendedPluginContext> Execute { get; set; }
 
         /// <summary>
+        /// Constructor for a <see href="RegisteredEvent"> with a specific stage and mode.
+        /// </summary>
+        /// <param name="stage">Pipeline stage</param>
+        /// <param name="mode">SDK Message Processing Step Mode</param>
+        /// <param name="messageName">Message name</param>
+        public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode) : this(stage, mode, null, null, null) { }
+
+        /// <summary>
+        /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode and action.
+        /// </summary>
+        /// <param name="stage">Pipeline stage</param>
+        /// <param name="mode">SDK Message Processing Step Mode</param>
+        /// <param name="messageName">Message name</param>
+        /// <param name="action">Action to execute</param>
+        public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode, Action<IExtendedPluginContext> action) : this(stage, mode, null, null, action) { }
+
+        /// <summary>
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode and message using the default action
         /// </summary>
         /// <param name="stage">Pipeline stage</param>
@@ -49,6 +66,8 @@ namespace Xrm
         /// <param name="messageName">Message name</param>
         /// <param name="action">Action to execute</param>
         public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode, string messageName, Action<IExtendedPluginContext> action) : this(stage, mode, messageName, null, action) { }
+
+
 
         /// <summary>
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode, message and entity using the default action
