@@ -67,8 +67,6 @@ namespace Xrm
         /// <param name="action">Action to execute</param>
         public RegisteredEvent(PipelineStage stage, SdkMessageProcessingStepMode mode, string messageName, Action<IExtendedPluginContext> action) : this(stage, mode, messageName, null, action) { }
 
-
-
         /// <summary>
         /// Constructor for a <see href="RegisteredEvent"> with a specific stage, mode, message and entity using the default action
         /// </summary>
