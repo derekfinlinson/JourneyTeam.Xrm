@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AsyncKeyedLock" Version="7.1.8" />
     <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="9.0.2.*" />
     <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.*" />
     <PackageReference Include="System.Runtime.Caching" Version="9.0.3" /> 

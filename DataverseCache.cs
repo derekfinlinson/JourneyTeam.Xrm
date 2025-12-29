@@ -1,5 +1,5 @@
+using AsyncKeyedLock;
 using System;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Runtime.Caching;
 
@@ -9,7 +9,7 @@ namespace Xrm
     {
         private static readonly DataverseCache _instance = new DataverseCache();
         private static readonly MemoryCache Cache = new MemoryCache(typeof(DataverseCache).FullName);
-        private static readonly ConcurrentDictionary<string, object> LocksByKey = new ConcurrentDictionary<string, object>();
+        private static readonly AsyncKeyedLocker<string> LocksByKey = new AsyncKeyedLocker<string>();
 
         public static DataverseCache Instance => _instance;
         private static DateTime GetDefaultExpirationTime => DateTime.UtcNow.AddHours(2);
@@ -43,10 +43,15 @@ namespace Xrm
                 return value;
             }
 
-            var lockForKey = LocksByKey.GetOrAdd(key, k => new object());
-
-            lock (lockForKey)
+            using (LocksByKey.Lock(key))
             {
+                value = (T)Cache.Get(key);
+
+                if (value != null)
+                {
+                    return value;
+                }
+
                 value = getValue();
 
                 Cache.Set(key, value, new CacheItemPolicy
@@ -68,14 +73,11 @@ namespace Xrm
 
             foreach (var cacheKey in keys)
             {
-                var lockForKey = LocksByKey.GetOrAdd(cacheKey, k => new object());
-
-                lock (lockForKey)
+                using (LocksByKey.Lock(key))
                 {
                     if (Cache.Contains(cacheKey))
                     {
                         Cache.Remove(cacheKey);
-                        LocksByKey.TryRemove(cacheKey, out _);
                     }
                 }
             }
