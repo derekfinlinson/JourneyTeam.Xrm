@@ -48,11 +48,15 @@ namespace Xrm
             lock (lockForKey)
             {
                 value = getValue();
-
-                Cache.Set(key, value, new CacheItemPolicy
+                
+                // Only add to cache if not null
+                if (value != null)
                 {
-                    AbsoluteExpiration = new DateTimeOffset(expiration)
-                });
+                    Cache.Set(key, value, new CacheItemPolicy
+                    {
+                        AbsoluteExpiration = new DateTimeOffset(expiration)
+                    });
+                }
             }
 
             return value;
