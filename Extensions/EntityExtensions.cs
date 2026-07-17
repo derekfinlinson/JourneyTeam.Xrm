@@ -196,5 +196,30 @@ namespace Xrm
 
             return (T)response.Entity[columnName];
         }
+
+        /// <summary>
+        /// Get the SharePoint Document Location for an entity
+        /// </summary>
+        /// <param name="entity">The entity for which to get the document location</param>
+        /// <param name="service">The organization service</param>
+        /// <returns>The SharePoint document location entity, or null if not found</returns>
+        public static Entity GetDocumentLocation(this Entity entity, IOrganizationService service)
+        {
+            var query = new QueryExpression("sharepointdocumentlocation")
+            {
+                ColumnSet = new ColumnSet(true),
+                Criteria =
+                {
+                    Conditions =
+                    {
+                        new ConditionExpression("regardingobjectid", ConditionOperator.Equal, entity.Id)
+                    }
+                }
+            };
+
+            var result = service.RetrieveMultiple(query);
+
+            return result.Entities.FirstOrDefault();
+        }
     }
 }
