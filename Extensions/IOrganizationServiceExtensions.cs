@@ -276,6 +276,21 @@ namespace Xrm
         /// <param name="file">File as Base64 string</param>
         public static void UploadFile(this IOrganizationService service, Entity entity, string fileAttributeName, string fileName, string fileMimeType, string file)
         {
+            var fileBytes = Convert.FromBase64String(file);
+
+            service.UploadFile(entity, fileAttributeName, fileName, fileMimeType, fileBytes);
+        }
+
+        /// <summary>
+        /// Upload a file or image to a file type column
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        /// <param name="fileAttributeName">File or image column name</param>
+        /// <param name="fileName">Filename</param>
+        /// <param name="fileMimeType">File type</param>
+        /// <param name="file">File as byte array</param>
+        public static void UploadFile(this IOrganizationService service, Entity entity, string fileAttributeName, string fileName, string fileMimeType, byte[] file)
+        {
             // Initialize the upload
             var uploadRequest = new InitializeFileBlocksUploadRequest
             {
@@ -291,7 +306,7 @@ namespace Xrm
             // Capture blockids while uploading
             var blockIds = new List<string>();
 
-            using (var uploadFileStream = new MemoryStream(Convert.FromBase64String(file)))
+            using (var uploadFileStream = new MemoryStream(file))
             {
                 int blockSize = 4 * 1024 * 1024; // 4 MB
 
