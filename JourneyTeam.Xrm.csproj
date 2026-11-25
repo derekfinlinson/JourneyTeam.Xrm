@@ -12,9 +12,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</PackageProjectUrl>
     <RepositoryUrl>https://github.com/derekfinlinson/JourneyTeam.Xrm</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Base Classes for Dataverse Plugins and Workflows</Description>
-    <Copyright>Copyright 2025</Copyright>
+    <Copyright>Copyright (c) 2016-2026 Derek Finlinson</Copyright>
     <PackageTags>CRM;XRM;DYNAMICS 365;DATAVERSE</PackageTags>
   </PropertyGroup>
 
